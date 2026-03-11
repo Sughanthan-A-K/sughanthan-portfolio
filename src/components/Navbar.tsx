@@ -201,9 +201,7 @@ export default function Navbar() {
         }`}
         style={{ background: "var(--mobile-bg)" }}
       >
-        {navLinks.map((link) => {
-          const isActive = activeSection === link.href.slice(1);
-          return (
+        {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -212,8 +210,7 @@ export default function Navbar() {
             >
               {link.label}
             </a>
-          );
-        })}
+        ))}
       </div>
     </nav>
   );
