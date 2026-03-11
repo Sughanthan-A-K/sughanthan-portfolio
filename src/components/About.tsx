@@ -21,6 +21,7 @@ export default function About() {
           scrollTrigger: {
             trigger: ".about-title",
             start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -35,6 +36,7 @@ export default function About() {
           scrollTrigger: {
             trigger: ".about-card",
             start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -51,6 +53,7 @@ export default function About() {
           scrollTrigger: {
             trigger: ".about-stats",
             start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -61,8 +64,8 @@ export default function About() {
 
   const stats = [
     { value: "1+", label: "Years Experience" },
-    { value: "5+", label: "Projects Delivered" },
-    { value: "3+", label: "Technologies" },
+    { value: "5+", label: "Production Modules" },
+    { value: "8+", label: "Technologies" },
     { value: "100%", label: "Commitment" },
   ];
 
@@ -85,21 +88,26 @@ export default function About() {
         <div className="grid lg:grid-cols-5 gap-10 items-start">
           <div className="about-card lg:col-span-3 glass hover-glow rounded-2xl p-8 md:p-10">
             <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Associate Software Engineer with experience in developing scalable
-              web applications using{" "}
+              Associate Software Engineer with hands-on experience in planning,
+              developing, testing, configuring, and maintaining web applications
+              in dynamic client-driven environments. Strong proficiency in{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>React.js</span>,{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Next.js</span>,{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>TypeScript</span>, and{" "}
-              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Tailwind CSS</span>.
+              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>JavaScript</span>{" "}
+              with the ability to translate business requirements into scalable
+              technical solutions.
             </p>
             <p className="text-lg leading-relaxed mt-4" style={{ color: 'var(--text-muted)' }}>
-              Experienced in migrating legacy systems, building reusable
-              components, integrating REST APIs, and delivering high-performance
-              applications in agile environments.
+              Experienced in building modern web applications, migrating legacy
+              systems, developing reusable components, integrating REST APIs, and
+              delivering production-ready applications. Strong analytical thinking,
+              communication skills, and ability to quickly adopt new technologies
+              including AI-assisted development tools.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-8">
-              {["React.js", "Next.js", "TypeScript", "Tailwind CSS"].map(
+              {["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Redux"].map(
                 (tech) => (
                   <span
                     key={tech}

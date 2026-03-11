@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface Project {
   title: string;
+  organization: string;
   description: string;
   tech: string[];
   features: string[];
@@ -16,33 +17,62 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Event Management Platform & Child Activity Monitoring System",
+    organization: "Tender Software India Pvt Ltd",
     description:
-      "A comprehensive platform for managing events with real-time scheduling and child activity monitoring with responsive dashboards.",
-    tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS"],
+      "A comprehensive platform for managing events with real-time scheduling, notifications, and child activity monitoring with responsive dashboards (Your Child's Day).",
+    tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "REST APIs", "Git", "Bitbucket", "Trello"],
     features: [
-      "Responsive dashboards with real-time data",
-      "Event scheduling & calendar integration",
-      "Push notifications system",
-      "Child activity monitoring module",
-      "SSR and SSG optimization",
+      "Migrated legacy iFrame modules to modern Next.js architecture",
+      "Developed responsive dashboards with real-time data",
+      "Implemented event scheduling and push notifications",
+      "Integrated child activity monitoring features",
+      "Used SSR and SSG for performance improvements",
+      "Improved usability through clean navigation and reusable components",
     ],
   },
   {
-    title: "Project Management System, LMS & Recruitment System",
+    title: "Project Management Tool, LMS & Recruitment Management System",
+    organization: "HEPL Pvt Ltd",
     description:
-      "Enterprise-grade suite of applications for project tracking, learning management, and recruitment workflows.",
-    tech: ["React.js", "TypeScript", "Redux", "Material UI"],
+      "Enterprise-grade suite of applications for project tracking, learning management, and recruitment workflows with data-driven dashboards.",
+    tech: ["React.js", "TypeScript", "Redux", "Material UI", "REST APIs", "Git", "Figma"],
     features: [
-      "Task tracking dashboards",
-      "Learning modules with progress tracking",
-      "Recruitment workflows & pipelines",
-      "Data tables and form-driven modules",
+      "Developed responsive layouts and reusable UI components",
+      "Integrated APIs for task tracking and automated workflows",
+      "Built interactive dashboards, data tables, and form modules",
+      "Improved application performance and cross-browser usability",
     ],
   },
 ];
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    gsap.to(card, {
+      rotationY: ((x - centerX) / centerX) * 6,
+      rotationX: -((y - centerY) / centerY) * 6,
+      duration: 0.3,
+      ease: "power2.out",
+      transformPerspective: 800,
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      rotationY: 0,
+      rotationX: 0,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -53,7 +83,7 @@ export default function Projects() {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          scrollTrigger: { trigger: ".projects-title", start: "top 85%" },
+          scrollTrigger: { trigger: ".projects-title", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
 
@@ -66,7 +96,7 @@ export default function Projects() {
           scale: 1,
           duration: 0.8,
           stagger: 0.25,
-          scrollTrigger: { trigger: ".projects-grid", start: "top 85%" },
+          scrollTrigger: { trigger: ".projects-grid", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
     }, sectionRef);
@@ -96,13 +126,16 @@ export default function Projects() {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card group glass hover-glow rounded-2xl overflow-hidden"
+              className="project-card group glass hover-glow rounded-2xl overflow-hidden will-change-transform"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              style={{ transformStyle: "preserve-3d" }}
             >
               {/* Gradient top bar */}
               <div className="h-1 w-full bg-gradient-to-r from-primary to-accent" />
 
               <div className="p-8">
-                <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-start gap-4 mb-2">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                     <svg
                       className="w-6 h-6 text-primary"
@@ -118,12 +151,17 @@ export default function Projects() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold leading-snug group-hover:text-primary transition-colors" style={{ color: 'var(--text-primary)' }}>
-                    {project.title}
-                  </h3>
+                  <div>
+                    <h3 className="text-lg font-semibold leading-snug group-hover:text-primary transition-colors" style={{ color: 'var(--text-primary)' }}>
+                      {project.title}
+                    </h3>
+                    <p className="text-xs font-mono mt-1" style={{ color: 'var(--text-dimmed)' }}>
+                      {project.organization}
+                    </p>
+                  </div>
                 </div>
 
-                <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
+                <p className="text-sm leading-relaxed mb-6 mt-4" style={{ color: 'var(--text-muted)' }}>
                   {project.description}
                 </p>
 

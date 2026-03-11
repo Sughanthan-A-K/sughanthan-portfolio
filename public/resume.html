@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sughanthan A K – Resume</title>
+  <link rel="icon" type="image/svg+xml" href="/sughanthan-portfolio/icon.svg" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #6C63FF;
+      --accent: #00D4FF;
+      --a4-w: 794px;
+      --a4-h: 1123px;
+    }
+
+    /* ── Dark Theme ── */
+    html.dark {
+      --bg-body: #16162a;
+      --bg-grid-color: rgba(108,99,255,0.04);
+      --orb1: rgba(108,99,255,0.07);
+      --orb2: rgba(0,212,255,0.05);
+      --page-bg: #ffffff;
+      --page-shadow: 0 4px 6px rgba(0,0,0,0.25), 0 20px 60px rgba(108,99,255,0.2), 0 0 0 1px rgba(108,99,255,0.12);
+      --text-dark: #1a1a2e;
+      --text-muted: #555570;
+      --text-dimmed: #8888a0;
+      --border-color: #e0e0ec;
+      --back-bg: rgba(255,255,255,0.06);
+      --back-border: rgba(108,99,255,0.2);
+      --back-color: rgba(255,255,255,0.6);
+      --back-hover-bg: rgba(108,99,255,0.12);
+      --back-hover-color: #ffffff;
+      --tag-bg: rgba(108,99,255,0.08);
+      --tag-border: rgba(108,99,255,0.15);
+      --scroll-track: #16162a;
+      --scroll-thumb: rgba(108,99,255,0.35);
+      --scroll-thumb-hover: rgba(108,99,255,0.55);
+    }
+
+    /* ── Light Theme ── */
+    html.light {
+      --bg-body: #eef0f6;
+      --bg-grid-color: rgba(108,99,255,0.04);
+      --orb1: rgba(108,99,255,0.06);
+      --orb2: rgba(0,212,255,0.04);
+      --page-bg: #ffffff;
+      --page-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(108,99,255,0.1), 0 0 0 1px rgba(108,99,255,0.08);
+      --text-dark: #1a1a2e;
+      --text-muted: #555570;
+      --text-dimmed: #8888a0;
+      --border-color: #e0e0ec;
+      --back-bg: rgba(0,0,0,0.04);
+      --back-border: rgba(108,99,255,0.15);
+      --back-color: #555570;
+      --back-hover-bg: rgba(108,99,255,0.08);
+      --back-hover-color: #1a1a2e;
+      --tag-bg: rgba(108,99,255,0.06);
+      --tag-border: rgba(108,99,255,0.12);
+      --scroll-track: #e4e6ee;
+      --scroll-thumb: rgba(108,99,255,0.3);
+      --scroll-thumb-hover: rgba(108,99,255,0.5);
+    }
+
+    /* ── Gradient scrollbar ── */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--scroll-track); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 5px;
+      border: 2px solid var(--scroll-track);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--accent), var(--primary));
+    }
+    html { scrollbar-color: var(--scroll-thumb) var(--scroll-track); scrollbar-width: thin; }
+
+    html {
+      font-size: 10.5pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-body);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ── Themed wrapper ── */
+    .resume-wrapper {
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      background:
+        linear-gradient(var(--bg-grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid-color) 1px, transparent 1px);
+      background-size: 60px 60px;
+      position: relative;
+    }
+
+    .resume-wrapper::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--orb1), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .resume-wrapper::after {
+      content: '';
+      position: fixed;
+      bottom: 0; right: 0;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--orb2), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── A4 page card ── */
+    .page {
+      width: var(--a4-w);
+      height: var(--a4-h);
+      padding: 36px 44px;
+      background: var(--page-bg);
+      border-radius: 8px;
+      box-shadow: var(--page-shadow);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* ── Page number ── */
+    .page-num {
+      position: absolute;
+      bottom: 14px;
+      right: 22px;
+      font-size: 0.72rem;
+      color: var(--text-dimmed);
+    }
+
+    /* ── Header ── */
+    .header { text-align: center; margin-bottom: 10px; }
+
+    .header h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 3px;
+    }
+
+    .header .role {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .header .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .header .contact-row a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .header .contact-row .sep {
+      color: var(--border-color);
+    }
+
+    /* ── Gradient divider ── */
+    .divider {
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border: none;
+      margin: 10px 0;
+      border-radius: 2px;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 12px; }
+
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 3px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Entry blocks ── */
+    .entry { margin-bottom: 10px; }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .entry-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .entry-meta {
+      font-size: 0.8rem;
+      color: var(--text-dimmed);
+      font-style: italic;
+    }
+
+    .entry-sub {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .entry-location {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    /* ── Bullet lists ── */
+    ul.bullets {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.bullets li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 0.8rem;
+    }
+
+    /* ── Skills grid ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 24px;
+    }
+
+    .skill-row {
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .skill-label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .skill-label::after {
+      content: ': ';
+    }
+
+    .skill-value {
+      color: var(--text-muted);
+    }
+
+    /* ── Tags ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 3px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 1px 8px;
+      border-radius: 4px;
+      background: var(--tag-bg);
+      color: var(--primary);
+      border: 1px solid var(--tag-border);
+    }
+
+    /* ── Education ── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 3px;
+    }
+
+    .edu-degree {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+    }
+
+    .edu-date {
+      font-size: 0.8rem;
+      color: var(--text-dimmed);
+    }
+
+    .edu-inst {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .edu-cgpa {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ── Print ── */
+    @media print {
+      html { font-size: 10pt; }
+      body { background: #fff; }
+      .resume-wrapper { padding: 0; gap: 0; background: none; min-height: auto; }
+      .resume-wrapper::before, .resume-wrapper::after { display: none; }
+      .page {
+        width: 100%; height: auto;
+        padding: 10mm 12mm;
+        border-radius: 0; box-shadow: none;
+        page-break-after: always;
+      }
+      .page:last-child { page-break-after: auto; }
+      .page-num { display: none; }
+      .download-btn, .back-link { display: none; }
+    }
+
+    /* ── Download button ── */
+    .download-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 30px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(108,99,255,0.4), 0 0 0 1px rgba(108,99,255,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(108,99,255,0.5), 0 0 0 1px rgba(108,99,255,0.3);
+    }
+    .download-btn svg { width: 18px; height: 18px; }
+
+    /* ── Back to portfolio ── */
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: var(--back-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--back-border);
+      border-radius: 30px;
+      color: var(--back-color);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .back-link:hover {
+      background: var(--back-hover-bg);
+      border-color: rgba(108,99,255,0.3);
+      color: var(--back-hover-color);
+    }
+    .back-link svg { width: 14px; height: 14px; }
+
+    @media print {
+      .download-btn, .back-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="back-link" onclick="goBack()" title="Back to Portfolio">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+  Back to Portfolio
+</a>
+
+<button class="download-btn" onclick="downloadPDF()">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+  Download PDF
+</button>
+
+<div class="resume-wrapper">
+
+  <!-- ══════════════ PAGE 1 ══════════════ -->
+  <div class="page" id="page1">
+
+    <header class="header">
+      <h1>Sughanthan A K</h1>
+      <p class="role">Associate Software Engineer</p>
+      <div class="contact-row">
+        <span>Cuddalore, India</span>
+        <span class="sep">|</span>
+        <span>+91 8825784607</span>
+        <span class="sep">|</span>
+        <a href="mailto:a.k.sughanthan@gmail.com">a.k.sughanthan@gmail.com</a>
+        <span class="sep">|</span>
+        <a href="https://linkedin.com/in/sughanthan-a-k">linkedin.com/in/sughanthan-a-k</a>
+        <span class="sep">|</span>
+        <a href="https://github.com/sughanthan-a-k">github.com/sughanthan-a-k</a>
+        <span class="sep">|</span>
+        <a href="https://sughanthan-a-k.github.io/sughanthan-portfolio/">Portfolio</a>
+      </div>
+    </header>
+
+    <hr class="divider" />
+
+    <!-- Professional Summary -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.55;">
+        Associate Software Engineer with hands-on experience in developing, testing, and maintaining web applications. Proficient in React.js, Next.js, TypeScript, and Tailwind CSS with the ability to translate business requirements into scalable solutions. Experienced in building modern web applications, migrating legacy systems, creating reusable component libraries, integrating REST APIs, and leveraging AI-assisted development tools to accelerate workflows.
+      </p>
+    </section>
+
+    <!-- Technical Skills -->
+    <section class="section">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Redux</span></div>
+        <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Design, Mobile First, Material UI, Mantine</span></div>
+        <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Git, GitHub, Bitbucket, VS Code, npm, Figma</span></div>
+        <div class="skill-row"><span class="skill-label">Testing &amp; Quality</span><span class="skill-value">Functional Testing, Debugging, Code Reviews, Clean Code</span></div>
+        <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile, Scrum, SDLC, Component-Based Architecture</span></div>
+        <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization</span></div>
+        <div class="skill-row"><span class="skill-label">AI Tools</span><span class="skill-value">GitHub Copilot, AI-Assisted Debugging, Prompt Engineering</span></div>
+      </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="section">
+      <h2 class="section-title">Professional Experience</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Associate Software Engineer</span>
+          <span class="entry-meta">July 2025 – Present</span>
+        </div>
+        <div class="entry-sub">Tender Software India Pvt Ltd</div>
+        <div class="entry-location">Pondicherry, India</div>
+        <ul class="bullets">
+          <li>Developed scalable web applications using React.js, Next.js, TypeScript, and Tailwind CSS serving production users</li>
+          <li>Migrated legacy iFrame-based modules into modern Next.js architecture, improving maintainability and load times</li>
+          <li>Implemented SSR and SSG strategies to improve application performance and SEO scores</li>
+          <li>Created reusable and configurable UI component library ensuring consistent design systems across modules</li>
+          <li>Integrated REST APIs for dynamic data fetching, real-time updates, and frontend-backend communication</li>
+          <li>Conducted functional testing and module configuration to ensure quality deliverables before production release</li>
+          <li>Delivered code within sprint timelines and participated in peer code reviews and best-practice discussions</li>
+          <li>Leveraged GitHub Copilot and AI-assisted tools to accelerate development while maintaining code quality</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Trainee Developer</span>
+          <span class="entry-meta">Feb 2024 – Mar 2025</span>
+        </div>
+        <div class="entry-sub">HEPL Pvt Ltd</div>
+        <div class="entry-location">Cuddalore, India</div>
+        <ul class="bullets">
+          <li>Developed enterprise web modules using React.js, TypeScript, Redux, and Material UI for large-scale platforms</li>
+          <li>Built reusable UI components and established shared design patterns adopted across multiple teams</li>
+          <li>Integrated REST APIs for real-time data processing, workflow automation, and cross-module communication</li>
+          <li>Contributed to LMS, Project Management System, and Recruitment Management System platforms</li>
+          <li>Ensured performance optimization and cross-browser compatibility across all major browsers</li>
+        </ul>
+      </div>
+    </section>
+
+    <span class="page-num">Page 1 of 2</span>
+  </div>
+
+  <!-- ══════════════ PAGE 2 ══════════════ -->
+  <div class="page" id="page2">
+
+    <!-- Projects -->
+    <section class="section">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Event Management Platform &amp; Child Activity Monitoring System</span>
+        </div>
+        <div class="entry-sub">Tender Software India Pvt Ltd</div>
+        <div class="tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">React.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Git</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Migrated legacy iFrame modules to modern Next.js architecture improving performance and DX</li>
+          <li>Developed responsive dashboards with real-time data visualization and event scheduling</li>
+          <li>Integrated child activity monitoring features and implemented SSR/SSG for SEO improvements</li>
+          <li>Improved usability through clean navigation patterns and reusable component architecture</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Project Management Tool, LMS &amp; Recruitment System</span>
+        </div>
+        <div class="entry-sub">HEPL Pvt Ltd</div>
+        <div class="tags">
+          <span class="tag">React.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Redux</span>
+          <span class="tag">Material UI</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Figma</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Developed responsive layouts and reusable UI components for task tracking, learning, and recruitment workflows</li>
+          <li>Integrated APIs for automated task tracking, data tables, and form-driven modules across the platform</li>
+          <li>Improved application performance, usability, and cross-browser compatibility for enterprise delivery</li>
+          <li>Collaborated with designers via Figma to ensure pixel-perfect implementation of UI specifications</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2 class="section-title">Education</h2>
+
+      <div class="entry" style="margin-bottom:6px;">
+        <div class="edu-row">
+          <span class="edu-degree">Master of Computer Applications (MCA)</span>
+          <span class="edu-date">2021 – 2023</span>
+        </div>
+        <div class="edu-row">
+          <span class="edu-inst">Rajiv Gandhi College of Engineering and Technology, Pondicherry</span>
+          <span class="edu-cgpa">CGPA: 8.13</span>
+        </div>
+      </div>
+
+      <div class="entry" style="margin-bottom:6px;">
+        <div class="edu-row">
+          <span class="edu-degree">Bachelor of Computer Applications (BCA)</span>
+          <span class="edu-date">2018 – 2021</span>
+        </div>
+        <div class="edu-row">
+          <span class="edu-inst">Achariya Arts and Science College, Pondicherry</span>
+          <span class="edu-cgpa">CGPA: 6.85</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Strengths -->
+    <section class="section">
+      <h2 class="section-title">Key Strengths</h2>
+      <ul class="bullets" style="columns:2; column-gap:24px;">
+        <li>Clean and maintainable code practices</li>
+        <li>Reusable component architecture</li>
+        <li>Performance optimization (SSR, SSG, lazy loading)</li>
+        <li>AI-assisted development productivity</li>
+        <li>Strong analytical and problem-solving skills</li>
+        <li>Agile collaboration and peer code reviews</li>
+        <li>Quick learner with adaptability to new technologies</li>
+        <li>Effective communication in client-driven environments</li>
+      </ul>
+    </section>
+
+    <span class="page-num">Page 2 of 2</span>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  // ── Sync theme from portfolio (shared localStorage key: "portfolio-theme") ──
+  (function() {
+    var theme = localStorage.getItem('portfolio-theme') || 'dark';
+    document.documentElement.className = theme;
+    // Listen for storage changes from the portfolio tab
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'portfolio-theme' && e.newValue) {
+        document.documentElement.className = e.newValue;
+      }
+    });
+  })();
+
+  // ── Back to portfolio: close tab if opened from portfolio, else navigate ──
+  function goBack() {
+    if (window.opener || window.history.length <= 1) {
+      window.close();
+    } else {
+      window.location.href = '/sughanthan-portfolio/';
+    }
+  }
+
+  // ── PDF download: render pages as images + overlay clickable link regions ──
+  function downloadPDF() {
+    var btn = document.querySelector('.download-btn');
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.7';
+
+    var page1 = document.getElementById('page1');
+    var page2 = document.getElementById('page2');
+    var canvasOpts = { scale: 3, useCORS: true, backgroundColor: '#ffffff' };
+
+    Promise.all([
+      html2canvas(page1, canvasOpts),
+      html2canvas(page2, canvasOpts)
+    ]).then(function(canvases) {
+      var pdf = new window.jspdf.jsPDF({ unit: 'px', format: [794, 1123], orientation: 'portrait' });
+
+      var pages = [page1, page2];
+
+      canvases.forEach(function(canvas, i) {
+        if (i > 0) pdf.addPage([794, 1123]);
+        var imgData = canvas.toDataURL('image/jpeg', 0.92);
+        pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
+
+        // Find all <a> links in this page and add clickable regions
+        var links = pages[i].querySelectorAll('a[href]');
+        var pageRect = pages[i].getBoundingClientRect();
+
+        links.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (!href || href === '#') return;
+          var rect = link.getBoundingClientRect();
+          // Convert from DOM coords to PDF page coords
+          var scaleX = 794 / pageRect.width;
+          var scaleY = 1123 / pageRect.height;
+          var x = (rect.left - pageRect.left) * scaleX;
+          var y = (rect.top - pageRect.top) * scaleY;
+          var w = rect.width * scaleX;
+          var h = rect.height * scaleY;
+          pdf.link(x, y, w, h, { url: href });
+        });
+      });
+
+      pdf.save('Sughanthan_AK_Resume.pdf');
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+    }).catch(function(err) {
+      console.error('PDF generation failed:', err);
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+    });
+  }
+</script>
+</body>
+</html>

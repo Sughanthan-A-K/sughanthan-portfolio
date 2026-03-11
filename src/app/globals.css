@@ -156,6 +156,7 @@
 
   .section-padding {
     @apply px-6 py-24 md:px-12 lg:px-24 xl:px-32;
+    scroll-margin-top: 80px;
   }
 
   .btn-primary {

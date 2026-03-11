@@ -53,6 +53,7 @@ const contactInfo = [
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -63,7 +64,7 @@ export default function Contact() {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          scrollTrigger: { trigger: ".contact-title", start: "top 85%" },
+          scrollTrigger: { trigger: ".contact-title", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
 
@@ -75,7 +76,7 @@ export default function Contact() {
           opacity: 1,
           duration: 0.7,
           stagger: 0.1,
-          scrollTrigger: { trigger: ".contact-grid", start: "top 85%" },
+          scrollTrigger: { trigger: ".contact-grid", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
 
@@ -86,7 +87,7 @@ export default function Contact() {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          scrollTrigger: { trigger: ".contact-form", start: "top 85%" },
+          scrollTrigger: { trigger: ".contact-form", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
     }, sectionRef);
@@ -94,10 +95,32 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    if (sending) return;
+    setSending(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    formData.append("_subject", "Portfolio Contact Form Submission");
+    formData.append("_captcha", "false");
+    formData.append("_template", "table");
+
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/272626ba356ca376e024688c196b9fd8", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        form.reset();
+        setTimeout(() => setSubmitted(false), 4000);
+      }
+    } catch {
+      // silent fail
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -134,6 +157,12 @@ export default function Contact() {
                     rel: info.href.startsWith("http")
                       ? "noopener noreferrer"
                       : undefined,
+                    onClick: (e: React.MouseEvent) => {
+                      if (info.href!.startsWith("mailto:") || info.href!.startsWith("tel:")) {
+                        e.preventDefault();
+                        window.open(info.href!, "_self");
+                      }
+                    },
                   }
                 : {};
 
@@ -170,6 +199,7 @@ export default function Contact() {
               </label>
               <input
                 type="text"
+                name="name"
                 required
                 className="w-full px-4 py-3 rounded-xl focus:border-primary/50 focus:outline-none transition-colors"
                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', color: 'var(--text-primary)' }}
@@ -182,6 +212,7 @@ export default function Contact() {
               </label>
               <input
                 type="email"
+                name="email"
                 required
                 className="w-full px-4 py-3 rounded-xl focus:border-primary/50 focus:outline-none transition-colors"
                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', color: 'var(--text-primary)' }}
@@ -193,6 +224,7 @@ export default function Contact() {
                 Message
               </label>
               <textarea
+                name="message"
                 required
                 rows={4}
                 className="w-full px-4 py-3 rounded-xl focus:border-primary/50 focus:outline-none transition-colors resize-none"
@@ -202,7 +234,8 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="btn-primary w-full justify-center"
+              disabled={sending}
+              className="btn-primary w-full justify-center disabled:opacity-60"
             >
               {submitted ? (
                 <>
@@ -220,6 +253,14 @@ export default function Contact() {
                     />
                   </svg>
                   Message Sent!
+                </>
+              ) : sending ? (
+                <>
+                  <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Sending...
                 </>
               ) : (
                 <>

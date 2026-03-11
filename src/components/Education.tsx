@@ -33,7 +33,7 @@ export default function Education() {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          scrollTrigger: { trigger: ".edu-title", start: "top 85%" },
+          scrollTrigger: { trigger: ".edu-title", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
 
@@ -46,7 +46,7 @@ export default function Education() {
           scale: 1,
           duration: 0.7,
           stagger: 0.2,
-          scrollTrigger: { trigger: ".edu-grid", start: "top 85%" },
+          scrollTrigger: { trigger: ".edu-grid", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
     }, sectionRef);

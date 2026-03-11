@@ -18,27 +18,29 @@ const experiences: ExperienceItem[] = [
   {
     role: "Associate Software Engineer",
     company: "Tender Software India Pvt Ltd",
-    period: "2025 – Present",
+    period: "July 2025 – Present",
     location: "Pondicherry, India",
     responsibilities: [
-      "Developed scalable applications using React.js, Next.js, TypeScript, Tailwind",
-      "Migrated iFrame modules to modern Next.js architecture",
-      "Implemented SSR and SSG for performance optimization",
-      "Built reusable components with clean architecture",
-      "Integrated REST APIs for dynamic data fetching",
-      "Participated in peer code reviews and best-practice discussions",
+      "Developed scalable web applications using React.js, Next.js, TypeScript, and Tailwind CSS",
+      "Migrated legacy iFrame-based modules into modern Next.js architecture",
+      "Implemented SSR and SSG to improve performance and SEO",
+      "Created reusable and configurable UI components for consistent design systems",
+      "Integrated REST APIs for dynamic data fetching and real-time updates",
+      "Conducted functional testing and module configuration",
+      "Delivered code within timelines and participated in peer code reviews",
     ],
   },
   {
     role: "Trainee Developer",
     company: "HEPL Pvt Ltd",
-    period: "2024 – 2025",
+    period: "Feb 2024 – Mar 2025",
     location: "Cuddalore, India",
     responsibilities: [
-      "Developed enterprise web modules using React.js, TypeScript, Redux",
-      "Built reusable UI components for consistent design systems",
-      "Integrated REST APIs for seamless data flow",
-      "Worked on LMS, Project Management, and Recruitment systems",
+      "Developed enterprise web modules using React.js, TypeScript, Redux, and Material UI",
+      "Built reusable UI components and shared design patterns across teams",
+      "Integrated REST APIs for real-time data processing and workflow automation",
+      "Worked on enterprise platforms including LMS, Project Management System, and Recruitment Management System",
+      "Ensured performance optimization and cross-browser compatibility",
     ],
   },
 ];
@@ -55,7 +57,7 @@ export default function Experience() {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          scrollTrigger: { trigger: ".exp-title", start: "top 85%" },
+          scrollTrigger: { trigger: ".exp-title", start: "top 85%", toggleActions: "play reverse play reverse" },
         }
       );
 
@@ -67,7 +69,7 @@ export default function Experience() {
           opacity: 1,
           duration: 0.8,
           stagger: 0.3,
-          scrollTrigger: { trigger: ".timeline", start: "top 80%" },
+          scrollTrigger: { trigger: ".timeline", start: "top 80%", toggleActions: "play reverse play reverse" },
         }
       );
 
@@ -78,7 +80,7 @@ export default function Experience() {
           scaleY: 1,
           duration: 1.5,
           ease: "power2.out",
-          scrollTrigger: { trigger: ".timeline", start: "top 80%" },
+          scrollTrigger: { trigger: ".timeline", start: "top 80%", toggleActions: "play reverse play reverse" },
         }
       );
     }, sectionRef);

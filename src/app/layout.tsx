@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import CustomCursor from "@/components/CustomCursor";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,13 +31,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark">
       <body
         className={`${inter.variable} ${jetbrains.variable} font-sans antialiased`}
       >
         <ThemeProvider>
-          <CustomCursor />
-          {children}
+          <SmoothScroll>
+            <CustomCursor />
+            <ScrollToTop />
+            {children}
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
