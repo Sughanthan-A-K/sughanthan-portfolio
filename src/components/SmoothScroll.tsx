@@ -15,6 +15,37 @@ export default function SmoothScroll({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768 || ("ontouchstart" in window && window.innerWidth < 1024);
+
+    if (isMobile) {
+      // On mobile, skip Lenis entirely — use native scrolling for performance
+      // Still handle anchor clicks with native smooth scroll
+      const handleAnchorClick = (e: MouseEvent) => {
+        const target = (e.target as HTMLElement).closest('a[href^="#"]');
+        if (!target) return;
+        const href = target.getAttribute('href');
+        if (!href || href === '#') return;
+        const el = document.querySelector(href);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      document.addEventListener('click', handleAnchorClick);
+
+      const handleRopeClick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      window.addEventListener('rope-click', handleRopeClick);
+
+      // Fire hero-ready immediately on mobile
+      setTimeout(() => window.dispatchEvent(new CustomEvent("hero-ready")), 100);
+
+      return () => {
+        document.removeEventListener('click', handleAnchorClick);
+        window.removeEventListener('rope-click', handleRopeClick);
+      };
+    }
+
     const lenis = new Lenis({
       duration: 2.4,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

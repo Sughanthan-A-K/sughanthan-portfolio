@@ -830,7 +830,18 @@ export default function NightSky() {
       }
     };
 
+    const mobileThrottle = isMobileDevice();
+    let lastFrameTime = 0;
+    const MOBILE_FRAME_INTERVAL = 33.33; // ~30fps on mobile
+
     const animate = (now: number) => {
+      // Throttle to 30fps on mobile
+      if (mobileThrottle && now - lastFrameTime < MOBILE_FRAME_INTERVAL) {
+        animRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = now;
+
       const dt = lastTimeRef.current ? Math.min((now - lastTimeRef.current) / 16.667, 3) : 1;
       lastTimeRef.current = now;
       const w = window.innerWidth;
