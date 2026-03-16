@@ -378,19 +378,19 @@ export default function Navbar() {
               className={`w-6 h-0.5 transition-all duration-300 ${
                 mobileOpen ? "rotate-45 translate-y-2" : ""
               }`}
-              style={{ background: "var(--text-primary)" }}
+              style={{ background: "var(--color-primary)" }}
             />
             <span
               className={`w-6 h-0.5 transition-all duration-300 ${
                 mobileOpen ? "opacity-0" : ""
               }`}
-              style={{ background: "var(--text-primary)" }}
+              style={{ background: "var(--color-primary)" }}
             />
             <span
               className={`w-6 h-0.5 transition-all duration-300 ${
                 mobileOpen ? "-rotate-45 -translate-y-2" : ""
               }`}
-              style={{ background: "var(--text-primary)" }}
+              style={{ background: "var(--color-primary)" }}
             />
           </button>
         </div>

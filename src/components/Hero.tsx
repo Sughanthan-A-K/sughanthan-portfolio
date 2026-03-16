@@ -167,7 +167,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 sky-text" style={{ perspective: "1200px" }}>
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-20 sm:pb-24 sky-text" style={{ perspective: "1200px" }}>
         <div className="hero-badge opacity-0 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-5 sm:mb-8 text-xs sm:text-sm" style={{ color: 'var(--text-muted)' }}>
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           Available for opportunities
@@ -279,7 +279,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0">
+      <div ref={scrollIndicatorRef} className="absolute bottom-4 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0">
         <a href="#about" className="flex flex-col items-center -space-y-2 cursor-pointer">
           <svg className="w-5 h-5 animate-bounce" style={{ color: 'var(--color-primary)', opacity: 0.3, animationDelay: '0s' }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
