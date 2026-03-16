@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#6C63FF",
-        accent: "#00D4FF",
+        primary: "rgba(var(--color-primary-rgb), <alpha-value>)",
+        accent: "rgba(var(--color-accent-rgb), <alpha-value>)",
         dark: {
           DEFAULT: "#0a0a0f",
           100: "#12121a",
@@ -26,7 +26,7 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "hero-gradient":
-          "linear-gradient(135deg, #6C63FF 0%, #00D4FF 50%, #6C63FF 100%)",
+          "linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-primary) 100%)",
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",

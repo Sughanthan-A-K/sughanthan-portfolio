@@ -65,7 +65,7 @@ export default function Education() {
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// EDUCATION"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
             My <span className="gradient-text">Education</span>
           </h2>
         </div>
@@ -74,9 +74,8 @@ export default function Education() {
           {education.map((edu, index) => (
             <div
               key={index}
-              className="edu-card glass glass-hover hover-glow rounded-2xl p-8 relative overflow-hidden"
+              className="edu-card glass glass-hover hover-glow rounded-2xl p-5 sm:p-6 md:p-8 relative overflow-hidden"
             >
-              {/* Decorative corner gradient */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/10 to-transparent" />
 
               <div className="relative">

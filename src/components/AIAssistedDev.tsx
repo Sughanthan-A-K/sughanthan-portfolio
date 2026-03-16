@@ -93,19 +93,19 @@ export default function AIAssistedDev() {
     <section
       id="ai-dev"
       ref={sectionRef}
-      className="section-padding relative"
+      className="section-padding relative overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px]" />
+      <div className="absolute top-0 -left-48 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
         <div className="ai-title mb-16">
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// AI ASSISTED DEVELOPMENT"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: "var(--text-primary)" }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: "var(--text-primary)" }}>
             AI-Powered <span className="gradient-text">Productivity</span>
           </h2>
-          <p className="mt-4 max-w-2xl text-lg" style={{ color: "var(--text-muted)" }}>
+          <p className="mt-4 max-w-2xl text-base sm:text-lg" style={{ color: "var(--text-muted)" }}>
             Experienced in leveraging AI-powered developer tools to accelerate
             development, improve code quality, and deliver solutions faster.
           </p>
@@ -115,7 +115,7 @@ export default function AIAssistedDev() {
           {aiTools.map((tool) => (
             <div
               key={tool.title}
-              className="ai-card glass glass-hover hover-glow rounded-2xl p-8 group"
+              className="ai-card glass glass-hover hover-glow rounded-2xl p-5 sm:p-6 md:p-8 group"
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary/20 transition-colors">
                 {tool.icon}

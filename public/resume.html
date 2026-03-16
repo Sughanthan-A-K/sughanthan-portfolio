@@ -9,59 +9,82 @@
     /* ── Reset & Base ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
+    :root, .scheme-default {
       --primary: #6C63FF;
       --accent: #00D4FF;
+      --primary-rgb: 108, 99, 255;
+      --accent-rgb: 0, 212, 255;
       --a4-w: 794px;
       --a4-h: 1123px;
+    }
+    .scheme-red { --primary:#E5133A; --accent:#FF2D55; --primary-rgb:229,19,58; --accent-rgb:255,45,85; }
+    .scheme-golden { --primary:#D4A017; --accent:#C7944A; --primary-rgb:212,160,23; --accent-rgb:199,148,74; }
+    .scheme-emerald { --primary:#00C853; --accent:#69F0AE; --primary-rgb:0,200,83; --accent-rgb:105,240,174; }
+    .scheme-ocean { --primary:#0066FF; --accent:#00B4D8; --primary-rgb:0,102,255; --accent-rgb:0,180,216; }
+    .scheme-rose { --primary:#E91E8C; --accent:#FF6FB5; --primary-rgb:233,30,140; --accent-rgb:255,111,181; }
+    .scheme-cyber { --primary:#00FF9F; --accent:#00E5FF; --primary-rgb:0,255,159; --accent-rgb:0,229,255; }
+    .scheme-sunset { --primary:#FF6B35; --accent:#FFD166; --primary-rgb:255,107,53; --accent-rgb:255,209,102; }
+    .scheme-arctic { --primary:#48CAE4; --accent:#ADE8F4; --primary-rgb:72,202,228; --accent-rgb:173,232,244; }
+    .scheme-lavender { --primary:#9B5DE5; --accent:#C77DFF; --primary-rgb:155,93,229; --accent-rgb:199,125,255; }
+    .scheme-copper { --primary:#B87333; --accent:#E8A87C; --primary-rgb:184,115,51; --accent-rgb:232,168,124; }
+    .scheme-lime { --primary:#AAFF00; --accent:#D4FF00; --primary-rgb:170,255,0; --accent-rgb:212,255,0; }
+    .scheme-blood { --primary:#8B0000; --accent:#DC143C; --primary-rgb:139,0,0; --accent-rgb:220,20,60; }
+    .scheme-sapphire { --primary:#0F52BA; --accent:#6495ED; --primary-rgb:15,82,186; --accent-rgb:100,149,237; }
+    .scheme-peach { --primary:#FF6F61; --accent:#FFB5A7; --primary-rgb:255,111,97; --accent-rgb:255,181,167; }
+
+    #nightsky-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* ── Dark Theme ── */
     html.dark {
-      --bg-body: #16162a;
-      --bg-grid-color: rgba(108,99,255,0.04);
-      --orb1: rgba(108,99,255,0.07);
-      --orb2: rgba(0,212,255,0.05);
+      --bg-body: #0a0a0f;
+      --bg-grid-color: rgba(var(--primary-rgb),0.04);
+      --orb1: rgba(var(--primary-rgb),0.07);
+      --orb2: rgba(var(--accent-rgb),0.05);
       --page-bg: #ffffff;
-      --page-shadow: 0 4px 6px rgba(0,0,0,0.25), 0 20px 60px rgba(108,99,255,0.2), 0 0 0 1px rgba(108,99,255,0.12);
+      --page-shadow: 0 4px 6px rgba(0,0,0,0.25), 0 20px 60px rgba(var(--primary-rgb),0.2), 0 0 0 1px rgba(var(--primary-rgb),0.12);
       --text-dark: #1a1a2e;
       --text-muted: #555570;
       --text-dimmed: #8888a0;
       --border-color: #e0e0ec;
-      --back-bg: rgba(255,255,255,0.06);
-      --back-border: rgba(108,99,255,0.2);
-      --back-color: rgba(255,255,255,0.6);
-      --back-hover-bg: rgba(108,99,255,0.12);
+      --back-bg: rgba(10,10,20,0.35);
+      --back-border: rgba(var(--primary-rgb),0.3);
+      --back-color: rgba(255,255,255,0.85);
+      --back-hover-bg: rgba(var(--primary-rgb),0.20);
       --back-hover-color: #ffffff;
-      --tag-bg: rgba(108,99,255,0.08);
-      --tag-border: rgba(108,99,255,0.15);
-      --scroll-track: #16162a;
-      --scroll-thumb: rgba(108,99,255,0.35);
-      --scroll-thumb-hover: rgba(108,99,255,0.55);
+      --tag-bg: rgba(var(--primary-rgb),0.08);
+      --tag-border: rgba(var(--primary-rgb),0.15);
+      --scroll-track: #0a0a0f;
+      --scroll-thumb: rgba(var(--primary-rgb),0.35);
+      --scroll-thumb-hover: rgba(var(--primary-rgb),0.55);
     }
 
     /* ── Light Theme ── */
     html.light {
       --bg-body: #eef0f6;
-      --bg-grid-color: rgba(108,99,255,0.04);
-      --orb1: rgba(108,99,255,0.06);
-      --orb2: rgba(0,212,255,0.04);
+      --bg-grid-color: rgba(var(--primary-rgb),0.04);
+      --orb1: rgba(var(--primary-rgb),0.06);
+      --orb2: rgba(var(--accent-rgb),0.04);
       --page-bg: #ffffff;
-      --page-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(108,99,255,0.1), 0 0 0 1px rgba(108,99,255,0.08);
+      --page-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(var(--primary-rgb),0.1), 0 0 0 1px rgba(var(--primary-rgb),0.08);
       --text-dark: #1a1a2e;
       --text-muted: #555570;
       --text-dimmed: #8888a0;
       --border-color: #e0e0ec;
       --back-bg: rgba(0,0,0,0.04);
-      --back-border: rgba(108,99,255,0.15);
+      --back-border: rgba(var(--primary-rgb),0.15);
       --back-color: #555570;
-      --back-hover-bg: rgba(108,99,255,0.08);
+      --back-hover-bg: rgba(var(--primary-rgb),0.08);
       --back-hover-color: #1a1a2e;
-      --tag-bg: rgba(108,99,255,0.06);
-      --tag-border: rgba(108,99,255,0.12);
+      --tag-bg: rgba(var(--primary-rgb),0.06);
+      --tag-border: rgba(var(--primary-rgb),0.12);
       --scroll-track: #e4e6ee;
-      --scroll-thumb: rgba(108,99,255,0.3);
-      --scroll-thumb-hover: rgba(108,99,255,0.5);
+      --scroll-thumb: rgba(var(--primary-rgb),0.3);
+      --scroll-thumb-hover: rgba(var(--primary-rgb),0.5);
     }
 
     /* ── Gradient scrollbar ── */
@@ -144,7 +167,7 @@
       position: absolute;
       bottom: 14px;
       right: 22px;
-      font-size: 0.72rem;
+      font-size: 0.8rem;
       color: var(--text-dimmed);
     }
 
@@ -152,7 +175,7 @@
     .header { text-align: center; margin-bottom: 10px; }
 
     .header h1 {
-      font-size: 1.9rem;
+      font-size: 2.06rem;
       font-weight: 700;
       color: var(--primary);
       letter-spacing: -0.5px;
@@ -160,7 +183,7 @@
     }
 
     .header .role {
-      font-size: 1rem;
+      font-size: 1.03rem;
       font-weight: 600;
       color: var(--text-dark);
       margin-bottom: 6px;
@@ -171,7 +194,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 4px 16px;
-      font-size: 0.82rem;
+      font-size: 0.855rem;
       color: var(--text-muted);
     }
 
@@ -197,7 +220,7 @@
     .section { margin-bottom: 12px; }
 
     .section-title {
-      font-size: 0.88rem;
+      font-size: 0.945rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -219,26 +242,26 @@
     }
 
     .entry-title {
-      font-size: 0.92rem;
+      font-size: 0.965rem;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .entry-meta {
-      font-size: 0.8rem;
+      font-size: 0.845rem;
       color: var(--text-dimmed);
       font-style: italic;
     }
 
     .entry-sub {
-      font-size: 0.85rem;
+      font-size: 0.885rem;
       font-weight: 600;
       color: var(--primary);
       margin-bottom: 2px;
     }
 
     .entry-location {
-      font-size: 0.8rem;
+      font-size: 0.845rem;
       color: var(--text-muted);
       margin-bottom: 3px;
     }
@@ -252,7 +275,7 @@
     ul.bullets li {
       position: relative;
       padding-left: 14px;
-      font-size: 0.85rem;
+      font-size: 0.885rem;
       color: var(--text-muted);
       margin-bottom: 2px;
       line-height: 1.5;
@@ -263,7 +286,7 @@
       position: absolute;
       left: 0;
       color: var(--primary);
-      font-size: 0.8rem;
+      font-size: 0.845rem;
     }
 
     /* ── Skills grid ── */
@@ -274,7 +297,7 @@
     }
 
     .skill-row {
-      font-size: 0.85rem;
+      font-size: 0.885rem;
       line-height: 1.5;
     }
 
@@ -300,7 +323,7 @@
     }
 
     .tag {
-      font-size: 0.75rem;
+      font-size: 0.785rem;
       padding: 1px 8px;
       border-radius: 4px;
       background: var(--tag-bg);
@@ -319,29 +342,29 @@
 
     .edu-degree {
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.935rem;
       color: var(--text-dark);
     }
 
     .edu-date {
-      font-size: 0.8rem;
+      font-size: 0.845rem;
       color: var(--text-dimmed);
     }
 
     .edu-inst {
-      font-size: 0.82rem;
+      font-size: 0.865rem;
       color: var(--text-muted);
     }
 
     .edu-cgpa {
-      font-size: 0.8rem;
+      font-size: 0.845rem;
       color: var(--primary);
       font-weight: 600;
     }
 
     /* ── Print ── */
     @media print {
-      html { font-size: 10pt; }
+      html { font-size: 10.0pt; }
       body { background: #fff; }
       .resume-wrapper { padding: 0; gap: 0; background: none; min-height: auto; }
       .resume-wrapper::before, .resume-wrapper::after { display: none; }
@@ -372,14 +395,14 @@
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(108,99,255,0.4), 0 0 0 1px rgba(108,99,255,0.2);
+      box-shadow: 0 6px 20px rgba(var(--primary-rgb),0.4), 0 0 0 1px rgba(var(--primary-rgb),0.2);
       transition: transform 0.2s, box-shadow 0.2s;
       z-index: 100;
       backdrop-filter: blur(8px);
     }
     .download-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(108,99,255,0.5), 0 0 0 1px rgba(108,99,255,0.3);
+      box-shadow: 0 12px 35px rgba(var(--primary-rgb),0.5), 0 0 0 1px rgba(var(--primary-rgb),0.3);
     }
     .download-btn svg { width: 18px; height: 18px; }
 
@@ -406,17 +429,20 @@
     }
     .back-link:hover {
       background: var(--back-hover-bg);
-      border-color: rgba(108,99,255,0.3);
+      border-color: rgba(var(--primary-rgb),0.3);
       color: var(--back-hover-color);
     }
     .back-link svg { width: 14px; height: 14px; }
 
     @media print {
       .download-btn, .back-link { display: none; }
+    #nightsky-canvas { display: none; }
     }
   </style>
 </head>
 <body>
+
+<canvas id="nightsky-canvas"></canvas>
 
 <a class="back-link" onclick="goBack()" title="Back to Portfolio">
   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -456,8 +482,8 @@
     <!-- Professional Summary -->
     <section class="section">
       <h2 class="section-title">Professional Summary</h2>
-      <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.55;">
-        Associate Software Engineer with hands-on experience in developing, testing, and maintaining web applications. Proficient in React.js, Next.js, TypeScript, and Tailwind CSS with the ability to translate business requirements into scalable solutions. Experienced in building modern web applications, migrating legacy systems, creating reusable component libraries, integrating REST APIs, and leveraging AI-assisted development tools to accelerate workflows.
+      <p style="font-size:0.882rem; color:var(--text-muted); line-height:1.55;">
+        Frontend-focused Associate Software Engineer with 1+ years of professional experience in developing, testing, and deploying production web applications. Proficient in React.js, Next.js, TypeScript, JavaScript (ES6+), and Tailwind CSS with expertise in building responsive single-page applications, implementing server-side rendering (SSR) and static site generation (SSG), and translating business requirements into scalable frontend solutions. Experienced in state management with Redux, REST API integration, reusable component library development, legacy system modernization, and AI-assisted development workflows.
       </p>
     </section>
 
@@ -465,12 +491,12 @@
     <section class="section">
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
-        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Redux</span></div>
-        <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Design, Mobile First, Material UI, Mantine</span></div>
-        <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Git, GitHub, Bitbucket, VS Code, npm, Figma</span></div>
-        <div class="skill-row"><span class="skill-label">Testing &amp; Quality</span><span class="skill-value">Functional Testing, Debugging, Code Reviews, Clean Code</span></div>
-        <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile, Scrum, SDLC, Component-Based Architecture</span></div>
-        <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization</span></div>
+        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Redux, SSR/SSG</span></div>
+        <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Web Design, Cross-Browser Compatibility, Mobile First, Material UI, Mantine</span></div>
+        <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Fetch API, Git, GitHub, Bitbucket, VS Code, npm, Figma</span></div>
+        <div class="skill-row"><span class="skill-label">Testing &amp; Quality</span><span class="skill-value">Functional Testing, Debugging, Code Reviews, Clean Code Practices</span></div>
+        <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile, Scrum, SDLC, Component-Based Architecture, State Management</span></div>
+        <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization, SEO</span></div>
         <div class="skill-row"><span class="skill-label">AI Tools</span><span class="skill-value">GitHub Copilot, AI-Assisted Debugging, Prompt Engineering</span></div>
       </div>
     </section>
@@ -487,14 +513,14 @@
         <div class="entry-sub">Tender Software India Pvt Ltd</div>
         <div class="entry-location">Pondicherry, India</div>
         <ul class="bullets">
-          <li>Developed scalable web applications using React.js, Next.js, TypeScript, and Tailwind CSS serving production users</li>
-          <li>Migrated legacy iFrame-based modules into modern Next.js architecture, improving maintainability and load times</li>
-          <li>Implemented SSR and SSG strategies to improve application performance and SEO scores</li>
-          <li>Created reusable and configurable UI component library ensuring consistent design systems across modules</li>
-          <li>Integrated REST APIs for dynamic data fetching, real-time updates, and frontend-backend communication</li>
+          <li>Built and deployed 5+ production web modules using React.js, Next.js, TypeScript, and Tailwind CSS across multiple platforms</li>
+          <li>Migrated legacy iFrame-based modules into modern Next.js architecture, reducing page load times and improving maintainability</li>
+          <li>Implemented SSR and SSG strategies to boost application performance, SEO scores, and initial page load speed</li>
+          <li>Designed and developed a reusable, configurable UI component library ensuring consistent design systems across modules</li>
+          <li>Integrated and consumed REST APIs for dynamic data fetching, real-time updates, and frontend-backend communication</li>
           <li>Conducted functional testing and module configuration to ensure quality deliverables before production release</li>
-          <li>Delivered code within sprint timelines and participated in peer code reviews and best-practice discussions</li>
-          <li>Leveraged GitHub Copilot and AI-assisted tools to accelerate development while maintaining code quality</li>
+          <li>Delivered code within Agile sprint timelines; participated in code reviews, stand-ups, and best-practice discussions</li>
+          <li>Leveraged GitHub Copilot and AI-assisted tools to accelerate development velocity while maintaining code quality</li>
         </ul>
       </div>
 
@@ -506,11 +532,11 @@
         <div class="entry-sub">HEPL Pvt Ltd</div>
         <div class="entry-location">Cuddalore, India</div>
         <ul class="bullets">
-          <li>Developed enterprise web modules using React.js, TypeScript, Redux, and Material UI for large-scale platforms</li>
-          <li>Built reusable UI components and established shared design patterns adopted across multiple teams</li>
+          <li>Developed enterprise web modules using React.js, TypeScript, Redux state management, and Material UI for large-scale platforms</li>
+          <li>Built reusable UI components and established shared design patterns adopted across multiple cross-functional teams</li>
           <li>Integrated REST APIs for real-time data processing, workflow automation, and cross-module communication</li>
-          <li>Contributed to LMS, Project Management System, and Recruitment Management System platforms</li>
-          <li>Ensured performance optimization and cross-browser compatibility across all major browsers</li>
+          <li>Contributed to 3 enterprise platforms: LMS, Project Management System, and Recruitment Management System</li>
+          <li>Ensured frontend performance optimization, responsive layouts, and cross-browser compatibility across all major browsers</li>
         </ul>
       </div>
     </section>
@@ -539,16 +565,16 @@
           <span class="tag">Git</span>
         </div>
         <ul class="bullets" style="margin-top:3px;">
-          <li>Migrated legacy iFrame modules to modern Next.js architecture improving performance and DX</li>
-          <li>Developed responsive dashboards with real-time data visualization and event scheduling</li>
-          <li>Integrated child activity monitoring features and implemented SSR/SSG for SEO improvements</li>
-          <li>Improved usability through clean navigation patterns and reusable component architecture</li>
+          <li>Architected migration of legacy iFrame modules to modern Next.js SPA, improving performance and developer experience</li>
+          <li>Developed responsive dashboards with real-time data visualization, event scheduling, and push notifications</li>
+          <li>Implemented SSR/SSG rendering strategies for SEO optimization and faster initial page loads</li>
+          <li>Built reusable component architecture with clean navigation patterns, improving usability and code maintainability</li>
         </ul>
       </div>
 
       <div class="entry">
         <div class="entry-header">
-          <span class="entry-title">Project Management Tool, LMS &amp; Recruitment System</span>
+          <span class="entry-title">Project Management Tool, LMS &amp; Recruitment Management System</span>
         </div>
         <div class="entry-sub">HEPL Pvt Ltd</div>
         <div class="tags">
@@ -561,9 +587,9 @@
         </div>
         <ul class="bullets" style="margin-top:3px;">
           <li>Developed responsive layouts and reusable UI components for task tracking, learning, and recruitment workflows</li>
-          <li>Integrated APIs for automated task tracking, data tables, and form-driven modules across the platform</li>
-          <li>Improved application performance, usability, and cross-browser compatibility for enterprise delivery</li>
-          <li>Collaborated with designers via Figma to ensure pixel-perfect implementation of UI specifications</li>
+          <li>Integrated REST APIs for automated task tracking, interactive data tables, and form-driven modules across the platform</li>
+          <li>Optimized frontend performance, responsive design, and cross-browser compatibility for enterprise-grade delivery</li>
+          <li>Collaborated with designers via Figma to deliver pixel-perfect implementation of UI/UX specifications</li>
         </ul>
       </div>
     </section>
@@ -599,14 +625,14 @@
     <section class="section">
       <h2 class="section-title">Key Strengths</h2>
       <ul class="bullets" style="columns:2; column-gap:24px;">
-        <li>Clean and maintainable code practices</li>
-        <li>Reusable component architecture</li>
-        <li>Performance optimization (SSR, SSG, lazy loading)</li>
-        <li>AI-assisted development productivity</li>
-        <li>Strong analytical and problem-solving skills</li>
-        <li>Agile collaboration and peer code reviews</li>
-        <li>Quick learner with adaptability to new technologies</li>
-        <li>Effective communication in client-driven environments</li>
+        <li>Clean, maintainable, and well-documented code</li>
+        <li>Scalable component-based architecture design</li>
+        <li>Frontend performance optimization (SSR, SSG, code splitting)</li>
+        <li>AI-assisted development with GitHub Copilot</li>
+        <li>Strong debugging, analytical, and problem-solving skills</li>
+        <li>Agile/Scrum collaboration with consistent sprint delivery</li>
+        <li>Quick adoption of modern frontend technologies and tools</li>
+        <li>Clear technical communication in cross-functional teams</li>
       </ul>
     </section>
 
@@ -618,16 +644,861 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-  // ── Sync theme from portfolio (shared localStorage key: "portfolio-theme") ──
   (function() {
     var theme = localStorage.getItem('portfolio-theme') || 'dark';
-    document.documentElement.className = theme;
-    // Listen for storage changes from the portfolio tab
+    var scheme = localStorage.getItem('portfolio-color-scheme') || 'default';
+    document.documentElement.className = theme + ' scheme-' + scheme;
     window.addEventListener('storage', function(e) {
-      if (e.key === 'portfolio-theme' && e.newValue) {
-        document.documentElement.className = e.newValue;
+      if (e.key === 'portfolio-theme' || e.key === 'portfolio-color-scheme') {
+        var t = localStorage.getItem('portfolio-theme') || 'dark';
+        var s = localStorage.getItem('portfolio-color-scheme') || 'default';
+        document.documentElement.className = t + ' scheme-' + s;
       }
     });
+  })();
+
+  // ── NightSky canvas (dark mode only) — Full port of NightSky.tsx ──
+  (function() {
+    var canvas = document.getElementById('nightsky-canvas');
+    var ctx = canvas.getContext('2d', { alpha: true });
+
+    /* ── Constants ── */
+    var DEG = Math.PI / 180;
+    var OBS_LAT = 11.0 * DEG;
+    var SIN_LAT = Math.sin(OBS_LAT);
+    var COS_LAT = Math.cos(OBS_LAT);
+    var LST_SCROLL_RANGE = 90;
+    var GC_RA = 266.4;
+
+    /* ── Galactic → Equatorial constants (IAU) ── */
+    var NGP_DEC_R = 27.12825 * DEG;
+    var NGP_RA_D = 192.85948;
+    var L_NCP_R = 122.93192 * DEG;
+    var SIN_NGP = Math.sin(NGP_DEC_R);
+    var COS_NGP = Math.cos(NGP_DEC_R);
+
+    /* ── Star catalog ── */
+    var CATALOG = [[88.79,7.41,0.50,1.85],[78.63,-8.20,0.13,-0.03],[81.28,6.35,1.64,-0.22],[83.00,-0.30,2.23,-0.18],[84.05,-1.20,1.69,-0.18],[85.19,-1.94,1.77,-0.21],[86.94,-9.67,2.09,-0.18],[165.93,61.75,1.79,1.07],[165.46,56.38,2.37,0.03],[178.46,53.69,2.44,0.04],[183.86,57.03,3.31,0.08],[193.51,55.96,1.77,-0.02],[200.98,54.93,2.27,0.02],[206.89,49.31,1.86,-0.19],[10.13,56.54,2.23,1.17],[2.29,59.15,2.27,0.34],[14.18,60.72,2.47,-0.15],[21.45,60.24,2.68,0.13],[28.60,63.67,3.38,-0.15],[310.36,45.28,1.25,0.09],[292.68,27.96,3.18,0.86],[305.56,40.26,2.20,0.68],[296.24,45.13,2.87,-0.02],[311.55,33.97,2.46,1.03],[279.23,38.78,0.03,0.00],[282.52,33.36,3.45,-0.05],[284.74,32.69,3.24,0.00],[247.35,-26.43,0.96,1.83],[263.40,-37.10,1.63,-0.22],[264.33,-42.99,1.87,0.40],[240.08,-22.62,2.32,-0.12],[241.36,-19.81,2.62,-0.07],[252.54,-34.29,2.29,1.15],[253.08,-38.05,3.04,-0.21],[245.30,-25.59,2.89,0.12],[265.62,-39.03,2.41,-0.22],[152.09,11.97,1.35,-0.11],[177.27,14.57,2.14,0.09],[154.99,19.84,2.28,1.14],[168.53,20.52,2.56,0.13],[168.56,15.43,3.34,0.09],[151.83,16.76,3.52,0.02],[116.33,28.03,1.14,1.00],[113.65,31.89,1.93,0.04],[99.43,16.40,1.93,0.00],[100.98,25.13,3.06,1.40],[95.74,22.51,2.88,1.64],[110.03,21.98,3.53,0.34],[68.98,16.51,0.85,1.54],[81.57,28.61,1.65,-0.13],[56.87,24.11,2.87,-0.09],[84.41,21.14,3.01,-0.15],[67.17,15.87,3.40,0.18],[67.15,19.18,3.54,0.92],[101.29,-16.72,-1.46,0.00],[95.67,-17.96,1.98,-0.24],[107.10,-26.39,1.84,0.67],[104.66,-28.97,1.50,-0.21],[111.02,-29.30,2.45,-0.08],[95.08,-30.06,3.02,-0.19],[37.95,89.26,2.02,0.60],[222.68,74.16,2.08,1.47],[230.18,71.83,3.00,0.09],[247.55,82.04,4.23,0.56],[236.01,77.79,4.32,0.06],[263.05,86.59,4.36,0.08],[297.70,8.87,0.76,0.22],[296.57,10.61,2.72,1.52],[298.83,6.41,3.71,0.86],[346.19,15.21,2.49,-0.04],[345.94,28.08,2.42,1.67],[3.31,15.18,2.84,-0.22],[326.05,9.88,2.39,1.53],[2.10,29.09,2.06,-0.11],[17.43,35.62,2.05,1.58],[30.97,42.33,2.26,1.37],[37.97,30.86,3.27,1.28],[51.08,49.86,1.79,0.48],[47.04,40.96,2.12,-0.05],[58.53,31.88,2.85,-0.20],[46.29,53.51,2.93,0.70],[55.73,47.79,3.01,-0.13],[276.04,-34.38,1.85,-0.03],[283.82,-26.30,2.02,-0.20],[285.65,-29.88,2.59,0.08],[275.25,-29.83,2.70,1.38],[276.99,-25.42,2.81,1.04],[271.45,-30.42,2.99,1.00],[281.41,-26.99,3.17,-0.04],[186.65,-63.10,0.76,-0.24],[191.93,-59.69,1.25,-0.23],[187.79,-57.11,1.63,1.59],[183.79,-58.75,2.80,-0.23],[219.90,-60.83,-0.27,0.71],[210.96,-60.37,0.61,-0.22],[213.92,19.18,-0.05,1.23],[221.25,27.07,2.70,0.97],[208.67,18.40,2.68,0.58],[218.02,38.31,3.03,0.19],[225.49,40.39,3.50,0.95],[201.30,-11.16,0.97,-0.23],[195.54,10.96,2.83,0.94],[79.17,46.00,0.08,0.80],[114.83,5.22,0.34,0.42],[24.43,-57.24,0.46,-0.16],[95.99,-52.70,-0.74,0.15],[344.41,-29.62,1.16,0.09],[263.73,12.56,2.08,0.15],[269.15,51.49,2.23,1.52],[10.90,-17.99,2.04,1.02],[31.79,23.46,2.00,1.15],[306.41,-56.74,1.94,-0.20],[233.67,26.71,2.23,0.03],[141.90,-8.66,1.98,1.44],[89.88,44.95,1.90,0.08],[136.99,-43.43,2.21,1.66],[122.38,-47.34,1.78,-0.22],[120.90,-40.00,2.25,-0.27],[138.30,-69.72,1.68,0.07],[125.63,-59.51,1.86,1.28],[252.17,-69.03,1.92,1.44],[332.06,-46.96,1.74,-0.07],[257.59,-15.72,2.43,0.06],[183.95,-17.54,2.59,-0.11],[188.60,-23.40,2.65,0.89],[187.47,-16.52,2.95,0.00],[182.53,-22.62,3.02,1.33],[83.18,-17.82,2.58,0.21],[82.06,-20.76,2.84,0.82],[76.96,-5.09,2.79,0.13],[45.57,4.09,2.53,1.64],[319.64,62.59,2.51,0.22],[247.55,21.49,2.77,0.62],[229.25,-9.38,2.61,-0.11],[222.72,-16.04,2.75,0.15],[326.76,-16.13,2.87,0.32],[322.89,-5.57,2.91,0.83],[28.66,20.81,2.64,0.17],[57.29,24.05,3.63,-0.09],[56.22,24.11,3.70,-0.11],[56.46,24.37,3.87,-0.07],[56.58,23.95,4.18,-0.06],[56.30,24.47,4.30,-0.11],[6.57,-42.31,2.39,1.09],[340.67,-46.88,2.11,1.62],[84.91,-34.07,2.64,-0.12],[121.89,-24.30,2.81,0.43],[211.67,-36.37,2.06,1.01],[211.10,64.38,3.65,-0.05],[262.61,52.30,2.79,0.98],[236.07,6.43,2.65,1.17],[331.45,-0.32,2.96,0.97],[305.25,-14.78,3.08,0.79],[87.74,-35.77,3.12,1.16],[44.57,-40.30,2.91,0.13],[140.53,-55.01,2.50,-0.18],[131.18,-54.71,1.96,0.04],[220.48,-47.39,2.30,-0.20],[224.63,-43.13,2.68,-0.22],[248.97,-28.22,2.82,-0.25]];
+
+    /* ── State ── */
+    var stars = [], shootingStars = [], airplanes = [], satellites = [];
+    var mwBlobs = [], mwMicroStars = [];
+    var moonData = null;
+    var clouds = [];
+    var timers = { shootingStar: 0, airplane: 0, satellite: 0 };
+    var fadeIn = 0;
+    var frameCount = 0;
+    var firstEffectDone = false;
+    var lastTime = 0;
+    var prevScrollFrac = 0;
+
+    /* ── PRNG (mulberry32) ── */
+    function mulberry32(seed) {
+      return function() {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+    function rand(a, b) { return a + rng() * (b - a); }
+    function randInt(a, b) { return Math.floor(rand(a, b)); }
+    function isDark() { return document.documentElement.classList.contains('dark'); }
+
+    /* ── Coordinate transforms ── */
+    function eqToAltAz(raDeg, decDeg, lstDeg) {
+      var ha = (lstDeg - raDeg) * DEG;
+      var dec = decDeg * DEG;
+      var sinDec = Math.sin(dec);
+      var sinAlt = SIN_LAT * sinDec + COS_LAT * Math.cos(dec) * Math.cos(ha);
+      var alt = Math.asin(Math.max(-1, Math.min(1, sinAlt)));
+      var cosAlt = Math.cos(alt);
+      var az = 0;
+      if (cosAlt > 1e-8) {
+        var sinAz = -Math.cos(dec) * Math.sin(ha) / cosAlt;
+        var cosAz = (sinDec - SIN_LAT * sinAlt) / (COS_LAT * cosAlt);
+        az = Math.atan2(sinAz, cosAz);
+      }
+      return { alt: alt, az: az };
+    }
+
+    function projectToScreen(alt, az, cx, cy, scale) {
+      if (alt < -5 * DEG) return { sx: 0, sy: 0, visible: false };
+      var zd = Math.max(0, Math.PI / 2 - alt);
+      var r = (zd / (Math.PI / 2)) * scale;
+      return { sx: cx + r * Math.sin(az), sy: cy - r * Math.cos(az), visible: true };
+    }
+
+    function galToEq(lDeg, bDeg) {
+      var l = lDeg * DEG, b = bDeg * DEG;
+      var sinB = Math.sin(b), cosB = Math.cos(b);
+      var dl = L_NCP_R - l;
+      var sinDec = sinB * SIN_NGP + cosB * COS_NGP * Math.cos(dl);
+      var dec = Math.asin(Math.max(-1, Math.min(1, sinDec)));
+      var y = cosB * Math.sin(dl);
+      var x = sinB * COS_NGP - cosB * SIN_NGP * Math.cos(dl);
+      var ra = ((Math.atan2(y, x) / DEG + NGP_RA_D) % 360 + 360) % 360;
+      return { ra: ra, dec: dec / DEG };
+    }
+
+    /* ── Milky Way: 7-layer blobs + 5000 micro-stars ── */
+    function initMWBand() {
+      var blobs = [], ms = [];
+      var layers = [
+        { colors: [[100,130,200],[80,110,185],[120,145,210]], bSpread: 18, alpha: 0.14, count: 220, angScale: 14 },
+        { colors: [[160,100,200],[140,80,180],[180,120,220],[130,90,170]], bSpread: 12, alpha: 0.15, count: 230, angScale: 11 },
+        { colors: [[200,160,90],[180,140,70],[210,170,100],[190,150,80]], bSpread: 6, alpha: 0.17, count: 200, angScale: 9 },
+        { colors: [[240,220,170],[255,240,200],[230,210,160]], bSpread: 4, alpha: 0.20, count: 160, angScale: 7 },
+        { colors: [[220,80,80],[200,60,90],[240,100,100],[180,50,70]], bSpread: 9, alpha: 0.10, count: 100, angScale: 9 },
+        { colors: [[80,180,200],[60,160,190],[100,200,210]], bSpread: 10, alpha: 0.09, count: 80, angScale: 9 },
+        { colors: [[240,240,255],[255,255,255],[220,225,245]], bSpread: 4, alpha: 0.19, count: 120, angScale: 6 }
+      ];
+      for (var li = 0; li < layers.length; li++) {
+        var layer = layers[li];
+        for (var i = 0; i < layer.count; i++) {
+          var u = rand(0, 1);
+          var l = u < 0.55 ? rand(-70, 70) : rand(70, 290);
+          var b = (rand(-1, 1) + rand(-1, 1)) * layer.bSpread * 0.5;
+          var lNorm = Math.min(Math.abs(l), Math.abs(l - 360), Math.abs(l + 360)) / 180;
+          var centerBoost = 1 - lNorm * 0.5;
+          var bFade = Math.exp(-(b * b) / (layer.bSpread * layer.bSpread * 0.5));
+          var a = layer.alpha * centerBoost * bFade * rand(0.5, 1.0);
+          if (a < 0.001) continue;
+          var eq = galToEq(((l % 360) + 360) % 360, b);
+          var eq2 = galToEq(((l + 3) % 360 + 360) % 360, b);
+          var ci = randInt(0, layer.colors.length);
+          blobs.push({
+            ra: eq.ra, dec: eq.dec,
+            ra2: eq2.ra, dec2: eq2.dec,
+            angSize: rand(layer.angScale * 0.5, layer.angScale * 1.3),
+            color: layer.colors[ci],
+            alpha: a,
+            aspect: rand(0.3, 0.55)
+          });
+        }
+      }
+      for (var i = 0; i < 5000; i++) {
+        var u = rand(0, 1);
+        var l = u < 0.5 ? rand(-60, 60) : rand(60, 300);
+        var b = (rand(-1, 1) + rand(-1, 1)) * 4;
+        var lNorm = Math.min(Math.abs(l), Math.abs(l - 360), Math.abs(l + 360)) / 180;
+        var densityBoost = 1 - lNorm * 0.6;
+        var eq = galToEq(((l % 360) + 360) % 360, b);
+        var tint = rng();
+        var color;
+        if (tint < 0.4) color = [240, 240, 255];
+        else if (tint < 0.65) color = [255, 250, 230];
+        else if (tint < 0.85) color = [255, 240, 200];
+        else color = [255, 220, 180];
+        ms.push({
+          ra: eq.ra, dec: eq.dec,
+          radius: rand(0.4, 1.0),
+          alpha: rand(0.5, 0.9) * densityBoost,
+          color: color
+        });
+      }
+      return { blobs: blobs, microStars: ms };
+    }
+
+    /* ── Star creation (Code 1 visual DNA) ── */
+    function createCatalogStar(ra, dec, mag, bv) {
+      var color;
+      if (bv < -0.1) color = [200, 215, 255];
+      else if (bv < 0.15) color = [220, 230, 255];
+      else if (bv < 0.4) color = [255, 255, 255];
+      else if (bv < 0.7) color = [255, 250, randInt(220, 240)];
+      else if (bv < 1.1) color = [255, randInt(200, 220), randInt(140, 170)];
+      else color = [255, randInt(170, 190), randInt(110, 140)];
+      return {
+        ra: ra, dec: dec,
+        radius: Math.max(0.4, 2.8 - mag * 0.45),
+        phase: rand(0, Math.PI * 2),
+        twinkleSpeed: rand(0.025, 0.06),
+        scintOffset: rand(0, 100),
+        maxAlpha: Math.max(0.35, Math.min(0.85, 0.95 - mag * 0.1)),
+        color: color,
+        burst: 0,
+        burstDecay: rand(0.008, 0.02),
+        burstCooldown: randInt(1200, 3600),
+        burstChance: mag < 1.5 ? rand(0.0002, 0.001) : rand(0.00005, 0.0004)
+      };
+    }
+
+    function createFillerStar() {
+      var ra = rand(0, 360);
+      var dec = Math.asin(rand(-1, 1)) / DEG;
+      var tint = rng();
+      var color;
+      if (tint < 0.35) color = [255, 255, 255];
+      else if (tint < 0.55) color = [220, 230, 255];
+      else if (tint < 0.75) color = [255, 250, randInt(220, 240)];
+      else if (tint < 0.90) color = [255, randInt(200, 220), randInt(140, 170)];
+      else color = [255, randInt(170, 190), randInt(110, 140)];
+      return {
+        ra: ra, dec: dec,
+        radius: rand(0.3, 0.7),
+        phase: rand(0, Math.PI * 2),
+        twinkleSpeed: rand(0.025, 0.06),
+        scintOffset: rand(0, 100),
+        maxAlpha: rand(0.2, 0.45),
+        color: color,
+        burst: 0,
+        burstDecay: rand(0.008, 0.02),
+        burstCooldown: randInt(1200, 3600),
+        burstChance: rand(0.00002, 0.0002)
+      };
+    }
+
+    function initStars() {
+      var result = [];
+      for (var i = 0; i < CATALOG.length; i++) {
+        var s = CATALOG[i];
+        result.push(createCatalogStar(s[0], s[1], s[2], s[3]));
+      }
+      for (var f = 0; f < 200; f++) {
+        result.push(createFillerStar());
+      }
+      return result;
+    }
+
+    /* ── Moon (Meeus simplified) ── */
+    function getMoonPosition() {
+      var now = new Date();
+      var yr = now.getFullYear(), mo = now.getMonth() + 1;
+      var d = now.getDate() + now.getHours() / 24 + now.getMinutes() / 1440;
+      var jd = 367 * yr - Math.floor(7 * (yr + Math.floor((mo + 9) / 12)) / 4) + Math.floor(275 * mo / 9) + d + 1721013.5;
+      var T = (jd - 2451545.0) / 36525;
+      var L0 = (218.3165 + 481267.8813 * T) % 360;
+      var M = (134.9634 + 477198.8676 * T) % 360;
+      var D = (297.8502 + 445267.1115 * T) % 360;
+      var F = (93.2720 + 483202.0175 * T) % 360;
+      var Ms = (357.5291 + 35999.0503 * T) % 360;
+      var Mr = M * DEG, Dr = D * DEG, Fr = F * DEG, Msr = Ms * DEG;
+      var lon = L0 + 6.289 * Math.sin(Mr) - 1.274 * Math.sin(2 * Dr - Mr) - 0.658 * Math.sin(2 * Dr) + 0.214 * Math.sin(2 * Mr) - 0.186 * Math.sin(Msr) - 0.114 * Math.sin(2 * Fr);
+      var lat = 5.128 * Math.sin(Fr) + 0.281 * Math.sin(Mr + Fr) - 0.278 * Math.sin(Fr - Mr) - 0.173 * Math.sin(2 * Dr - Fr);
+      var obliquity = 23.4393 * DEG;
+      var lonR = lon * DEG, latR = lat * DEG;
+      var ra = Math.atan2(Math.sin(lonR) * Math.cos(obliquity) - Math.tan(latR) * Math.sin(obliquity), Math.cos(lonR));
+      var dec = Math.asin(Math.sin(latR) * Math.cos(obliquity) + Math.cos(latR) * Math.sin(obliquity) * Math.sin(lonR));
+      var sunLon = (280.466 + 36000.770 * T) % 360;
+      sunLon += 1.915 * Math.sin(Msr) + 0.020 * Math.sin(2 * Msr);
+      var elong = Math.acos(Math.max(-1, Math.min(1, Math.cos((lon - sunLon) * DEG) * Math.cos(latR))));
+      var phase = (1 + Math.cos(elong)) / 2;
+      var lonDiff = (((lon - sunLon) % 360) + 360) % 360;
+      var raDeg = ((ra / DEG) % 360 + 360) % 360;
+      return { ra: raDeg, dec: dec / DEG, phase: phase, isWaxing: lonDiff < 180 };
+    }
+
+    /* ── Clouds ── */
+    function spawnCloud(w, h) {
+      var goRight = Math.random() < 0.5;
+      return { x: goRight ? -w * 0.3 : w * 1.3, y: rand(h * 0.05, h * 0.65), vx: (goRight ? 1 : -1) * rand(0.006, 0.018), width: rand(w * 0.18, w * 0.45), height: rand(25, 70), opacity: rand(0.015, 0.04), seed: Math.random() * 1000 };
+    }
+
+    /* ── Shooting stars ── */
+    function spawnShootingStar(w, vh) {
+      var angle = rand(0, Math.PI * 2);
+      var cos = Math.cos(angle), sin = Math.sin(angle), speed = rand(8, 16);
+      var x, y;
+      if (Math.abs(cos) >= Math.abs(sin)) {
+        if (cos > 0) { x = -10; y = rand(vh * 0.05, vh * 0.6); }
+        else { x = w + 10; y = rand(vh * 0.05, vh * 0.6); }
+      } else {
+        if (sin > 0) { x = rand(0, w); y = -10; }
+        else { x = rand(0, w); y = vh + 10; }
+      }
+      return { x: x, y: y, vx: cos * speed, vy: sin * speed, speed: speed, life: 0, maxLife: rand(12, 48), tailLen: rand(40, 100), brightness: rand(0.7, 1), active: true };
+    }
+
+    /* ── Airplanes ── */
+    var AC_DEFS = [
+      [0.65, 0.95, 0.32, 0.52, 0.09, 0.075],
+      [0.70, 1.00, 0.34, 0.54, 0.10, 0.085],
+      [0.50, 0.72, 0.18, 0.32, 0.11, 0.10],
+      [0.80, 1.10, 0.28, 0.48, 0.07, 0.05],
+      [1.05, 1.50, 0.52, 0.82, 0.14, 0.07]
+    ];
+    var AC_WEIGHTS = [30, 30, 15, 15, 10];
+    var AC_SHAPES = [
+      [10, 11, 12, 3.5, 1.0, 4.5],
+      [7, 8, 9, 2.5, 0.5, 3.5],
+      [5, 6, 6, 2.0, 0.5, 2.5],
+      [6, 7, 11, 0.5, -0.5, 3.5],
+      [3, 6, 0, 0, 0, 1.5]
+    ];
+    function spawnAirplane(w, vh) {
+      var roll = Math.random() * 100, cum = 0, type = 0;
+      for (var i = 0; i < 5; i++) { cum += AC_WEIGHTS[i]; if (roll < cum) { type = i; break; } }
+      var baseDir = Math.random() < 0.5 ? 0 : Math.PI;
+      var spread = type === 4 ? Math.PI / 3 : Math.PI / 4;
+      var angle = baseDir + rand(-spread, spread);
+      var cos = Math.cos(angle), sin = Math.sin(angle);
+      var x, y;
+      if (Math.abs(cos) >= Math.abs(sin)) {
+        if (cos > 0) { x = -20; y = rand(vh * 0.05, vh * 0.7); }
+        else { x = w + 20; y = rand(vh * 0.05, vh * 0.7); }
+      } else {
+        if (sin > 0) { x = rand(0, w); y = -20; }
+        else { x = rand(0, w); y = vh + 20; }
+      }
+      var d = AC_DEFS[type];
+      var size = rand(d[0], d[1]);
+      var sizeFrac = d[1] > d[0] ? (size - d[0]) / (d[1] - d[0]) : 0.5;
+      var speed = d[2] + sizeFrac * (d[3] - d[2]);
+      var maxDist = Math.sqrt(w * w + vh * vh) + 80;
+      return {
+        x: x, y: y, vx: cos * speed, vy: sin * speed,
+        baseVx: cos * speed, baseVy: sin * speed,
+        blinkPhase: rand(0, Math.PI * 2), blinkSpeed: d[4],
+        strobePhase: rand(0, Math.PI * 2), strobeSpeed: d[5],
+        active: true, life: 0, maxLife: maxDist / speed,
+        size: size, type: type, rotorPhase: rand(0, Math.PI * 2),
+        nearFactor: rand(0.3, 0.7)
+      };
+    }
+
+    /* ── Satellites ── */
+    function spawnSatellite(w, vh) {
+      var angle = rand(0, Math.PI * 2);
+      var cos = Math.cos(angle), sin = Math.sin(angle), speed = rand(0.14, 0.28);
+      var x, y;
+      if (Math.abs(cos) >= Math.abs(sin)) {
+        if (cos > 0) { x = -5; y = rand(0, vh * 0.6); }
+        else { x = w + 5; y = rand(0, vh * 0.6); }
+      } else {
+        if (sin > 0) { x = rand(0, w); y = -5; }
+        else { x = rand(0, w); y = vh + 5; }
+      }
+      var maxDist = Math.sqrt(w * w + vh * vh) + 20;
+      return { x: x, y: y, vx: cos * speed, vy: sin * speed, brightness: rand(0.35, 0.85), active: true, life: 0, maxLife: maxDist / speed };
+    }
+
+    /* ── Resize ── */
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    /* ── Init ── */
+    function init() {
+      var w = window.innerWidth, h = window.innerHeight;
+      var seed = Math.floor(Math.random() * 2147483647) + 1;
+      /* Try to reuse portfolio seed for visual continuity */
+      try {
+        var savedSeed = localStorage.getItem('nightsky-seed');
+        if (savedSeed) seed = parseInt(savedSeed, 10) || seed;
+      } catch (e) {}
+      rng = mulberry32(seed);
+      stars = initStars();
+      var mw = initMWBand();
+      mwBlobs = mw.blobs;
+      mwMicroStars = mw.microStars;
+      rng = Math.random;
+
+      moonData = getMoonPosition();
+      clouds = [spawnCloud(w, h), spawnCloud(w, h), spawnCloud(w, h)];
+      shootingStars = []; airplanes = []; satellites = [];
+      timers = { shootingStar: 0, airplane: 0, satellite: 0 };
+
+      /* Restore animation state from portfolio for seamless continuity */
+      try {
+        var saved = localStorage.getItem('nightsky-state');
+        if (saved) {
+          var state = JSON.parse(saved);
+          var elapsed = (Date.now() - state.timestamp) / 16.67;
+          for (var si = 0; si < stars.length; si++) {
+            stars[si].phase += stars[si].twinkleSpeed * elapsed;
+          }
+          if (state.airplanes) {
+            for (var ai = 0; ai < state.airplanes.length; ai++) {
+              var ap = state.airplanes[ai];
+              ap.x += (ap.vx || 0) * elapsed; ap.y += (ap.vy || 0) * elapsed;
+              ap.life = (ap.life || 0) + elapsed;
+              ap.blinkPhase = (ap.blinkPhase || 0) + (ap.blinkSpeed || 0) * elapsed;
+              ap.strobePhase = (ap.strobePhase || 0) + (ap.strobeSpeed || 0) * elapsed;
+              if (ap.size === undefined) ap.size = 1;
+              if (ap.type === undefined) ap.type = 0;
+              if (ap.rotorPhase === undefined) ap.rotorPhase = 0;
+              if (ap.baseVx === undefined) ap.baseVx = ap.vx;
+              if (ap.baseVy === undefined) ap.baseVy = ap.vy;
+              if (ap.nearFactor === undefined) ap.nearFactor = 0.5;
+              if (ap.life < ap.maxLife) { ap.active = true; airplanes.push(ap); }
+            }
+          }
+          if (state.satellites) {
+            for (var sti = 0; sti < state.satellites.length; sti++) {
+              var sat = state.satellites[sti];
+              sat.x += (sat.vx || 0) * elapsed; sat.y += (sat.vy || 0) * elapsed;
+              sat.life = (sat.life || 0) + elapsed;
+              if (sat.life < sat.maxLife) { sat.active = true; satellites.push(sat); }
+            }
+          }
+          if (state.timers) timers = state.timers;
+          if (state.frameCount) frameCount = state.frameCount + Math.floor(elapsed);
+          if (state.firstEffectDone) firstEffectDone = true;
+          fadeIn = 1;
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    /* ── Draw star (Code 1 visual DNA: glow + sparkle crosshair + burst + core) ── */
+    function drawStar(s, sx, sy, altDim, dt) {
+      s.phase += s.twinkleSpeed * dt;
+      if (s.burstCooldown > 0) {
+        s.burstCooldown -= dt;
+      } else if (s.burst <= 0 && Math.random() < s.burstChance) {
+        s.burst = rand(0.5, 0.8);
+        s.burstCooldown = randInt(1800, 5400);
+      }
+      if (s.burst > 0) s.burst = Math.max(0, s.burst - s.burstDecay * dt);
+
+      /* Multi-frequency scintillation */
+      var p = s.phase, o = s.scintOffset;
+      var scint = Math.sin(p) * 0.35
+        + Math.sin(p * 2.31 + o) * 0.25
+        + Math.sin(p * 5.17 + o * 0.7) * 0.22
+        + Math.sin(p * 11.3 + o * 1.3) * 0.18;
+      var baseAlpha = (scint * 0.3 + 0.65) * s.maxAlpha;
+      var burstAlpha = s.burst * (1 - s.maxAlpha * 0.3);
+      var alpha = Math.min(1, (baseAlpha + burstAlpha) * altDim);
+      if (alpha < 0.02) return;
+
+      var r = s.color[0], g = s.color[1], b = s.color[2];
+      var sizeBoost = 1 + s.burst * 1.8;
+
+      /* Glow */
+      var glowR = s.radius * 5 * sizeBoost;
+      var gr = ctx.createRadialGradient(sx, sy, 0, sx, sy, glowR);
+      gr.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + (alpha * 0.2) + ')');
+      gr.addColorStop(0.5, 'rgba(' + r + ',' + g + ',' + b + ',' + (alpha * 0.04) + ')');
+      gr.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
+      ctx.fillStyle = gr;
+      ctx.beginPath(); ctx.arc(sx, sy, glowR, 0, Math.PI * 2); ctx.fill();
+
+      /* Sparkle crosshair */
+      if (s.radius > 1 || s.burst > 0.2) {
+        var sparkleAlpha = s.burst > 0.2 ? alpha * 0.5 : alpha * 0.35;
+        var len = s.radius * (3.5 + s.burst * 6) * alpha;
+        ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + sparkleAlpha + ')';
+        ctx.lineWidth = 0.4 + s.burst * 0.8;
+        ctx.beginPath();
+        ctx.moveTo(sx - len, sy); ctx.lineTo(sx + len, sy);
+        ctx.moveTo(sx, sy - len); ctx.lineTo(sx, sy + len);
+        ctx.stroke();
+        /* Diagonal sparkle */
+        if (s.burst > 0.35) {
+          var dLen = len * 0.6;
+          ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + (s.burst * 0.4) + ')';
+          ctx.lineWidth = 0.3;
+          ctx.beginPath();
+          ctx.moveTo(sx - dLen, sy - dLen); ctx.lineTo(sx + dLen, sy + dLen);
+          ctx.moveTo(sx + dLen, sy - dLen); ctx.lineTo(sx - dLen, sy + dLen);
+          ctx.stroke();
+        }
+      }
+
+      /* Core */
+      var coreR = s.radius * (0.6 + s.burst * 0.6);
+      ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+      ctx.beginPath(); ctx.arc(sx, sy, coreR, 0, Math.PI * 2); ctx.fill();
+    }
+
+    /* ── Draw Moon ── */
+    function drawMoon(mx, my) {
+      if (!moonData) return;
+      var mr = 12;
+      var glowR = mr * 5;
+      var glow = ctx.createRadialGradient(mx, my, mr * 0.8, mx, my, glowR);
+      glow.addColorStop(0, 'rgba(255,248,230,0.10)');
+      glow.addColorStop(0.4, 'rgba(255,248,230,0.03)');
+      glow.addColorStop(1, 'rgba(255,248,230,0)');
+      ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(mx, my, glowR, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(35,38,48,0.85)'; ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2); ctx.fill();
+      if (moonData.phase < 0.01) return;
+      ctx.save();
+      ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2); ctx.clip();
+      var k = moonData.phase;
+      var sweep = Math.abs(2 * k - 1) * mr;
+      var isGibbous = k > 0.5;
+      ctx.fillStyle = 'rgba(255,252,240,0.92)';
+      ctx.beginPath();
+      if (moonData.isWaxing) {
+        ctx.arc(mx, my, mr, -Math.PI / 2, Math.PI / 2, false);
+        ctx.ellipse(mx, my, sweep, mr, 0, Math.PI / 2, -Math.PI / 2, !isGibbous);
+      } else {
+        ctx.arc(mx, my, mr, Math.PI / 2, -Math.PI / 2, false);
+        ctx.ellipse(mx, my, sweep, mr, 0, -Math.PI / 2, Math.PI / 2, !isGibbous);
+      }
+      ctx.closePath(); ctx.fill();
+      ctx.globalAlpha = 0.10;
+      ctx.fillStyle = 'rgba(80,80,90,1)';
+      var craters = [[-0.2, -0.3, 0.15], [0.15, 0.25, 0.12], [-0.1, 0.4, 0.1], [0.3, -0.1, 0.08]];
+      for (var ci = 0; ci < craters.length; ci++) {
+        ctx.beginPath(); ctx.arc(mx + craters[ci][0] * mr, my + craters[ci][1] * mr, craters[ci][2] * mr, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = fadeIn;
+      ctx.restore();
+    }
+
+    /* ── Draw shooting star ── */
+    function drawShootingStar(ss, dt) {
+      ss.life += dt; ss.x += ss.vx * dt; ss.y += ss.vy * dt;
+      if (ss.life >= ss.maxLife) { ss.active = false; return; }
+      var progress = ss.life / ss.maxLife;
+      var fade = progress < 0.15 ? progress / 0.15 : progress > 0.7 ? (1 - progress) / 0.3 : 1;
+      var alpha = fade * ss.brightness;
+      var angle = Math.atan2(ss.vy, ss.vx);
+      var tailX = ss.x - Math.cos(angle) * ss.tailLen * fade;
+      var tailY = ss.y - Math.sin(angle) * ss.tailLen * fade;
+      var tg = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
+      tg.addColorStop(0, 'rgba(255,255,255,0)');
+      tg.addColorStop(0.7, 'rgba(255,255,255,' + (alpha * 0.3) + ')');
+      tg.addColorStop(1, 'rgba(255,255,255,' + (alpha * 0.8) + ')');
+      ctx.strokeStyle = tg; ctx.lineWidth = 1.0; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(tailX, tailY); ctx.lineTo(ss.x, ss.y); ctx.stroke();
+      var hg = ctx.createRadialGradient(ss.x, ss.y, 0, ss.x, ss.y, 3.5);
+      hg.addColorStop(0, 'rgba(255,255,255,' + (alpha * 0.9) + ')');
+      hg.addColorStop(0.5, 'rgba(255,255,255,' + (alpha * 0.25) + ')');
+      hg.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(ss.x, ss.y, 3.5, 0, Math.PI * 2); ctx.fill();
+    }
+
+    /* ── Draw airplane ── */
+    function drawAirplane(ap, dt) {
+      ap.life += dt;
+      var progress = ap.life / ap.maxLife;
+      var depthCurve = Math.sin(progress * Math.PI);
+      var depthScale = 1.0 + ap.nearFactor * depthCurve;
+      ap.vx = ap.baseVx * depthScale;
+      ap.vy = ap.baseVy * depthScale;
+      ap.x += ap.vx * dt; ap.y += ap.vy * dt;
+      if (ap.life >= ap.maxLife) { ap.active = false; return; }
+      ap.blinkPhase += ap.blinkSpeed * dt;
+      ap.strobePhase = (ap.strobePhase || 0) + (ap.strobeSpeed || 0) * dt;
+      ap.rotorPhase = (ap.rotorPhase || 0) + 0.3 * dt;
+
+      var t = ap.type || 0;
+      var s = (ap.size || 1) * depthScale;
+      var dir = Math.atan2(ap.vy, ap.vx);
+      var perp = dir + Math.PI / 2;
+      var sh = AC_SHAPES[t] || AC_SHAPES[0];
+      var isHeli = t === 4;
+      var altFactor = 0.35 + 0.5 * Math.min(1, ((ap.size || 1) - 0.4) / 1.1);
+      var lightAlpha = Math.min(1, altFactor * (0.6 + 0.4 * depthCurve));
+
+      var wingR = isHeli ? 3 * s : sh[2] * s;
+      var tailDist = sh[1] * s;
+      var lx = ap.x + Math.cos(perp) * wingR, ly = ap.y + Math.sin(perp) * wingR;
+      var rx = ap.x - Math.cos(perp) * wingR, ry = ap.y - Math.sin(perp) * wingR;
+      var tailXp = ap.x - Math.cos(dir) * tailDist, tailYp = ap.y - Math.sin(dir) * tailDist;
+
+      var strobeOn = false;
+      if (ap.strobeSpeed > 0) {
+        var sp = ap.strobePhase % (Math.PI * 2);
+        strobeOn = sp > 5.8 && sp < 5.95;
+      }
+
+      /* Aircraft silhouette */
+      ctx.fillStyle = 'rgba(5,8,15,0.85)';
+      ctx.strokeStyle = 'rgba(5,8,15,0.85)';
+      ctx.lineWidth = Math.max(0.8, 1.0 * s);
+      ctx.lineCap = 'round';
+
+      if (isHeli) {
+        var bodyL = 4 * s, bodyW = 2 * s;
+        var tBX = ap.x - Math.cos(dir) * 6 * s, tBY = ap.y - Math.sin(dir) * 6 * s;
+        ctx.beginPath(); ctx.ellipse(ap.x, ap.y, bodyL, bodyW, dir, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(ap.x - Math.cos(dir) * bodyL, ap.y - Math.sin(dir) * bodyL); ctx.lineTo(tBX, tBY); ctx.stroke();
+        var trSpan = 1.5 * s;
+        ctx.beginPath(); ctx.moveTo(tBX + Math.cos(perp) * trSpan, tBY + Math.sin(perp) * trSpan); ctx.lineTo(tBX - Math.cos(perp) * trSpan, tBY - Math.sin(perp) * trSpan); ctx.stroke();
+        var rotorR = 7 * s;
+        ctx.strokeStyle = 'rgba(5,8,15,0.3)';
+        ctx.beginPath(); ctx.arc(ap.x, ap.y, rotorR, 0, Math.PI * 2); ctx.stroke();
+        var rAng = ap.rotorPhase;
+        ctx.beginPath(); ctx.moveTo(ap.x + Math.cos(rAng) * rotorR, ap.y + Math.sin(rAng) * rotorR); ctx.lineTo(ap.x - Math.cos(rAng) * rotorR, ap.y - Math.sin(rAng) * rotorR); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ap.x + Math.cos(rAng + Math.PI / 2) * rotorR, ap.y + Math.sin(rAng + Math.PI / 2) * rotorR); ctx.lineTo(ap.x - Math.cos(rAng + Math.PI / 2) * rotorR, ap.y - Math.sin(rAng + Math.PI / 2) * rotorR); ctx.stroke();
+      } else {
+        var fuseF = sh[0], fuseR = sh[1], wSpan = sh[2], wSweep = sh[3], wBack = sh[4], tSpan = sh[5];
+        var nX = ap.x + Math.cos(dir) * fuseF * s, nY = ap.y + Math.sin(dir) * fuseF * s;
+        var tX = ap.x - Math.cos(dir) * fuseR * s, tY = ap.y - Math.sin(dir) * fuseR * s;
+        ctx.beginPath(); ctx.moveTo(nX, nY); ctx.lineTo(tX, tY); ctx.stroke();
+        if (wSpan > 0) {
+          var wRX = ap.x - Math.cos(dir) * wBack * s, wRY = ap.y - Math.sin(dir) * wBack * s;
+          var wLTX = wRX + Math.cos(perp) * wSpan * s - Math.cos(dir) * wSweep * s;
+          var wLTY = wRY + Math.sin(perp) * wSpan * s - Math.sin(dir) * wSweep * s;
+          var wRTX = wRX - Math.cos(perp) * wSpan * s - Math.cos(dir) * wSweep * s;
+          var wRTY = wRY - Math.sin(perp) * wSpan * s - Math.sin(dir) * wSweep * s;
+          ctx.beginPath(); ctx.moveTo(wLTX, wLTY); ctx.lineTo(wRX, wRY); ctx.lineTo(wRTX, wRTY); ctx.closePath(); ctx.fill(); ctx.stroke();
+        }
+        if (tSpan > 0) {
+          var tsLX = tX + Math.cos(perp) * tSpan * s, tsLY = tY + Math.sin(perp) * tSpan * s;
+          var tsRX = tX - Math.cos(perp) * tSpan * s, tsRY = tY - Math.sin(perp) * tSpan * s;
+          ctx.beginPath(); ctx.moveTo(tsLX, tsLY); ctx.lineTo(tX, tY); ctx.lineTo(tsRX, tsRY); ctx.closePath(); ctx.fill(); ctx.stroke();
+        }
+        if (t === 3) {
+          ctx.fillStyle = 'rgba(5,8,15,0.3)';
+          var pDist = wSpan * 0.4 * s;
+          var wRX2 = ap.x - Math.cos(dir) * wBack * s, wRY2 = ap.y - Math.sin(dir) * wBack * s;
+          var signs = [1, -1];
+          for (var pi = 0; pi < 2; pi++) {
+            var ppX = wRX2 + Math.cos(perp) * pDist * signs[pi], ppY = wRY2 + Math.sin(perp) * pDist * signs[pi];
+            ctx.beginPath(); ctx.arc(ppX, ppY, 2 * s, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+      }
+
+      /* Light helper */
+      function drawLight(x, y, coreR, glowR, r, g, b, a) {
+        var grad = ctx.createRadialGradient(x, y, 0, x, y, glowR);
+        grad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')');
+        grad.addColorStop(0.15, 'rgba(' + r + ',' + g + ',' + b + ',' + (a * 0.7) + ')');
+        grad.addColorStop(0.4, 'rgba(' + r + ',' + g + ',' + b + ',' + (a * 0.25) + ')');
+        grad.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
+        ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(x, y, glowR, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = 'rgba(' + Math.min(255, r + 80) + ',' + Math.min(255, g + 80) + ',' + Math.min(255, b + 80) + ',' + a + ')';
+        ctx.beginPath(); ctx.arc(x, y, coreR, 0, Math.PI * 2); ctx.fill();
+      }
+
+      /* Navigation lights */
+      drawLight(lx, ly, Math.max(0.8, 1.0 * s), Math.max(3, 4 * s), 255, 30, 30, lightAlpha);
+      drawLight(rx, ry, Math.max(0.8, 1.0 * s), Math.max(3, 4 * s), 30, 255, 30, lightAlpha);
+      drawLight(tailXp, tailYp, Math.max(0.6, 0.7 * s), Math.max(2.5, 3 * s), 255, 255, 255, lightAlpha * 0.9);
+      /* Anti-collision beacon */
+      var beaconVal = Math.sin(ap.blinkPhase);
+      if (beaconVal > 0.5) {
+        var bAlpha = (beaconVal - 0.5) * 2 * lightAlpha;
+        drawLight(ap.x, ap.y, Math.max(0.8, 1.0 * s), Math.max(4, 5 * s), 255, 20, 20, bAlpha);
+      }
+      /* Strobe */
+      if (strobeOn) {
+        var stPts = isHeli
+          ? [[ap.x + Math.cos(perp) * 2 * s, ap.y + Math.sin(perp) * 2 * s], [ap.x - Math.cos(perp) * 2 * s, ap.y - Math.sin(perp) * 2 * s]]
+          : [[lx, ly], [rx, ry]];
+        for (var si = 0; si < stPts.length; si++) {
+          drawLight(stPts[si][0], stPts[si][1], Math.max(1.0, 1.2 * s), Math.max(5, 7 * s), 255, 255, 255, lightAlpha);
+        }
+      }
+    }
+
+    /* ── Draw satellite ── */
+    function drawSatellite(sat, dt) {
+      sat.life += dt; sat.x += sat.vx * dt; sat.y += sat.vy * dt;
+      if (sat.life >= sat.maxLife) { sat.active = false; return; }
+      var alpha = sat.brightness;
+      ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+      ctx.beginPath(); ctx.arc(sat.x, sat.y, 1.1, 0, Math.PI * 2); ctx.fill();
+      var sg = ctx.createRadialGradient(sat.x, sat.y, 0, sat.x, sat.y, 5);
+      sg.addColorStop(0, 'rgba(255,255,255,' + (alpha * 0.25) + ')');
+      sg.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(sat.x, sat.y, 5, 0, Math.PI * 2); ctx.fill();
+    }
+
+    /* ── Draw clouds ── */
+    function drawClouds(w, h, dt) {
+      for (var i = 0; i < clouds.length; i++) {
+        var c = clouds[i];
+        c.x += c.vx * dt;
+        if (c.vx > 0 && c.x > w + c.width) { clouds[i] = spawnCloud(w, h); clouds[i].x = -clouds[i].width; continue; }
+        if (c.vx < 0 && c.x < -c.width) { clouds[i] = spawnCloud(w, h); clouds[i].x = w + clouds[i].width * 0.1; continue; }
+        for (var j = 0; j < 5; j++) {
+          var frac = j / 4;
+          var bx = c.x + frac * c.width;
+          var by = c.y + Math.sin(c.seed + frac * 5) * c.height * 0.5;
+          var bw = c.width * 0.3;
+          var bh = c.height * (0.7 + 0.3 * Math.sin(c.seed + j));
+          var g = ctx.createRadialGradient(bx, by, 0, bx, by, bw);
+          g.addColorStop(0, 'rgba(180,190,210,' + c.opacity + ')');
+          g.addColorStop(0.5, 'rgba(180,190,210,' + (c.opacity * 0.4) + ')');
+          g.addColorStop(1, 'rgba(180,190,210,0)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(bx, by, bw, bh, 0, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+    }
+
+    /* ── Save state for portfolio continuity ── */
+    function saveState() {
+      try {
+        localStorage.setItem('nightsky-state', JSON.stringify({
+          airplanes: airplanes.filter(function(a) { return a.active; }).map(function(a) {
+            return { x: a.x, y: a.y, vx: a.vx, vy: a.vy, baseVx: a.baseVx, baseVy: a.baseVy, blinkPhase: a.blinkPhase, blinkSpeed: a.blinkSpeed, strobePhase: a.strobePhase, strobeSpeed: a.strobeSpeed, life: a.life, maxLife: a.maxLife, size: a.size, type: a.type, rotorPhase: a.rotorPhase, nearFactor: a.nearFactor };
+          }),
+          satellites: satellites.filter(function(s) { return s.active; }).map(function(s) {
+            return { x: s.x, y: s.y, vx: s.vx, vy: s.vy, brightness: s.brightness, life: s.life, maxLife: s.maxLife };
+          }),
+          timers: timers,
+          frameCount: frameCount,
+          firstEffectDone: firstEffectDone,
+          timestamp: Date.now()
+        }));
+      } catch (e) { /* ignore */ }
+    }
+
+    /* ── Kickoff ── */
+    resize();
+    init();
+    var resizeTimer;
+    window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 200); });
+
+    /* ══════════════════════════════════════════════════════════════
+     *  ANIMATE — Scientifically correct layer order:
+     *  1. Milky Way blobs (deep space, ~26,000 ly)
+     *  2. MW micro-stars (galactic, ~1,000+ ly)
+     *  3. Stars (various distances, projected via RA/Dec)
+     *  4. Moon (384,000 km)
+     *  5. Airplanes (~10 km, troposphere)
+     *  6. Shooting stars / Meteors (~80-100 km, mesosphere)
+     *  7. Clouds (~2-10 km, troposphere)
+     *  8. Satellites (~400-35,000 km, orbit)
+     * ══════════════════════════════════════════════════════════════ */
+    function animate(now) {
+      var dt = lastTime ? Math.min((now - lastTime) / 16.667, 3) : 1;
+      lastTime = now;
+      var w = window.innerWidth, vh = window.innerHeight;
+      ctx.clearRect(0, 0, w, vh);
+
+      if (!isDark()) { requestAnimationFrame(animate); return; }
+
+      fadeIn = Math.min(1, fadeIn + 0.014);
+      ctx.globalAlpha = fadeIn;
+
+      var scrollY = window.scrollY;
+      var scrollMax = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var scrollFrac = Math.min(1, scrollY / scrollMax);
+
+      /* Shared projection params */
+      var lstDeg = ((GC_RA + scrollFrac * LST_SCROLL_RANGE) % 360 + 360) % 360;
+      var cx = w / 2, cy = vh / 2;
+      var scale = Math.max(w, vh) * 0.32;
+
+      /* Sky shift: move pixel-based objects when scroll changes LST */
+      var scrollDelta = scrollFrac - prevScrollFrac;
+      prevScrollFrac = scrollFrac;
+      if (Math.abs(scrollDelta) > 0.0001) {
+        var dLST = scrollDelta * LST_SCROLL_RANGE * DEG;
+        var dx = -dLST * scale;
+        var dy = dLST * scale * 0.3;
+        for (var ai = 0; ai < airplanes.length; ai++) { airplanes[ai].x += dx; airplanes[ai].y += dy; }
+        for (var si = 0; si < satellites.length; si++) { satellites[si].x += dx; satellites[si].y += dy; }
+        for (var ssi = 0; ssi < shootingStars.length; ssi++) { shootingStars[ssi].x += dx; shootingStars[ssi].y += dy; }
+      }
+
+      /* ── 1. Milky Way blobs ── */
+      for (var i = 0; i < mwBlobs.length; i++) {
+        var bl = mwBlobs[i];
+        var aa = eqToAltAz(bl.ra, bl.dec, lstDeg);
+        if (aa.alt < -5 * DEG) continue;
+        var p = projectToScreen(aa.alt, aa.az, cx, cy, scale);
+        if (!p.visible) continue;
+        if (p.sx < -200 || p.sx > w + 200 || p.sy < -200 || p.sy > vh + 200) continue;
+        var aa2 = eqToAltAz(bl.ra2, bl.dec2, lstDeg);
+        var p2 = projectToScreen(aa2.alt, aa2.az, cx, cy, scale);
+        var tilt = p2.visible ? Math.atan2(p2.sy - p.sy, p2.sx - p.sx) : 0;
+        var rr = (bl.angSize / 90) * scale;
+        var cr = bl.color[0], cg = bl.color[1], cb = bl.color[2];
+        var a = bl.alpha * (aa.alt > 0 ? Math.min(1, aa.alt / (8 * DEG)) : 0.3);
+        if (a < 0.001) continue;
+        var gr = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, rr);
+        gr.addColorStop(0, 'rgba(' + cr + ',' + cg + ',' + cb + ',' + a + ')');
+        gr.addColorStop(0.4, 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (a * 0.55) + ')');
+        gr.addColorStop(0.7, 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (a * 0.18) + ')');
+        gr.addColorStop(1, 'rgba(' + cr + ',' + cg + ',' + cb + ',0)');
+        ctx.fillStyle = gr;
+        ctx.beginPath(); ctx.ellipse(p.sx, p.sy, rr, rr * bl.aspect, tilt, 0, Math.PI * 2); ctx.fill();
+      }
+
+      /* ── 2. MW micro-stars ── */
+      for (var i = 0; i < mwMicroStars.length; i++) {
+        var ms = mwMicroStars[i];
+        var aa = eqToAltAz(ms.ra, ms.dec, lstDeg);
+        if (aa.alt < 0) continue;
+        var p = projectToScreen(aa.alt, aa.az, cx, cy, scale);
+        if (!p.visible) continue;
+        if (p.sx < -5 || p.sx > w + 5 || p.sy < -5 || p.sy > vh + 5) continue;
+        var dim = Math.min(1, aa.alt / (10 * DEG));
+        ctx.fillStyle = 'rgba(' + ms.color[0] + ',' + ms.color[1] + ',' + ms.color[2] + ',' + (ms.alpha * dim) + ')';
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, ms.radius, 0, Math.PI * 2); ctx.fill();
+      }
+
+      /* ── 3. Stars ── */
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var aa = eqToAltAz(s.ra, s.dec, lstDeg);
+        if (aa.alt < -2 * DEG) continue;
+        var p = projectToScreen(aa.alt, aa.az, cx, cy, scale);
+        if (!p.visible) continue;
+        if (p.sx < -30 || p.sx > w + 30 || p.sy < -30 || p.sy > vh + 30) continue;
+        var altDim = aa.alt > 0 ? Math.min(1, aa.alt / (15 * DEG)) * 0.3 + 0.7 : 0.4;
+        drawStar(s, p.sx, p.sy, altDim, dt);
+      }
+
+      /* ── 4. Moon ── */
+      if (moonData) {
+        var mAA = eqToAltAz(moonData.ra, moonData.dec, lstDeg);
+        if (mAA.alt > -2 * DEG) {
+          var mp = projectToScreen(mAA.alt, mAA.az, cx, cy, scale);
+          if (mp.visible && mp.sx > -60 && mp.sx < w + 60 && mp.sy > -60 && mp.sy < vh + 60) {
+            drawMoon(mp.sx, mp.sy);
+          }
+        }
+      }
+
+      /* ── Spawn management ── */
+      frameCount++;
+      if (frameCount % 60 === 0) saveState();
+
+      if (!firstEffectDone) {
+        if (frameCount >= 180) {
+          firstEffectDone = true;
+          shootingStars.push({
+            x: rand(w * 0.2, w * 0.6), y: rand(vh * 0.05, vh * 0.25),
+            vx: Math.cos(0.5) * 7.92, vy: Math.sin(0.5) * 7.92, speed: 7.92,
+            life: 0, maxLife: 80, tailLen: 90, brightness: 1, active: true
+          });
+        }
+      } else {
+        timers.shootingStar += dt;
+        if (timers.shootingStar > rand(600, 1800)) {
+          timers.shootingStar = 0;
+          shootingStars.push(spawnShootingStar(w, vh));
+        }
+        timers.airplane += dt;
+        if (timers.airplane > rand(300, 700) && airplanes.length < 2) {
+          timers.airplane = 0;
+          var existing = airplanes.filter(function(a) { return a.active; }).map(function(a) { return a.type; });
+          var ap = spawnAirplane(w, vh);
+          for (var tries = 0; tries < 5 && existing.indexOf(ap.type) !== -1; tries++) { ap = spawnAirplane(w, vh); }
+          airplanes.push(ap);
+        }
+        timers.satellite += dt;
+        if (timers.satellite > rand(360, 840) && satellites.length === 0) {
+          timers.satellite = 0;
+          satellites.push(spawnSatellite(w, vh));
+        }
+      }
+
+      /* ── 5. Airplanes ── */
+      for (var i = 0; i < airplanes.length; i++) drawAirplane(airplanes[i], dt);
+      airplanes = airplanes.filter(function(a) { return a.active; });
+
+      /* ── 6. Shooting stars ── */
+      for (var i = 0; i < shootingStars.length; i++) drawShootingStar(shootingStars[i], dt);
+      shootingStars = shootingStars.filter(function(s) { return s.active; });
+
+      /* ── 7. Clouds ── */
+      drawClouds(w, vh, dt);
+
+      /* ── 8. Satellites ── */
+      for (var i = 0; i < satellites.length; i++) drawSatellite(satellites[i], dt);
+      satellites = satellites.filter(function(s) { return s.active; });
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
   })();
 
   // ── Back to portfolio: close tab if opened from portfolio, else navigate ──

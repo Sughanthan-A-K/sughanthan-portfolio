@@ -14,7 +14,6 @@ export default function CustomCursor() {
     const glow = glowRef.current;
     if (!dot || !ring || !glow) return;
 
-    // Hide on touch devices
     const isTouchDevice =
       "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) {
@@ -31,7 +30,6 @@ export default function CustomCursor() {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      // Dot follows instantly
       gsap.to(dot, {
         x: mouseX,
         y: mouseY,
@@ -39,7 +37,6 @@ export default function CustomCursor() {
         ease: "power2.out",
       });
 
-      // Ring follows with lag
       gsap.to(ring, {
         x: mouseX,
         y: mouseY,
@@ -47,7 +44,6 @@ export default function CustomCursor() {
         ease: "power3.out",
       });
 
-      // Glow follows with more lag
       gsap.to(glow, {
         x: mouseX,
         y: mouseY,
@@ -62,13 +58,13 @@ export default function CustomCursor() {
     const onEnterInteractive = () => {
       gsap.to(ring, {
         scale: 1.8,
-        borderColor: "rgba(108, 99, 255, 0.6)",
+        borderColor: "rgba(var(--color-primary-rgb), 0.6)",
         duration: 0.3,
         ease: "power2.out",
       });
       gsap.to(dot, {
         scale: 0.5,
-        backgroundColor: "#6c63ff",
+        backgroundColor: "var(--color-primary)",
         duration: 0.3,
       });
       gsap.to(glow, {
@@ -81,13 +77,13 @@ export default function CustomCursor() {
     const onLeaveInteractive = () => {
       gsap.to(ring, {
         scale: 1,
-        borderColor: "rgba(108, 99, 255, 0.3)",
+        borderColor: "rgba(var(--color-primary-rgb), 0.3)",
         duration: 0.3,
         ease: "power2.out",
       });
       gsap.to(dot, {
         scale: 1,
-        backgroundColor: "#6c63ff",
+        backgroundColor: "var(--color-primary)",
         duration: 0.3,
       });
       gsap.to(glow, {
@@ -111,7 +107,6 @@ export default function CustomCursor() {
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
 
-    // Attach hover listeners to every interactive element
     const attachListeners = () => {
       document.querySelectorAll(interactiveSelectors).forEach((el) => {
         el.addEventListener("mouseenter", onEnterInteractive);
@@ -120,7 +115,6 @@ export default function CustomCursor() {
     };
 
     attachListeners();
-    // Re-attach on DOM changes (e.g. route transitions)
     const observer = new MutationObserver(attachListeners);
     observer.observe(document.body, { childList: true, subtree: true });
 
@@ -138,22 +132,19 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Glow — large ambient light */}
       <div
         ref={glowRef}
         className="custom-cursor-glow pointer-events-none fixed top-0 left-0 z-[9999] -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full opacity-[0.08]"
         style={{
           background:
-            "radial-gradient(circle, rgba(108,99,255,0.5) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(var(--color-primary-rgb),0.5) 0%, transparent 70%)",
         }}
       />
-      {/* Ring — outer circle */}
       <div
         ref={ringRef}
         className="custom-cursor-ring pointer-events-none fixed top-0 left-0 z-[9999] -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border-[1.5px] border-primary/30"
         style={{ mixBlendMode: "difference" }}
       />
-      {/* Dot — inner circle */}
       <div
         ref={dotRef}
         className="custom-cursor-dot pointer-events-none fixed top-0 left-0 z-[9999] -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"

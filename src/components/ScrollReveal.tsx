@@ -19,15 +19,12 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    // Set initial state: blurred, shifted down, invisible
     gsap.set(el, {
       opacity: 0,
       y: 80,
       filter: "blur(18px)",
     });
 
-    // ENTER from bottom: blur → clear, slide up, fade in
-    // Also plays in reverse when scrolling back down past the trigger
     const enterTl = gsap.timeline({
       scrollTrigger: {
         trigger: el,
@@ -43,8 +40,6 @@ export default function ScrollReveal({
       { opacity: 1, y: 0, filter: "blur(0px)", ease: "power2.out" }
     );
 
-    // EXIT toward top: clear → blur when section scrolls past center
-    // Also plays in reverse when scrolling back into view from above
     const exitTl = gsap.timeline({
       scrollTrigger: {
         trigger: el,

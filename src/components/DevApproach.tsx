@@ -100,19 +100,19 @@ export default function DevApproach() {
     <section
       id="approach"
       ref={sectionRef}
-      className="section-padding relative"
+      className="section-padding relative overflow-hidden"
     >
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 -right-48 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
         <div className="approach-title mb-16">
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// DEVELOPMENT APPROACH"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: "var(--text-primary)" }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: "var(--text-primary)" }}>
             How I <span className="gradient-text">Build</span>
           </h2>
-          <p className="mt-4 max-w-2xl text-lg" style={{ color: "var(--text-muted)" }}>
+          <p className="mt-4 max-w-2xl text-base sm:text-lg" style={{ color: "var(--text-muted)" }}>
             My development philosophy combines modern best practices with
             tools that maximize productivity and code quality.
           </p>

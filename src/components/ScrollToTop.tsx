@@ -59,14 +59,35 @@ export default function ScrollToTop() {
     };
     document.addEventListener("click", handleNavClick);
 
+    const heroEl = document.getElementById("hero");
+    let inHero = true;
+
+    if (heroEl) {
+      ScrollTrigger.create({
+        trigger: heroEl,
+        start: "top top",
+        end: "bottom top",
+        onEnter: () => { inHero = true; hideInstant(); },
+        onEnterBack: () => { inHero = true; hideInstant(); },
+        onLeave: () => { inHero = false; },
+        onLeaveBack: () => { inHero = false; },
+      });
+    }
+
+    const aboutTitle = aboutEl.querySelector(".about-title") || aboutEl;
+
     ScrollTrigger.create({
-      trigger: aboutEl,
-      start: "top 20%",
-      end: "top -0%",
-      onEnter: showArrow,
+      trigger: aboutTitle,
+      start: "top 85%",
+      end: "top 80px",
+      onEnter: () => {
+        if (!inHero) showArrow();
+      },
       onLeave: hideArrow,
-      onEnterBack: showArrow,
-      onLeaveBack: hideArrow,
+      onEnterBack: () => {
+        if (!inHero) showArrow();
+      },
+      onLeaveBack: hideInstant,
     });
 
     return () => {
@@ -74,7 +95,7 @@ export default function ScrollToTop() {
       blink.kill();
       bob.kill();
       ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === aboutEl) st.kill();
+        if (st.trigger === aboutEl || st.trigger === heroEl || st.trigger === aboutTitle) st.kill();
       });
     };
   }, []);
@@ -100,23 +121,17 @@ export default function ScrollToTop() {
         className="pointer-events-auto cursor-pointer flex flex-col items-center gap-0.5"
         aria-label="Back to top"
       >
-        {/* Glowing up arrow */}
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <path
-            d="M14 22V6M14 6L7 13M14 6L21 13"
-            stroke="#6C63FF"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        {/* Glow dot below arrow */}
-        <div
-          className="w-1.5 h-1.5 rounded-full bg-primary"
-          style={{
-            boxShadow: "0 0 6px rgba(108,99,255,0.6), 0 0 12px rgba(108,99,255,0.3)",
-          }}
-        />
+        <div className="flex flex-col items-center -space-y-2">
+          <svg className="w-5 h-5" style={{ color: 'var(--color-primary)', opacity: 0.3 }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+          <svg className="w-5 h-5" style={{ color: 'var(--color-primary)', opacity: 0.6 }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+          <svg className="w-5 h-5" style={{ color: 'var(--color-accent)', opacity: 0.9 }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+        </div>
       </div>
     </div>
   );

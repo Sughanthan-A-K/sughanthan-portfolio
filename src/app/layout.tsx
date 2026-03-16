@@ -4,7 +4,8 @@ import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
-import ScrollToTop from "@/components/ScrollToTop";
+import NightSky from "@/components/NightSky";
+import OfflineGuard from "@/components/OfflineGuard";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,14 +33,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      </head>
       <body
         className={`${inter.variable} ${jetbrains.variable} font-sans antialiased`}
       >
         <ThemeProvider>
+          <OfflineGuard />
           <SmoothScroll>
             <CustomCursor />
-            <ScrollToTop />
-            {children}
+            <NightSky />
+            <div className="relative z-[1]">
+              {children}
+            </div>
           </SmoothScroll>
         </ThemeProvider>
       </body>

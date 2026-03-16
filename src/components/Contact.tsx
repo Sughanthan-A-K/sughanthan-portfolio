@@ -117,7 +117,6 @@ export default function Contact() {
         setTimeout(() => setSubmitted(false), 4000);
       }
     } catch {
-      // silent fail
     } finally {
       setSending(false);
     }
@@ -136,7 +135,7 @@ export default function Contact() {
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// CONTACT"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
             Get In <span className="gradient-text">Touch</span>
           </h2>
           <p className="mt-4 max-w-md mx-auto" style={{ color: 'var(--text-dimmed)' }}>
@@ -145,8 +144,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10">
-          {/* Contact info cards */}
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
           <div className="contact-grid space-y-4">
             {contactInfo.map((info) => {
               const Wrapper = info.href ? "a" : "div";
@@ -188,10 +186,9 @@ export default function Contact() {
             })}
           </div>
 
-          {/* Contact form */}
           <form
             onSubmit={handleSubmit}
-            className="contact-form glass rounded-2xl p-8 space-y-5"
+            className="contact-form glass rounded-2xl p-5 sm:p-6 md:p-8 space-y-5"
           >
             <div>
               <label className="text-sm mb-1.5 block" style={{ color: 'var(--text-muted)' }}>

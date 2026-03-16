@@ -13,110 +13,107 @@ export default function Hero() {
   const roleRef = useRef<HTMLParagraphElement>(null);
   const techRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const cleanupRef: Record<string, EventListener | (() => void)> = {};
     const ctx = gsap.context(() => {
-      const heroEls = [
-        ".hero-badge",
-        titleRef.current,
-        roleRef.current,
-        subtitleRef.current,
-        techRef.current,
-        ctaRef.current,
-      ];
-
-      /* ── 1. Entrance timeline (plays once on load) ── */
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       tl.fromTo(
-        ".hero-badge",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 0.8 }
-      )
-        .fromTo(
           titleRef.current,
           { y: 80, opacity: 0, skewY: 3 },
-          { y: 0, opacity: 1, skewY: 0, duration: 1 },
-          "-=0.4"
+          { y: 0, opacity: 1, skewY: 0, duration: 1.4, delay: 0.5 }
         )
         .fromTo(
           roleRef.current,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 },
+          { y: 0, opacity: 1, duration: 1.1 },
           "-=0.5"
         )
         .fromTo(
           subtitleRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 },
-          "-=0.4"
+          { y: 0, opacity: 1, duration: 1.1 },
+          "-=0.5"
         )
         .fromTo(
           techRef.current,
           { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          "-=0.3"
+          { y: 0, opacity: 1, duration: 0.9 },
+          "-=0.5"
+        )
+        .fromTo(
+          ".hero-badge",
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.1 },
+          "-=0.4"
         )
         .fromTo(
           ctaRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 },
-          "-=0.3"
+          { y: 0, opacity: 1, duration: 1.1 },
+          "<"
         );
 
-      /* ── 2. After entrance finishes, set up 3D scroll-driven hide/show ── */
-      tl.eventCallback("onComplete", () => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: "70% top",
-          onEnter: () => {
-            gsap.to(heroEls, {
-              y: -60,
-              opacity: 0,
-              rotateX: -15,
-              scale: 0.9,
-              filter: "blur(8px)",
-              transformOrigin: "center top",
-              duration: 0.6,
-              stagger: 0.04,
-              ease: "power2.in",
-              overwrite: true,
-            });
-          },
-          onLeaveBack: () => {
-            gsap.fromTo(
-              heroEls,
-              {
-                y: 80,
-                opacity: 0,
-                rotateX: 25,
-                scale: 0.85,
-                filter: "blur(10px)",
-                transformOrigin: "center bottom",
-              },
-              {
-                y: 0,
-                opacity: 1,
-                rotateX: 0,
-                scale: 1,
-                skewY: 0,
-                filter: "blur(0px)",
-                duration: 0.7,
-                delay: 0.35,
-                stagger: 0.05,
-                ease: "back.out(1.4)",
-                overwrite: true,
-              }
-            );
-          },
-        });
+      
+      gsap.to(scrollIndicatorRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: 5,
+        ease: "power2.out",
+        onComplete: () => {
+          window.dispatchEvent(new CustomEvent("hero-ready"));
+          chevronsVisible = true;
+        },
       });
 
-      // Floating orbs animation
+      let chevronsVisible = false;
+      let chevronTimer: ReturnType<typeof setTimeout> | null = null;
+
+      const hideChevrons = () => {
+        if (chevronTimer) { clearTimeout(chevronTimer); chevronTimer = null; }
+        if (!chevronsVisible) return;
+        chevronsVisible = false;
+        gsap.to(scrollIndicatorRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
+      };
+
+      const showChevronsDelayed = () => {
+        if (chevronTimer) clearTimeout(chevronTimer);
+        chevronTimer = setTimeout(() => {
+          chevronsVisible = true;
+          gsap.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.6, ease: "power2.out" });
+        }, 3000);
+      };
+
+      const onScrollInput = () => {
+        if (chevronsVisible) hideChevrons();
+      };
+      window.addEventListener("wheel", onScrollInput);
+      window.addEventListener("touchmove", onScrollInput);
+
+      let wasInHero = true;
+      const onScroll = () => {
+        const atHero = window.scrollY < 10;
+        if (atHero && !wasInHero) {
+          showChevronsDelayed();
+        } else if (!atHero && wasInHero && chevronsVisible) {
+          hideChevrons();
+        }
+        wasInHero = atHero;
+      };
+      window.addEventListener("scroll", onScroll);
+
+      cleanupRef.wheel = onScrollInput;
+      cleanupRef.touch = onScrollInput;
+      cleanupRef.scroll = onScroll;
+      cleanupRef.chevronTimer = () => { if (chevronTimer) clearTimeout(chevronTimer); };
+
       gsap.to(".orb-1", {
         y: -30,
         x: 20,
-        duration: 4,
+        duration: 6,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
@@ -124,7 +121,7 @@ export default function Hero() {
       gsap.to(".orb-2", {
         y: 25,
         x: -15,
-        duration: 5,
+        duration: 7.5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
@@ -132,29 +129,35 @@ export default function Hero() {
       gsap.to(".orb-3", {
         y: -20,
         x: -25,
-        duration: 6,
+        duration: 9,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      if (cleanupRef.wheel) window.removeEventListener("wheel", cleanupRef.wheel as EventListener);
+      if (cleanupRef.touch) window.removeEventListener("touchmove", cleanupRef.touch as EventListener);
+      if (cleanupRef.scroll) window.removeEventListener("scroll", cleanupRef.scroll as EventListener);
+      if (cleanupRef.chevronTimer) (cleanupRef.chevronTimer as () => void)();
+    };
   }, []);
 
   return (
     <section
+      id="hero"
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative flex items-center justify-center overflow-hidden"
+      style={{ minHeight: '100dvh' }}
     >
-      {/* Animated background orbs */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="orb-1 absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
-        <div className="orb-2 absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/10 blur-[100px]" />
-        <div className="orb-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[140px]" />
+        <div className="orb-1 absolute top-1/4 left-1/4 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] rounded-full bg-primary/10 blur-[60px] sm:blur-[120px]" />
+        <div className="orb-2 absolute bottom-1/4 right-1/4 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] rounded-full bg-accent/10 blur-[50px] sm:blur-[100px]" />
+        <div className="orb-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] rounded-full bg-purple-500/5 blur-[70px] sm:blur-[140px]" />
       </div>
 
-      {/* Grid pattern overlay */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -164,15 +167,15 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6" style={{ perspective: "1200px" }}>
-        <div className="hero-badge opacity-0 inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 text-sm" style={{ color: 'var(--text-muted)' }}>
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 sky-text" style={{ perspective: "1200px" }}>
+        <div className="hero-badge opacity-0 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-5 sm:mb-8 text-xs sm:text-sm" style={{ color: 'var(--text-muted)' }}>
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           Available for opportunities
         </div>
 
         <h1
           ref={titleRef}
-          className="opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+          className="opacity-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight mb-4 sm:mb-6"
         >
           <span style={{ color: 'var(--text-primary)' }}>Hi, I&apos;m </span>
           <span className="gradient-text">Sughanthan</span>
@@ -180,7 +183,7 @@ export default function Hero() {
 
         <p
           ref={roleRef}
-          className="opacity-0 text-xl sm:text-2xl md:text-3xl font-medium mb-4"
+          className="opacity-0 text-lg sm:text-2xl md:text-3xl font-medium mb-3 sm:mb-4"
           style={{ color: 'var(--text-secondary)' }}
         >
           Associate Software Engineer
@@ -188,7 +191,7 @@ export default function Hero() {
 
         <p
           ref={subtitleRef}
-          className="opacity-0 text-base sm:text-lg mb-6 max-w-2xl mx-auto leading-relaxed"
+          className="opacity-0 text-sm sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed dark:drop-shadow-[0_0_12px_rgba(0,0,0,0.8)]"
           style={{ color: 'var(--text-muted)' }}
         >
           I build scalable, high-performance web applications and modernize
@@ -197,14 +200,14 @@ export default function Hero() {
 
         <p
           ref={techRef}
-          className="opacity-0 text-sm font-mono mb-10"
-          style={{ color: 'var(--text-dimmed)' }}
+          className="opacity-0 text-xs sm:text-sm font-mono mb-6 sm:mb-10 dark:drop-shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+          style={{ color: 'var(--text-muted)' }}
         >
           React.js &nbsp;|&nbsp; Next.js &nbsp;|&nbsp; TypeScript
         </p>
 
-        <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-6">
-          <div className="flex flex-wrap items-center justify-center gap-4">
+        <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4 sm:gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">
             <a href="#projects" className="btn-primary">
               <svg
                 className="w-5 h-5"
@@ -237,13 +240,12 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Social icons */}
           <div className="flex items-center gap-5">
             <a
               href="https://github.com/sughanthan-a-k"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 hover:bg-primary/10 transition-all duration-300"
+              className="w-11 h-11 rounded-full glass flex items-center justify-center hover:scale-110 hover:bg-primary/10 transition-all duration-300"
               style={{ color: 'var(--text-muted)' }}
               aria-label="GitHub"
             >
@@ -255,7 +257,7 @@ export default function Hero() {
               href="https://linkedin.com/in/sughanthan-a-k"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 hover:bg-primary/10 transition-all duration-300"
+              className="w-11 h-11 rounded-full glass flex items-center justify-center hover:scale-110 hover:bg-primary/10 transition-all duration-300"
               style={{ color: 'var(--text-muted)' }}
               aria-label="LinkedIn"
             >
@@ -265,7 +267,7 @@ export default function Hero() {
             </a>
             <a
               href="mailto:a.k.sughanthan@gmail.com"
-              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 hover:bg-primary/10 transition-all duration-300"
+              className="w-11 h-11 rounded-full glass flex items-center justify-center hover:scale-110 hover:bg-primary/10 transition-all duration-300"
               style={{ color: 'var(--text-muted)' }}
               aria-label="Email"
             >
@@ -277,12 +279,18 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style={{ color: 'var(--text-dimmed)' }}>
-        <span className="text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-5 h-8 rounded-full border flex justify-center pt-2" style={{ borderColor: 'var(--border-card)' }}>
-          <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: 'var(--text-dimmed)' }} />
-        </div>
+      <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0">
+        <a href="#about" className="flex flex-col items-center -space-y-2 cursor-pointer">
+          <svg className="w-5 h-5 animate-bounce" style={{ color: 'var(--color-primary)', opacity: 0.3, animationDelay: '0s' }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+          <svg className="w-5 h-5 animate-bounce" style={{ color: 'var(--color-primary)', opacity: 0.6, animationDelay: '0.1s' }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+          <svg className="w-5 h-5 animate-bounce" style={{ color: 'var(--color-accent)', opacity: 0.9, animationDelay: '0.2s' }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
       </div>
     </section>
   );

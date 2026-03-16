@@ -155,17 +155,16 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="section-padding relative"
+      className="section-padding relative overflow-hidden"
     >
-      {/* Background accent */}
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute top-0 -right-48 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
         <div className="skills-title mb-16">
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// SKILLS"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
             My <span className="gradient-text">Tech Stack</span>
           </h2>
         </div>
@@ -174,13 +173,13 @@ export default function Skills() {
           {skillCategories.map((category) => (
             <div
               key={category.title}
-              className="skill-category glass glass-hover hover-glow rounded-2xl p-8"
+              className="skill-category glass glass-hover hover-glow rounded-2xl p-5 sm:p-6 md:p-8"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                   {category.icon}
                 </div>
-                <h3 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
+                <h3 className="text-lg sm:text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
                   {category.title}
                 </h3>
               </div>

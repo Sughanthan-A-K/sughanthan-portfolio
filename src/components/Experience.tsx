@@ -101,27 +101,25 @@ export default function Experience() {
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// EXPERIENCE"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
             Work <span className="gradient-text">Experience</span>
           </h2>
         </div>
 
         <div className="timeline relative">
-          {/* Vertical line */}
-          <div className="timeline-line absolute left-[18px] md:left-[22px] top-2 bottom-2 w-[2px] bg-gradient-to-b from-primary via-accent to-primary/20 origin-top" />
+          <div className="timeline-line absolute left-[15px] sm:left-[19px] md:left-[23px] top-2 bottom-2 w-[2px] bg-gradient-to-b from-primary via-accent to-primary/20 origin-top" />
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
-              <div key={index} className="timeline-item relative pl-14 md:pl-16">
-                {/* Dot */}
-                <div className="absolute left-2.5 md:left-3.5 top-2 w-4 h-4 rounded-full bg-dark border-2 border-primary z-10">
+              <div key={index} className="timeline-item relative pl-10 sm:pl-12 md:pl-16">
+                <div className="absolute left-[7px] sm:left-[11px] md:left-[15px] top-2 w-4 h-4 rounded-full bg-dark border-2 border-primary z-10">
                   <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
                 </div>
 
-                <div className="glass glass-hover hover-glow rounded-2xl p-8">
+                <div className="glass glass-hover hover-glow rounded-2xl p-5 sm:p-6 md:p-8">
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
                     <div>
-                      <h3 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
+                      <h3 className="text-lg sm:text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
                         {exp.role}
                       </h3>
                       <p className="text-primary font-medium">{exp.company}</p>

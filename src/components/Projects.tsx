@@ -117,12 +117,12 @@ export default function Projects() {
           <p className="text-primary font-mono text-sm mb-3 tracking-wider">
             {"// PROJECTS"}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>
             Featured <span className="gradient-text">Projects</span>
           </h2>
         </div>
 
-        <div className="projects-grid grid md:grid-cols-2 gap-8">
+        <div className="projects-grid grid md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -134,7 +134,7 @@ export default function Projects() {
               {/* Gradient top bar */}
               <div className="h-1 w-full bg-gradient-to-r from-primary to-accent" />
 
-              <div className="p-8">
+              <div className="p-5 sm:p-6 md:p-8">
                 <div className="flex items-start gap-4 mb-2">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                     <svg
