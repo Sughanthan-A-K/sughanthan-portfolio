@@ -385,14 +385,10 @@
       }
       ul.bullets { columns: 1 !important; }
       .back-link {
-        position: relative;
-        top: auto;
-        left: auto;
-        margin: 12px 16px;
-        display: inline-flex;
+        top: 12px;
+        left: 12px;
         padding: 8px 14px;
         font-size: 0.75rem;
-        z-index: 10;
       }
       .download-btn {
         bottom: 16px;
@@ -428,12 +424,18 @@
         gap: 1px;
       }
       .back-link {
-        margin: 10px 12px;
-        padding: 6px 12px;
-        font-size: 0.72rem;
-        gap: 4px;
+        top: 8px;
+        left: 8px;
+        padding: 8px;
+        font-size: 0;
+        gap: 0;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
       }
-      .back-link svg { width: 12px; height: 12px; }
+      .back-link svg { width: 16px; height: 16px; }
+      .back-link .back-text { display: none; }
       .download-btn {
         bottom: 12px;
         right: 12px;
@@ -542,7 +544,7 @@
 
 <a class="back-link" onclick="goBack()" title="Back to Portfolio">
   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-  Back to Portfolio
+  <span class="back-text">Back to Portfolio</span>
 </a>
 
 <button class="download-btn" onclick="downloadPDF()">
