@@ -218,7 +218,7 @@ function SettingsPanel({
       </div>
 
       {paletteOpen && (
-        <div className="absolute top-full right-0 mt-3 py-2 rounded-xl shadow-2xl shadow-black/30 w-[min(220px,calc(100vw-2rem))] max-h-[60vh] overflow-y-auto z-[999] border border-white/10 dark:border-white/[0.08]" style={{ background: 'rgba(var(--bg-rgb, 10,10,15), 0.85)', backdropFilter: 'blur(24px) saturate(180%)', WebkitBackdropFilter: 'blur(24px) saturate(180%)' }}>
+        <div className="absolute top-full right-0 mt-3 py-2 rounded-xl shadow-2xl shadow-black/30 w-[min(220px,calc(100vw-2rem))] max-h-[60vh] overflow-y-auto z-[999] border" style={{ background: 'var(--bg)', borderColor: 'var(--border-card)', backdropFilter: 'blur(24px) saturate(180%)', WebkitBackdropFilter: 'blur(24px) saturate(180%)' }}>
           <div className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-[var(--text-dimmed)] font-medium">
             Color Scheme
           </div>
@@ -230,9 +230,9 @@ function SettingsPanel({
                 setColorScheme(scheme.id);
                 closeAll();
               }}
-              className={`w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors duration-200 hover:bg-white/5 ${
+              className={`w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors duration-200 hover:bg-[var(--bg-card-hover)] ${
                 idx === colorIndex
-                  ? "bg-white/10 text-[var(--text-primary)]"
+                  ? "bg-[var(--bg-card-hover)] text-[var(--text-primary)]"
                   : colorScheme === scheme.id
                     ? "text-[var(--text-primary)]"
                     : "text-[var(--text-muted)]"
@@ -240,12 +240,12 @@ function SettingsPanel({
             >
               <span className="flex items-center gap-1 shrink-0">
                 <span
-                  className="w-4 h-4 rounded-full border border-white/10"
-                  style={{ background: scheme.primary }}
+                  className="w-4 h-4 rounded-full"
+                  style={{ background: scheme.primary, border: '1px solid var(--border-card)' }}
                 />
                 <span
-                  className="w-4 h-4 rounded-full border border-white/10"
-                  style={{ background: scheme.accent }}
+                  className="w-4 h-4 rounded-full"
+                  style={{ background: scheme.accent, border: '1px solid var(--border-card)' }}
                 />
               </span>
               <span className="truncate">{scheme.label}</span>
