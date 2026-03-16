@@ -385,10 +385,14 @@
       }
       ul.bullets { columns: 1 !important; }
       .back-link {
-        top: 12px;
-        left: 12px;
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 12px 16px;
+        display: inline-flex;
         padding: 8px 14px;
         font-size: 0.75rem;
+        z-index: 10;
       }
       .download-btn {
         bottom: 16px;
@@ -424,8 +428,7 @@
         gap: 1px;
       }
       .back-link {
-        top: 8px;
-        left: 8px;
+        margin: 10px 12px;
         padding: 6px 12px;
         font-size: 0.72rem;
         gap: 4px;
