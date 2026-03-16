@@ -91,7 +91,6 @@ export default function Hero() {
         if (chevronsVisible) hideChevrons();
       };
       window.addEventListener("wheel", onScrollInput);
-      window.addEventListener("touchmove", onScrollInput);
 
       let wasInHero = true;
       const onScroll = () => {
@@ -106,7 +105,6 @@ export default function Hero() {
       window.addEventListener("scroll", onScroll);
 
       cleanupRef.wheel = onScrollInput;
-      cleanupRef.touch = onScrollInput;
       cleanupRef.scroll = onScroll;
       cleanupRef.chevronTimer = () => { if (chevronTimer) clearTimeout(chevronTimer); };
 
@@ -139,7 +137,6 @@ export default function Hero() {
     return () => {
       ctx.revert();
       if (cleanupRef.wheel) window.removeEventListener("wheel", cleanupRef.wheel as EventListener);
-      if (cleanupRef.touch) window.removeEventListener("touchmove", cleanupRef.touch as EventListener);
       if (cleanupRef.scroll) window.removeEventListener("scroll", cleanupRef.scroll as EventListener);
       if (cleanupRef.chevronTimer) (cleanupRef.chevronTimer as () => void)();
     };
@@ -279,7 +276,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div ref={scrollIndicatorRef} className="absolute bottom-3 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0">
+      <div ref={scrollIndicatorRef} className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 z-10">
         <a href="#about" className="flex flex-col items-center -space-y-2 cursor-pointer p-4" role="button" aria-label="Scroll to About section">
           <svg className="w-5 h-5 animate-bounce" style={{ color: 'var(--color-primary)', opacity: 0.3, animationDelay: '0s' }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
