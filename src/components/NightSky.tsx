@@ -341,14 +341,11 @@ const AC_DEFS: number[][] = [
   [0.80, 1.10, 0.28, 0.48, 0.07, 0.05],
   [1.05, 1.50, 0.52, 0.82, 0.14, 0.07],
 ];
+/* True airspeed / physical size ratio per type (physics-based).
+   apparent_speed = TAS_RATIO * apparent_size, since both ∝ 1/altitude.
+   737≈460kts/38m, A321≈460/40, CRJ≈450/30, 747≈490/67, Heli≈130/18 */
+const TAS_RATIO = [0.50, 0.475, 0.62, 0.30, 0.30];
 const AC_WEIGHTS = [30, 30, 15, 15, 10];
-const AC_SHAPES: number[][] = [
-  [10, 11, 12, 3.5, 1.0, 4.5],
-  [7, 8, 9, 2.5, 0.5, 3.5],
-  [5, 6, 6, 2.0, 0.5, 2.5],
-  [6, 7, 11, 0.5, -0.5, 3.5],
-  [3, 6, 0, 0, 0, 1.5],
-];
 function spawnAirplane(w: number, viewH: number): Airplane {
   const roll = Math.random() * 100;
   let cum = 0, type = 0;
@@ -368,8 +365,8 @@ function spawnAirplane(w: number, viewH: number): Airplane {
   }
   const d = AC_DEFS[type];
   const size = rand(d[0], d[1]);
-  const sizeFrac = d[1] > d[0] ? (size - d[0]) / (d[1] - d[0]) : 0.5;
-  const speed = d[2] + sizeFrac * (d[3] - d[2]);
+  /* Physics: apparent speed ∝ apparent size (both ∝ 1/altitude) */
+  const speed = TAS_RATIO[type] * size;
   const maxDist = Math.sqrt(w * w + viewH * viewH) + 80;
   return {
     x, y, vx: cos * speed, vy: sin * speed,
@@ -691,19 +688,41 @@ export default function NightSky() {
       const s = ap.size * depthScale;
       const dir = Math.atan2(ap.vy, ap.vx);
       const perp = dir + Math.PI / 2;
-      const sh = AC_SHAPES[t] || AC_SHAPES[0];
       const isHeli = t === 4;
       const altFactor = 0.35 + 0.5 * Math.min(1, (ap.size - 0.4) / 1.1);
       const lightAlpha = Math.min(1, altFactor * (0.6 + 0.4 * depthCurve));
 
-      const wingR = isHeli ? 3 * s : sh[2] * s;
-      const tailDist = sh[1] * s;
-      const lx = ap.x + Math.cos(perp) * wingR;
-      const ly = ap.y + Math.sin(perp) * wingR;
-      const rx = ap.x - Math.cos(perp) * wingR;
-      const ry = ap.y - Math.sin(perp) * wingR;
-      const tailX = ap.x - Math.cos(dir) * tailDist;
-      const tailY = ap.y - Math.sin(dir) * tailDist;
+      /* Compute nav light positions based on aircraft type */
+      let lx: number, ly: number, rx: number, ry: number, tailX: number, tailY: number;
+      if (isHeli) {
+        const heliWing = 3 * s;
+        lx = ap.x + Math.cos(perp) * heliWing;
+        ly = ap.y + Math.sin(perp) * heliWing;
+        rx = ap.x - Math.cos(perp) * heliWing;
+        ry = ap.y - Math.sin(perp) * heliWing;
+        tailX = ap.x - Math.cos(dir) * 8 * s;
+        tailY = ap.y - Math.sin(dir) * 8 * s;
+      } else if (t === 3) {
+        /* Wide-body: wingtip at span=12, fuselage extends to -12 */
+        const tipSpan = 12 * s;
+        lx = ap.x + Math.cos(perp) * tipSpan + Math.cos(dir) * (-3) * s;
+        ly = ap.y + Math.sin(perp) * tipSpan + Math.sin(dir) * (-3) * s;
+        rx = ap.x - Math.cos(perp) * tipSpan - Math.cos(dir) * 3 * s;
+        ry = ap.y - Math.sin(perp) * tipSpan - Math.sin(dir) * 3 * s;
+        tailX = ap.x - Math.cos(dir) * 12 * s;
+        tailY = ap.y - Math.sin(dir) * 12 * s;
+      } else {
+        /* Standard jets */
+        const wSpanVal = t === 0 ? 11 : (t === 1 ? 9 : 6.5);
+        const wSweepVal = t === 0 ? 3 : (t === 1 ? 2.5 : 2);
+        const fuseLVal = t === 0 ? 16 : (t === 1 ? 13 : 10);
+        lx = ap.x + Math.cos(perp) * wSpanVal * s + Math.cos(dir) * (0.5 - wSweepVal) * s;
+        ly = ap.y + Math.sin(perp) * wSpanVal * s + Math.sin(dir) * (0.5 - wSweepVal) * s;
+        rx = ap.x - Math.cos(perp) * wSpanVal * s + Math.cos(dir) * (0.5 - wSweepVal) * s;
+        ry = ap.y - Math.sin(perp) * wSpanVal * s + Math.sin(dir) * (0.5 - wSweepVal) * s;
+        tailX = ap.x - Math.cos(dir) * fuseLVal * 0.5 * s;
+        tailY = ap.y - Math.sin(dir) * fuseLVal * 0.5 * s;
+      }
 
       let strobeOn = false;
       if (ap.strobeSpeed > 0) {
@@ -711,52 +730,293 @@ export default function NightSky() {
         strobeOn = sp > 5.8 && sp < 5.95;
       }
 
-      ctx.fillStyle = 'rgba(5,8,15,0.85)';
-      ctx.strokeStyle = 'rgba(5,8,15,0.85)';
-      ctx.lineWidth = Math.max(0.8, 1.0 * s);
       ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
 
       if (isHeli) {
-        const bodyL = 4 * s, bodyW = 2 * s;
-        const tBX = ap.x - Math.cos(dir) * 6 * s;
-        const tBY = ap.y - Math.sin(dir) * 6 * s;
-        ctx.beginPath(); ctx.ellipse(ap.x, ap.y, bodyL, bodyW, dir, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.moveTo(ap.x - Math.cos(dir) * bodyL, ap.y - Math.sin(dir) * bodyL); ctx.lineTo(tBX, tBY); ctx.stroke();
-        const trSpan = 1.5 * s;
-        ctx.beginPath(); ctx.moveTo(tBX + Math.cos(perp) * trSpan, tBY + Math.sin(perp) * trSpan); ctx.lineTo(tBX - Math.cos(perp) * trSpan, tBY - Math.sin(perp) * trSpan); ctx.stroke();
-        const rotorR = 7 * s;
-        ctx.strokeStyle = 'rgba(5,8,15,0.3)';
-        ctx.beginPath(); ctx.arc(ap.x, ap.y, rotorR, 0, Math.PI * 2); ctx.stroke();
-        const rAng = ap.rotorPhase;
-        ctx.beginPath(); ctx.moveTo(ap.x + Math.cos(rAng) * rotorR, ap.y + Math.sin(rAng) * rotorR); ctx.lineTo(ap.x - Math.cos(rAng) * rotorR, ap.y - Math.sin(rAng) * rotorR); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(ap.x + Math.cos(rAng + Math.PI / 2) * rotorR, ap.y + Math.sin(rAng + Math.PI / 2) * rotorR); ctx.lineTo(ap.x - Math.cos(rAng + Math.PI / 2) * rotorR, ap.y - Math.sin(rAng + Math.PI / 2) * rotorR); ctx.stroke();
+        /* ── Helicopter (solid dark silhouette — nighttime view from below) ── */
+        ctx.save();
+        ctx.translate(ap.x, ap.y);
+        ctx.rotate(dir);
+        const u = s;
+        const darkFill = 'rgba(5,8,15,0.88)';
+
+        /* Fuselage */
+        ctx.fillStyle = darkFill;
+        ctx.beginPath();
+        ctx.moveTo(4 * u, 0);
+        ctx.bezierCurveTo(4 * u, 1.6 * u, 2.5 * u, 2.2 * u, 0.5 * u, 2 * u);
+        ctx.lineTo(-2 * u, 1.6 * u);
+        ctx.lineTo(-2 * u, -1.6 * u);
+        ctx.lineTo(0.5 * u, -2 * u);
+        ctx.bezierCurveTo(2.5 * u, -2.2 * u, 4 * u, -1.6 * u, 4 * u, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        /* Tail boom */
+        ctx.fillStyle = darkFill;
+        ctx.beginPath();
+        ctx.moveTo(-2 * u, 0.8 * u);
+        ctx.lineTo(-8.5 * u, 0.35 * u);
+        ctx.lineTo(-8.5 * u, -0.35 * u);
+        ctx.lineTo(-2 * u, -0.8 * u);
+        ctx.closePath();
+        ctx.fill();
+
+        /* Horizontal stabilizer */
+        ctx.fillStyle = darkFill;
+        ctx.beginPath();
+        ctx.moveTo(-7 * u, 0);
+        ctx.quadraticCurveTo(-7.5 * u, 2.8 * u, -8.5 * u, 2.5 * u);
+        ctx.lineTo(-9 * u, 0);
+        ctx.lineTo(-8.5 * u, -2.5 * u);
+        ctx.quadraticCurveTo(-7.5 * u, -2.8 * u, -7 * u, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        /* Tail rotor disc */
+        ctx.strokeStyle = 'rgba(5,8,15,0.2)';
+        ctx.lineWidth = 0.4;
+        ctx.beginPath();
+        ctx.arc(-8.5 * u, 2 * u, 2 * u, 0, Math.PI * 2);
+        ctx.stroke();
+
+        /* Landing skids */
+        ctx.strokeStyle = 'rgba(5,8,15,0.45)';
+        ctx.lineWidth = Math.max(0.5, 0.6 * u);
+        for (const side of [1, -1]) {
+          ctx.beginPath();
+          ctx.moveTo(3 * u, 2.8 * u * side);
+          ctx.lineTo(-2.5 * u, 2.8 * u * side);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(1.5 * u, 2 * u * side);
+          ctx.lineTo(1.5 * u, 2.8 * u * side);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(-1 * u, 1.6 * u * side);
+          ctx.lineTo(-1 * u, 2.8 * u * side);
+          ctx.stroke();
+        }
+
+        /* Main rotor */
+        const rotorR = 7 * u;
+        ctx.strokeStyle = 'rgba(5,8,15,0.12)';
+        ctx.lineWidth = 0.3;
+        ctx.beginPath();
+        ctx.arc(0, 0, rotorR, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(5,8,15,0.45)';
+        ctx.lineWidth = Math.max(0.8, 0.9 * u);
+        for (let b = 0; b < 4; b++) {
+          const ba = ap.rotorPhase + b * Math.PI / 2;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(Math.cos(ba) * rotorR, Math.sin(ba) * rotorR);
+          ctx.stroke();
+        }
+
+        ctx.restore();
+
+      } else if (t === 3) {
+        /* ── Wide-body (747/A380) solid dark silhouette ── */
+        ctx.save();
+        ctx.translate(ap.x, ap.y);
+        ctx.rotate(dir);
+        const u = s;
+        const fw = 1.8;
+        const darkFill = 'rgba(5,8,15,0.88)';
+
+        /* Fuselage */
+        ctx.fillStyle = darkFill;
+        ctx.beginPath();
+        ctx.moveTo(14 * u, 0);
+        ctx.bezierCurveTo(13.5 * u, fw * 0.6 * u, 11 * u, fw * u, 7 * u, fw * u);
+        ctx.lineTo(-7 * u, fw * u);
+        ctx.bezierCurveTo(-9 * u, fw * 0.85 * u, -11 * u, fw * 0.35 * u, -12 * u, 0);
+        ctx.bezierCurveTo(-11 * u, -fw * 0.35 * u, -9 * u, -fw * 0.85 * u, -7 * u, -fw * u);
+        ctx.lineTo(7 * u, -fw * u);
+        ctx.bezierCurveTo(11 * u, -fw * u, 13.5 * u, -fw * 0.6 * u, 14 * u, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        /* Wings */
+        for (const side of [1, -1]) {
+          ctx.fillStyle = darkFill;
+          ctx.beginPath();
+          ctx.moveTo(2 * u, fw * u * side);
+          ctx.bezierCurveTo(1 * u, 5 * u * side, -1 * u, 9 * u * side, -2.5 * u, 12 * u * side);
+          ctx.lineTo(-3.5 * u, 12 * u * side);
+          ctx.lineTo(-5 * u, 11 * u * side);
+          ctx.bezierCurveTo(-3 * u, 7 * u * side, -2 * u, 4 * u * side, -1.5 * u, fw * u * side);
+          ctx.closePath();
+          ctx.fill();
+
+          /* Winglet */
+          ctx.fillStyle = darkFill;
+          ctx.beginPath();
+          ctx.moveTo(-2.5 * u, 12 * u * side);
+          ctx.lineTo(-3 * u, 12.8 * u * side);
+          ctx.lineTo(-4 * u, 12.2 * u * side);
+          ctx.lineTo(-3.5 * u, 12 * u * side);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        /* Horizontal stabilizer */
+        for (const side of [1, -1]) {
+          ctx.fillStyle = darkFill;
+          ctx.beginPath();
+          ctx.moveTo(-8.5 * u, fw * 0.35 * u * side);
+          ctx.bezierCurveTo(-9 * u, 3 * u * side, -9.5 * u, 5 * u * side, -10 * u, 6 * u * side);
+          ctx.lineTo(-11.5 * u, 5.5 * u * side);
+          ctx.lineTo(-10.5 * u, fw * 0.3 * u * side);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        /* Vertical stabilizer */
+        ctx.strokeStyle = darkFill;
+        ctx.lineWidth = Math.max(1.2, 2 * u);
+        ctx.beginPath();
+        ctx.moveTo(-8 * u, 0);
+        ctx.lineTo(-12 * u, 0);
+        ctx.stroke();
+
+        /* 4 engine nacelles */
+        const wbEngines: [number, number][] = [[0, 4], [0, -4], [-1.5, 8.5], [-1.5, -8.5]];
+        for (const [ef, el] of wbEngines) {
+          const ex = ef * u, ey = el * u;
+          /* Pylon */
+          ctx.strokeStyle = darkFill;
+          ctx.lineWidth = Math.max(0.4, 0.5 * u);
+          ctx.beginPath();
+          ctx.moveTo(ex, (el > 0 ? fw : -fw) * u);
+          ctx.lineTo(ex, ey);
+          ctx.stroke();
+          /* Nacelle */
+          ctx.fillStyle = darkFill;
+          ctx.beginPath();
+          ctx.ellipse(ex, ey, 2.2 * u, 0.95 * u, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+
       } else {
-        const fuseF = sh[0], fuseR = sh[1], wSpan = sh[2], wSweep = sh[3], wBack = sh[4], tSpan = sh[5];
-        const nX = ap.x + Math.cos(dir) * fuseF * s, nY = ap.y + Math.sin(dir) * fuseF * s;
-        const tX = ap.x - Math.cos(dir) * fuseR * s, tY = ap.y - Math.sin(dir) * fuseR * s;
-        ctx.beginPath(); ctx.moveTo(nX, nY); ctx.lineTo(tX, tY); ctx.stroke();
-        if (wSpan > 0) {
-          const wRX = ap.x - Math.cos(dir) * wBack * s, wRY = ap.y - Math.sin(dir) * wBack * s;
-          const wLTX = wRX + Math.cos(perp) * wSpan * s - Math.cos(dir) * wSweep * s;
-          const wLTY = wRY + Math.sin(perp) * wSpan * s - Math.sin(dir) * wSweep * s;
-          const wRTX = wRX - Math.cos(perp) * wSpan * s - Math.cos(dir) * wSweep * s;
-          const wRTY = wRY - Math.sin(perp) * wSpan * s - Math.sin(dir) * wSweep * s;
-          ctx.beginPath(); ctx.moveTo(wLTX, wLTY); ctx.lineTo(wRX, wRY); ctx.lineTo(wRTX, wRTY); ctx.closePath(); ctx.fill(); ctx.stroke();
-        }
-        if (tSpan > 0) {
-          const tsLX = tX + Math.cos(perp) * tSpan * s, tsLY = tY + Math.sin(perp) * tSpan * s;
-          const tsRX = tX - Math.cos(perp) * tSpan * s, tsRY = tY - Math.sin(perp) * tSpan * s;
-          ctx.beginPath(); ctx.moveTo(tsLX, tsLY); ctx.lineTo(tX, tY); ctx.lineTo(tsRX, tsRY); ctx.closePath(); ctx.fill(); ctx.stroke();
-        }
-        if (t === 3) {
-          ctx.fillStyle = 'rgba(5,8,15,0.3)';
-          const pDist = wSpan * 0.4 * s;
-          const wRX = ap.x - Math.cos(dir) * wBack * s, wRY = ap.y - Math.sin(dir) * wBack * s;
-          for (const sign of [1, -1]) {
-            const pX = wRX + Math.cos(perp) * pDist * sign, pY = wRY + Math.sin(perp) * pDist * sign;
-            ctx.beginPath(); ctx.arc(pX, pY, 2 * s, 0, Math.PI * 2); ctx.fill();
+        /* ── Narrow-body jets (737/A320/CRJ) solid dark silhouette ── */
+        ctx.save();
+        ctx.translate(ap.x, ap.y);
+        ctx.rotate(dir);
+        const u = s;
+        const darkFill = 'rgba(5,8,15,0.88)';
+
+        const isBig = t === 0;
+        const fuseL = isBig ? 16 : (t === 1 ? 13 : 10);
+        const fuseW = isBig ? 1.3 : (t === 1 ? 1.1 : 0.85);
+        const wSpan = isBig ? 11 : (t === 1 ? 9 : 6.5);
+        const wSweep = isBig ? 3.5 : (t === 1 ? 3 : 2);
+        const wChordTip = isBig ? 1.5 : (t === 1 ? 1.2 : 0.9);
+        const hStabSpan = isBig ? 6 : (t === 1 ? 5 : 4);
+
+        /* Fuselage — solid dark tube silhouette */
+        ctx.fillStyle = darkFill;
+        ctx.beginPath();
+        const noseX = fuseL * 0.55;
+        const tailX2 = -fuseL * 0.5;
+        ctx.moveTo(noseX * u, 0);
+        ctx.bezierCurveTo((noseX - 0.8) * u, fuseW * 0.65 * u, (noseX - 2) * u, fuseW * u, (noseX - 3.2) * u, fuseW * u);
+        ctx.lineTo((tailX2 + 2) * u, fuseW * u);
+        ctx.bezierCurveTo((tailX2 + 1) * u, fuseW * 0.85 * u, tailX2 * u, fuseW * 0.35 * u, (tailX2 - 0.5) * u, 0);
+        ctx.bezierCurveTo(tailX2 * u, -fuseW * 0.35 * u, (tailX2 + 1) * u, -fuseW * 0.85 * u, (tailX2 + 2) * u, -fuseW * u);
+        ctx.lineTo((noseX - 3.2) * u, -fuseW * u);
+        ctx.bezierCurveTo((noseX - 2) * u, -fuseW * u, (noseX - 0.8) * u, -fuseW * 0.65 * u, noseX * u, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        /* Wings */
+        for (const side of [1, -1]) {
+          ctx.fillStyle = darkFill;
+          ctx.beginPath();
+          ctx.moveTo(1 * u, fuseW * u * side);
+          ctx.bezierCurveTo(
+            0 * u, (fuseW + wSpan * 0.3) * u * side,
+            (-wSweep * 0.5) * u, (fuseW + wSpan * 0.6) * u * side,
+            (-wSweep) * u, wSpan * u * side
+          );
+          ctx.lineTo((-wSweep - wChordTip) * u, wSpan * u * side);
+          ctx.bezierCurveTo(
+            (-wSweep * 0.8 - 1.5) * u, (fuseW + wSpan * 0.5) * u * side,
+            (-2) * u, (fuseW + wSpan * 0.2) * u * side,
+            (-2) * u, fuseW * u * side
+          );
+          ctx.closePath();
+          ctx.fill();
+
+          /* Winglet */
+          if (isBig || t === 1) {
+            ctx.fillStyle = darkFill;
+            ctx.beginPath();
+            ctx.moveTo((-wSweep) * u, wSpan * u * side);
+            ctx.lineTo((-wSweep - 0.5) * u, (wSpan + 0.8) * u * side);
+            ctx.lineTo((-wSweep - wChordTip - 0.3) * u, (wSpan + 0.3) * u * side);
+            ctx.lineTo((-wSweep - wChordTip) * u, wSpan * u * side);
+            ctx.closePath();
+            ctx.fill();
           }
         }
+
+        /* Horizontal stabilizer */
+        for (const side of [1, -1]) {
+          ctx.fillStyle = darkFill;
+          ctx.beginPath();
+          ctx.moveTo((-fuseL * 0.32) * u, fuseW * 0.4 * u * side);
+          ctx.bezierCurveTo(
+            (-fuseL * 0.36) * u, (fuseW * 0.4 + hStabSpan * 0.4) * u * side,
+            (-fuseL * 0.4) * u, hStabSpan * 0.8 * u * side,
+            (-fuseL * 0.42) * u, hStabSpan * u * side
+          );
+          ctx.lineTo((-fuseL * 0.48) * u, (hStabSpan - 0.5) * u * side);
+          ctx.lineTo((-fuseL * 0.42) * u, fuseW * 0.25 * u * side);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        /* Vertical stabilizer */
+        ctx.strokeStyle = darkFill;
+        ctx.lineWidth = Math.max(1.2, 1.8 * u);
+        ctx.beginPath();
+        ctx.moveTo((-fuseL * 0.28) * u, 0);
+        ctx.lineTo((-fuseL * 0.52) * u, 0);
+        ctx.stroke();
+
+        /* Engine nacelles */
+        if (t === 2) {
+          /* Rear-mounted (CRJ/Learjet) */
+          for (const side of [1, -1]) {
+            const ey = 1.6 * u * side;
+            const ex = (-fuseL * 0.28) * u;
+            ctx.strokeStyle = darkFill;
+            ctx.lineWidth = Math.max(0.3, 0.4 * u);
+            ctx.beginPath(); ctx.moveTo(ex, fuseW * 0.7 * u * side); ctx.lineTo(ex, ey); ctx.stroke();
+            ctx.fillStyle = darkFill;
+            ctx.beginPath(); ctx.ellipse(ex, ey, 1.3 * u, 0.6 * u, 0, 0, Math.PI * 2); ctx.fill();
+          }
+        } else {
+          /* Underwing engines */
+          const engSpan = isBig ? 3.8 : 3;
+          for (const side of [1, -1]) {
+            const ey = engSpan * u * side;
+            const ex = (-0.3) * u;
+            ctx.strokeStyle = darkFill;
+            ctx.lineWidth = Math.max(0.4, 0.5 * u);
+            ctx.beginPath(); ctx.moveTo(ex, fuseW * u * side); ctx.lineTo(ex, ey); ctx.stroke();
+            ctx.fillStyle = darkFill;
+            ctx.beginPath(); ctx.ellipse(ex, ey, 1.8 * u, 0.8 * u, 0, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+
+        ctx.restore();
       }
 
       const drawLight = (x: number, y: number, coreR: number, glowR: number, r: number, g: number, b: number, a: number) => {

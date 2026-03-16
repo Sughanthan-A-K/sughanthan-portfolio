@@ -18,6 +18,12 @@ export default function SmoothScroll({
     const isMobile = window.innerWidth < 768 || ("ontouchstart" in window && window.innerWidth < 1024);
 
     if (isMobile) {
+      // Force scroll to top on page load/refresh
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+      window.scrollTo(0, 0);
+
       // On mobile, skip Lenis entirely — use native scrolling for performance
       // Still handle anchor clicks with native smooth scroll
       const handleAnchorClick = (e: MouseEvent) => {

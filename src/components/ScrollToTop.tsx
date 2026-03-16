@@ -18,7 +18,7 @@ export default function ScrollToTop() {
     const aboutEl = document.getElementById("about");
     if (!aboutEl) return;
 
-    gsap.set(container, { opacity: 0, y: -20 });
+    gsap.set(container, { opacity: 0, y: -20, visibility: 'hidden' });
 
     const blink = gsap.to(arrow, {
       opacity: 0.3,
@@ -37,18 +37,19 @@ export default function ScrollToTop() {
     });
 
     const showArrow = () => {
+      if (window.scrollY < window.innerHeight * 0.5) return;
       gsap.killTweensOf(container);
-      gsap.to(container, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" });
+      gsap.to(container, { opacity: 1, y: 0, visibility: 'visible', duration: 0.6, ease: "power2.out" });
     };
 
     const hideArrow = () => {
       gsap.killTweensOf(container);
-      gsap.to(container, { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" });
+      gsap.to(container, { opacity: 0, y: -20, duration: 0.4, ease: "power2.in", onComplete: () => { gsap.set(container, { visibility: 'hidden' }); } });
     };
 
     const hideInstant = () => {
       gsap.killTweensOf(container);
-      gsap.set(container, { opacity: 0, y: -20 });
+      gsap.set(container, { opacity: 0, y: -20, visibility: 'hidden' });
     };
 
     const handleNavClick = (e: MouseEvent) => {

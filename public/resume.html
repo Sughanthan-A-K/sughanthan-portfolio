@@ -826,7 +826,6 @@
     });
   })();
 
-  // ── NightSky canvas (dark mode only) — Full port of NightSky.tsx ──
   (function() {
     var canvas = document.getElementById('nightsky-canvas');
     var ctx = canvas.getContext('2d', { alpha: true });
@@ -969,7 +968,7 @@
       return { blobs: blobs, microStars: ms };
     }
 
-    /* ── Star creation (Code 1 visual DNA) ── */
+    /* ── Star creation ── */
     function createCatalogStar(ra, dec, mag, bv) {
       var color;
       if (bv < -0.1) color = [200, 215, 255];
@@ -1156,7 +1155,6 @@
     function init() {
       var w = window.innerWidth, h = window.innerHeight;
       var seed = Math.floor(Math.random() * 2147483647) + 1;
-      /* Try to reuse portfolio seed for visual continuity */
       try {
         var savedSeed = localStorage.getItem('nightsky-seed');
         if (savedSeed) seed = parseInt(savedSeed, 10) || seed;
@@ -1173,7 +1171,6 @@
       shootingStars = []; airplanes = []; satellites = [];
       timers = { shootingStar: 0, airplane: 0, satellite: 0 };
 
-      /* Restore animation state from portfolio for seamless continuity */
       try {
         var saved = localStorage.getItem('nightsky-state');
         if (saved) {
@@ -1214,7 +1211,7 @@
       } catch (e) { /* ignore */ }
     }
 
-    /* ── Draw star (Code 1 visual DNA: glow + sparkle crosshair + burst + core) ── */
+    /* ── Draw star ── */
     function drawStar(s, sx, sy, altDim, dt) {
       s.phase += s.twinkleSpeed * dt;
       if (s.burstCooldown > 0) {
@@ -1225,7 +1222,6 @@
       }
       if (s.burst > 0) s.burst = Math.max(0, s.burst - s.burstDecay * dt);
 
-      /* Multi-frequency scintillation */
       var p = s.phase, o = s.scintOffset;
       var scint = Math.sin(p) * 0.35
         + Math.sin(p * 2.31 + o) * 0.25
@@ -1239,7 +1235,6 @@
       var r = s.color[0], g = s.color[1], b = s.color[2];
       var sizeBoost = 1 + s.burst * 1.8;
 
-      /* Glow */
       var glowR = s.radius * 5 * sizeBoost;
       var gr = ctx.createRadialGradient(sx, sy, 0, sx, sy, glowR);
       gr.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + (alpha * 0.2) + ')');
@@ -1248,7 +1243,6 @@
       ctx.fillStyle = gr;
       ctx.beginPath(); ctx.arc(sx, sy, glowR, 0, Math.PI * 2); ctx.fill();
 
-      /* Sparkle crosshair */
       if (s.radius > 1 || s.burst > 0.2) {
         var sparkleAlpha = s.burst > 0.2 ? alpha * 0.5 : alpha * 0.35;
         var len = s.radius * (3.5 + s.burst * 6) * alpha;
@@ -1258,7 +1252,6 @@
         ctx.moveTo(sx - len, sy); ctx.lineTo(sx + len, sy);
         ctx.moveTo(sx, sy - len); ctx.lineTo(sx, sy + len);
         ctx.stroke();
-        /* Diagonal sparkle */
         if (s.burst > 0.35) {
           var dLen = len * 0.6;
           ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + (s.burst * 0.4) + ')';
@@ -1270,7 +1263,6 @@
         }
       }
 
-      /* Core */
       var coreR = s.radius * (0.6 + s.burst * 0.6);
       ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
       ctx.beginPath(); ctx.arc(sx, sy, coreR, 0, Math.PI * 2); ctx.fill();
@@ -1371,7 +1363,6 @@
         strobeOn = sp > 5.8 && sp < 5.95;
       }
 
-      /* Aircraft silhouette */
       ctx.fillStyle = 'rgba(5,8,15,0.85)';
       ctx.strokeStyle = 'rgba(5,8,15,0.85)';
       ctx.lineWidth = Math.max(0.8, 1.0 * s);
@@ -1420,7 +1411,6 @@
         }
       }
 
-      /* Light helper */
       function drawLight(x, y, coreR, glowR, r, g, b, a) {
         var grad = ctx.createRadialGradient(x, y, 0, x, y, glowR);
         grad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')');
@@ -1512,17 +1502,6 @@
     var resizeTimer;
     window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 200); });
 
-    /* ══════════════════════════════════════════════════════════════
-     *  ANIMATE — Scientifically correct layer order:
-     *  1. Milky Way blobs (deep space, ~26,000 ly)
-     *  2. MW micro-stars (galactic, ~1,000+ ly)
-     *  3. Stars (various distances, projected via RA/Dec)
-     *  4. Moon (384,000 km)
-     *  5. Airplanes (~10 km, troposphere)
-     *  6. Shooting stars / Meteors (~80-100 km, mesosphere)
-     *  7. Clouds (~2-10 km, troposphere)
-     *  8. Satellites (~400-35,000 km, orbit)
-     * ══════════════════════════════════════════════════════════════ */
     function animate(now) {
       var dt = lastTime ? Math.min((now - lastTime) / 16.667, 3) : 1;
       lastTime = now;
@@ -1538,12 +1517,10 @@
       var scrollMax = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       var scrollFrac = Math.min(1, scrollY / scrollMax);
 
-      /* Shared projection params */
       var lstDeg = ((GC_RA + scrollFrac * LST_SCROLL_RANGE) % 360 + 360) % 360;
       var cx = w / 2, cy = vh / 2;
       var scale = Math.max(w, vh) * 0.32;
 
-      /* Sky shift: move pixel-based objects when scroll changes LST */
       var scrollDelta = scrollFrac - prevScrollFrac;
       prevScrollFrac = scrollFrac;
       if (Math.abs(scrollDelta) > 0.0001) {
@@ -1670,7 +1647,6 @@
     requestAnimationFrame(animate);
   })();
 
-  // ── Back to portfolio: close tab if opened from portfolio, else navigate ──
   function goBack() {
     if (window.opener || window.history.length <= 1) {
       window.close();
@@ -1679,7 +1655,6 @@
     }
   }
 
-  // ── PDF download: render pages as images + overlay clickable link regions ──
   function downloadPDF() {
     var btn = document.querySelector('.download-btn');
     btn.style.pointerEvents = 'none';
@@ -1702,7 +1677,6 @@
         var imgData = canvas.toDataURL('image/jpeg', 0.92);
         pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
 
-        // Find all <a> links in this page and add clickable regions
         var links = pages[i].querySelectorAll('a[href]');
         var pageRect = pages[i].getBoundingClientRect();
 
@@ -1710,7 +1684,6 @@
           var href = link.getAttribute('href');
           if (!href || href === '#') return;
           var rect = link.getBoundingClientRect();
-          // Convert from DOM coords to PDF page coords
           var scaleX = 794 / pageRect.width;
           var scaleY = 1123 / pageRect.height;
           var x = (rect.left - pageRect.left) * scaleX;
