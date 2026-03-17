@@ -98,7 +98,7 @@ export default function SmoothScroll({
       const el = document.querySelector(href);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -120, duration: 4, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      lenis.scrollTo(el as HTMLElement, { offset: -160, duration: 4, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
 
     document.addEventListener('click', handleAnchorClick);
