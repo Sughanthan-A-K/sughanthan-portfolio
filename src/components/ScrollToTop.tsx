@@ -37,7 +37,8 @@ export default function ScrollToTop() {
     });
 
     const showArrow = () => {
-      if (window.scrollY < window.innerHeight * 0.9) return;
+      const hero = document.getElementById("hero");
+      if (hero && hero.getBoundingClientRect().bottom > 0) return;
       gsap.killTweensOf(container);
       gsap.to(container, { opacity: 1, y: 0, visibility: 'visible', duration: 0.6, ease: "power2.out" });
     };
