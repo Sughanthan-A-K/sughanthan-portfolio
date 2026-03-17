@@ -61,7 +61,14 @@ export default function About() {
 
       const titleEl = sectionRef.current?.querySelector(".about-title");
       if (titleEl && arrowRef.current) {
-        gsap.set(arrowRef.current, { opacity: 1 });
+        gsap.set(arrowRef.current, { opacity: 0 });
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 80%",
+          onEnter: () => gsap.to(arrowRef.current, { opacity: 1, duration: 0.4 }),
+          onLeaveBack: () => gsap.set(arrowRef.current, { opacity: 0 }),
+        });
 
         ScrollTrigger.create({
           trigger: titleEl,
