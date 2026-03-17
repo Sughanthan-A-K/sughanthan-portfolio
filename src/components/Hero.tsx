@@ -63,8 +63,10 @@ export default function Hero() {
         duration: 0.8,
         delay: 5,
         ease: "power2.out",
-        onComplete: () => {
+        onStart: () => {
           window.dispatchEvent(new CustomEvent("hero-ready"));
+        },
+        onComplete: () => {
           chevronsVisible = true;
         },
       });
@@ -91,6 +93,7 @@ export default function Hero() {
         if (chevronsVisible) hideChevrons();
       };
       window.addEventListener("wheel", onScrollInput);
+      window.addEventListener("touchstart", onScrollInput);
 
       let wasInHero = true;
       const onScroll = () => {
@@ -136,7 +139,10 @@ export default function Hero() {
 
     return () => {
       ctx.revert();
-      if (cleanupRef.wheel) window.removeEventListener("wheel", cleanupRef.wheel as EventListener);
+      if (cleanupRef.wheel) {
+        window.removeEventListener("wheel", cleanupRef.wheel as EventListener);
+        window.removeEventListener("touchstart", cleanupRef.wheel as EventListener);
+      }
       if (cleanupRef.scroll) window.removeEventListener("scroll", cleanupRef.scroll as EventListener);
       if (cleanupRef.chevronTimer) (cleanupRef.chevronTimer as () => void)();
     };

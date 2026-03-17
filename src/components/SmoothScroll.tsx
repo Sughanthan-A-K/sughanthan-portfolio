@@ -43,12 +43,25 @@ export default function SmoothScroll({
       };
       window.addEventListener('rope-click', handleRopeClick);
 
-      // Fire hero-ready immediately on mobile
-      setTimeout(() => window.dispatchEvent(new CustomEvent("hero-ready")), 100);
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      const preventScroll = (e: Event) => e.preventDefault();
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('wheel', preventScroll, { passive: false });
+
+      const unlockMobile = () => {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        window.removeEventListener('touchmove', preventScroll);
+        window.removeEventListener('wheel', preventScroll);
+      };
+      window.addEventListener('hero-ready', unlockMobile);
 
       return () => {
         document.removeEventListener('click', handleAnchorClick);
         window.removeEventListener('rope-click', handleRopeClick);
+        window.removeEventListener('hero-ready', unlockMobile);
+        unlockMobile();
       };
     }
 
