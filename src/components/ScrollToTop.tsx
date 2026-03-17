@@ -115,7 +115,7 @@ export default function ScrollToTop() {
     <div
       ref={containerRef}
       className="fixed left-1/2 -translate-x-1/2 z-[60] pointer-events-none opacity-0"
-      style={{ top: 78 }}
+      style={{ top: 90 }}
     >
       <div
         ref={arrowRef}
