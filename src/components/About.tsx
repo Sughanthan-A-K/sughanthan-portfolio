@@ -60,12 +60,13 @@ export default function About() {
       );
 
       const titleEl = sectionRef.current?.querySelector(".about-title");
+      const heroEl = document.getElementById("hero");
       if (titleEl && arrowRef.current) {
         gsap.set(arrowRef.current, { opacity: 0 });
 
         ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
+          trigger: heroEl || sectionRef.current,
+          start: "bottom top",
           onEnter: () => gsap.to(arrowRef.current, { opacity: 1, duration: 0.4 }),
           onLeaveBack: () => gsap.set(arrowRef.current, { opacity: 0 }),
         });
