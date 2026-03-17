@@ -164,7 +164,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-20 sm:pb-24 sky-text" style={{ perspective: "1200px" }}>
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-20 sm:pb-24 py-8 sky-text" style={{ perspective: "1200px" }}>
         <div className="hero-badge opacity-0 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-5 sm:mb-8 text-xs sm:text-sm" style={{ color: 'var(--text-muted)' }}>
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           Available for opportunities
