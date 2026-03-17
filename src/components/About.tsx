@@ -58,38 +58,38 @@ export default function About() {
           },
         }
       );
-
-      const titleEl = sectionRef.current?.querySelector(".about-title");
-      if (titleEl && arrowRef.current) {
-        const arrowEl = arrowRef.current;
-        arrowEl.style.opacity = '0';
-        arrowEl.style.visibility = 'hidden';
-
-        const updateArrow = () => {
-          const hero = document.getElementById("hero");
-          if (!hero) return;
-          const heroBottom = hero.getBoundingClientRect().bottom;
-          const titleTop = titleEl.getBoundingClientRect().top;
-          if (heroBottom <= 5 && titleTop > 90) {
-            arrowEl.style.opacity = '1';
-            arrowEl.style.visibility = 'visible';
-          } else {
-            arrowEl.style.opacity = '0';
-            arrowEl.style.visibility = 'hidden';
-          }
-        };
-
-        window.addEventListener('scroll', updateArrow, { passive: true });
-        updateArrow();
-
-        return () => {
-          window.removeEventListener('scroll', updateArrow);
-          ctx.revert();
-        };
-      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    const titleEl = sectionRef.current?.querySelector(".about-title");
+    const arrowEl = arrowRef.current;
+    let updateArrow: (() => void) | null = null;
+
+    if (titleEl && arrowEl) {
+      arrowEl.style.opacity = '0';
+      arrowEl.style.visibility = 'hidden';
+
+      updateArrow = () => {
+        const hero = document.getElementById("hero");
+        if (!hero) return;
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        const titleTop = titleEl.getBoundingClientRect().top;
+        if (heroBottom <= 5 && titleTop > 90) {
+          arrowEl.style.opacity = '1';
+          arrowEl.style.visibility = 'visible';
+        } else {
+          arrowEl.style.opacity = '0';
+          arrowEl.style.visibility = 'hidden';
+        }
+      };
+
+      window.addEventListener('scroll', updateArrow, { passive: true });
+      updateArrow();
+    }
+
+    return () => {
+      if (updateArrow) window.removeEventListener('scroll', updateArrow);
+      ctx.revert();
+    };
   }, []);
 
   const stats = [
