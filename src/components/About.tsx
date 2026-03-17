@@ -60,28 +60,32 @@ export default function About() {
       );
 
       const titleEl = sectionRef.current?.querySelector(".about-title");
-      const heroEl = document.getElementById("hero");
       if (titleEl && arrowRef.current) {
-        gsap.set(arrowRef.current, { opacity: 0 });
+        const arrowEl = arrowRef.current;
+        arrowEl.style.opacity = '0';
+        arrowEl.style.visibility = 'hidden';
 
-        ScrollTrigger.create({
-          trigger: heroEl || sectionRef.current,
-          start: "bottom top",
-          onEnter: () => gsap.to(arrowRef.current, { opacity: 1, duration: 0.4 }),
-          onLeaveBack: () => gsap.set(arrowRef.current, { opacity: 0 }),
-        });
+        const updateArrow = () => {
+          const hero = document.getElementById("hero");
+          if (!hero) return;
+          const heroBottom = hero.getBoundingClientRect().bottom;
+          const titleTop = titleEl.getBoundingClientRect().top;
+          if (heroBottom <= 0 && titleTop > 90) {
+            arrowEl.style.opacity = '1';
+            arrowEl.style.visibility = 'visible';
+          } else {
+            arrowEl.style.opacity = '0';
+            arrowEl.style.visibility = 'hidden';
+          }
+        };
 
-        ScrollTrigger.create({
-          trigger: titleEl,
-          start: "top 90px",
-          end: "top 60px",
-          scrub: true,
-          onUpdate: (self) => {
-            if (arrowRef.current) {
-              gsap.set(arrowRef.current, { opacity: 1 - self.progress });
-            }
-          },
-        });
+        window.addEventListener('scroll', updateArrow, { passive: true });
+        updateArrow();
+
+        return () => {
+          window.removeEventListener('scroll', updateArrow);
+          ctx.revert();
+        };
       }
     }, sectionRef);
 
@@ -105,6 +109,7 @@ export default function About() {
         <div
           ref={arrowRef}
           className="flex justify-center mb-4 cursor-pointer"
+          style={{ opacity: 0, visibility: 'hidden' }}
           onClick={() => window.dispatchEvent(new CustomEvent("rope-click"))}
         >
           <div className="flex flex-col items-center -space-y-2">
