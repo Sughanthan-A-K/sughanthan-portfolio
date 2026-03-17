@@ -103,12 +103,12 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="section-padding relative"
+      className="section-padding relative pt-4 sm:pt-12"
     >
       <div className="max-w-6xl mx-auto">
         <div
           ref={arrowRef}
-          className="flex justify-center mb-4 cursor-pointer"
+          className="hidden sm:flex justify-center mb-4 cursor-pointer"
           style={{ opacity: 0, visibility: 'hidden' }}
           onClick={() => window.dispatchEvent(new CustomEvent("rope-click"))}
         >
