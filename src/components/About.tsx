@@ -71,9 +71,9 @@ export default function About() {
       updateArrow = () => {
         const hero = document.getElementById("hero");
         if (!hero) return;
-        const heroBottom = hero.getBoundingClientRect().bottom;
-        const titleTop = titleEl.getBoundingClientRect().top;
-        if (heroBottom <= 5 && titleTop > 90) {
+        const heroRect = hero.getBoundingClientRect();
+        const arrowRect = arrowEl.getBoundingClientRect();
+        if (heroRect.top < -50 && arrowRect.top > 64) {
           arrowEl.style.opacity = '1';
           arrowEl.style.visibility = 'visible';
         } else {
