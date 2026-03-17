@@ -65,7 +65,7 @@ export default function About() {
 
         ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 50%",
           onEnter: () => gsap.to(arrowRef.current, { opacity: 1, duration: 0.4 }),
           onLeaveBack: () => gsap.set(arrowRef.current, { opacity: 0 }),
         });
@@ -103,7 +103,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         <div
           ref={arrowRef}
-          className="flex justify-center mb-4 cursor-pointer"
+          className="flex justify-center mb-4 cursor-pointer opacity-0"
           onClick={() => window.dispatchEvent(new CustomEvent("rope-click"))}
         >
           <div className="flex flex-col items-center -space-y-2">
