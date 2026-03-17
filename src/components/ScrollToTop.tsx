@@ -38,7 +38,7 @@ export default function ScrollToTop() {
 
     const showArrow = () => {
       const hero = document.getElementById("hero");
-      if (hero && hero.getBoundingClientRect().bottom > 0) return;
+      if (hero && hero.getBoundingClientRect().bottom > -100) return;
       gsap.killTweensOf(container);
       gsap.to(container, { opacity: 1, y: 0, visibility: 'visible', duration: 0.6, ease: "power2.out" });
     };
@@ -80,7 +80,7 @@ export default function ScrollToTop() {
 
     ScrollTrigger.create({
       trigger: aboutTitle,
-      start: "top 85%",
+      start: "top 60%",
       end: "top 80px",
       onEnter: () => {
         if (!inHero) showArrow();
