@@ -103,7 +103,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="section-padding relative pt-4 sm:pt-12"
+      className="section-padding relative pt-8 sm:pt-12"
     >
       <div className="max-w-6xl mx-auto">
         <div
