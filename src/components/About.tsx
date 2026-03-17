@@ -70,7 +70,7 @@ export default function About() {
           if (!hero) return;
           const heroBottom = hero.getBoundingClientRect().bottom;
           const titleTop = titleEl.getBoundingClientRect().top;
-          if (heroBottom <= 0 && titleTop > 90) {
+          if (heroBottom <= 5 && titleTop > 90) {
             arrowEl.style.opacity = '1';
             arrowEl.style.visibility = 'visible';
           } else {
