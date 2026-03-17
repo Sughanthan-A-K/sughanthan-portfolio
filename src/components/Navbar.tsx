@@ -313,18 +313,28 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
+    const prevent = (e: Event) => e.preventDefault();
+    if (mobileOpen || mobileSettingsOpen) {
       document.body.style.overflow = "hidden";
-      window.dispatchEvent(new CustomEvent("mobile-menu-open"));
+      document.documentElement.style.overflow = "hidden";
+      window.addEventListener("touchmove", prevent, { passive: false });
+      window.addEventListener("wheel", prevent, { passive: false });
+      if (mobileOpen) window.dispatchEvent(new CustomEvent("mobile-menu-open"));
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      window.removeEventListener("touchmove", prevent);
+      window.removeEventListener("wheel", prevent);
       window.dispatchEvent(new CustomEvent("mobile-menu-close"));
     }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      window.removeEventListener("touchmove", prevent);
+      window.removeEventListener("wheel", prevent);
       window.dispatchEvent(new CustomEvent("mobile-menu-close"));
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, mobileSettingsOpen]);
 
   return (
     <>
