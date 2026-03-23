@@ -72,11 +72,8 @@ export default function About() {
       let isVisible = false;
 
       const showArrow = () => {
-        // Never show if hero chevrons are visible
-        if ((window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible) {
-          showTimer = null;
-          return;
-        }
+        // Cancel if user has scrolled back near the top
+        if (window.scrollY < 50) { showTimer = null; return; }
         isVisible = true;
         arrowEl.style.opacity = '1';
         arrowEl.style.visibility = 'visible';
@@ -90,10 +87,10 @@ export default function About() {
       };
 
       updateArrow = () => {
+        // Hero becomes visible again when approaching top — hide up arrow
+        if (window.scrollY < 50) { hideArrow(); return; }
         const titleRect = titleEl.getBoundingClientRect();
         const inView = titleRect.top > 64 && titleRect.top < window.innerHeight * 0.85;
-        // Also hide if hero chevrons are currently showing
-        if ((window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible) { hideArrow(); return; }
         if (inView && !isVisible && !showTimer) {
           showTimer = setTimeout(showArrow, 3000);
         } else if (!inView) {

@@ -64,6 +64,8 @@ export default function Hero() {
         delay: 5,
         ease: "power2.out",
         onStart: () => {
+          // Don't show if user has already scrolled away from the top
+          if (window.scrollY > 0) return;
           chevronsVisible = true;
           (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = true;
           window.dispatchEvent(new CustomEvent("hero-ready"));
@@ -77,13 +79,18 @@ export default function Hero() {
         if (chevronTimer) { clearTimeout(chevronTimer); chevronTimer = null; }
         if (!chevronsVisible) return;
         chevronsVisible = false;
-        (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = false;
+        // Delay clearing the flag until after the 0.3s fade animation completes
+        setTimeout(() => {
+          (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = false;
+        }, 350);
         gsap.to(scrollIndicatorRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
       };
 
       const showChevronsDelayed = () => {
         if (chevronTimer) clearTimeout(chevronTimer);
         chevronTimer = setTimeout(() => {
+          // Don't show if user is no longer at the top
+          if (window.scrollY > 0) { chevronTimer = null; return; }
           chevronsVisible = true;
           (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = true;
           gsap.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.6, ease: "power2.out" });
@@ -98,11 +105,11 @@ export default function Hero() {
 
       let wasAtTop = true;
       const onScroll = () => {
-        const atTop = window.scrollY < 10;
-        if (atTop && !wasAtTop) {
+        const atTop = window.scrollY === 0;
+        if (!atTop) {
+          hideChevrons(); // has internal guard — safe to always call
+        } else if (atTop && !wasAtTop) {
           showChevronsDelayed();
-        } else if (!atTop && chevronsVisible) {
-          hideChevrons();
         }
         wasAtTop = atTop;
       };
