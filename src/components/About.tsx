@@ -73,7 +73,7 @@ export default function About() {
 
       const showArrow = () => {
         // Never show if hero chevrons are visible
-        if ((window as any).__heroChevronVisible) {
+        if ((window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible) {
           showTimer = null;
           return;
         }
@@ -93,7 +93,7 @@ export default function About() {
         const titleRect = titleEl.getBoundingClientRect();
         const inView = titleRect.top > 64 && titleRect.top < window.innerHeight * 0.85;
         // Also hide if hero chevrons are currently showing
-        if ((window as any).__heroChevronVisible) { hideArrow(); return; }
+        if ((window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible) { hideArrow(); return; }
         if (inView && !isVisible && !showTimer) {
           showTimer = setTimeout(showArrow, 3000);
         } else if (!inView) {

@@ -65,7 +65,7 @@ export default function Hero() {
         ease: "power2.out",
         onStart: () => {
           chevronsVisible = true;
-          (window as any).__heroChevronVisible = true;
+          (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = true;
           window.dispatchEvent(new CustomEvent("hero-ready"));
         },
       });
@@ -77,7 +77,7 @@ export default function Hero() {
         if (chevronTimer) { clearTimeout(chevronTimer); chevronTimer = null; }
         if (!chevronsVisible) return;
         chevronsVisible = false;
-        (window as any).__heroChevronVisible = false;
+        (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = false;
         gsap.to(scrollIndicatorRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
       };
 
@@ -85,7 +85,7 @@ export default function Hero() {
         if (chevronTimer) clearTimeout(chevronTimer);
         chevronTimer = setTimeout(() => {
           chevronsVisible = true;
-          (window as any).__heroChevronVisible = true;
+          (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = true;
           gsap.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.6, ease: "power2.out" });
         }, 3000);
       };
@@ -96,15 +96,15 @@ export default function Hero() {
       window.addEventListener("wheel", onScrollInput);
       window.addEventListener("touchstart", onScrollInput);
 
-      let wasInHero = true;
+      let wasAtTop = true;
       const onScroll = () => {
-        const atHero = window.scrollY < 10;
-        if (atHero && !wasInHero) {
+        const atTop = window.scrollY < 10;
+        if (atTop && !wasAtTop) {
           showChevronsDelayed();
-        } else if (!atHero && wasInHero && chevronsVisible) {
+        } else if (!atTop && chevronsVisible) {
           hideChevrons();
         }
-        wasInHero = atHero;
+        wasAtTop = atTop;
       };
       window.addEventListener("scroll", onScroll);
 
