@@ -101,7 +101,7 @@
     html { scrollbar-color: var(--scroll-thumb) var(--scroll-track); scrollbar-width: thin; }
 
     html {
-      font-size: 10.5pt;
+      font-size: 9.5pt;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       overflow-x: hidden;
@@ -222,21 +222,21 @@
     }
 
     /* ── Section ── */
-    .section { margin-bottom: 12px; }
+    .section { margin-bottom: 9px; }
 
     .section-title {
-      font-size: 0.945rem;
+      font-size: 0.88rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       color: var(--primary);
       border-bottom: 1.5px solid var(--border-color);
       padding-bottom: 3px;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     /* ── Entry blocks ── */
-    .entry { margin-bottom: 10px; }
+    .entry { margin-bottom: 7px; }
 
     .entry-header {
       display: flex;
@@ -247,28 +247,28 @@
     }
 
     .entry-title {
-      font-size: 0.965rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .entry-meta {
-      font-size: 0.845rem;
+      font-size: 0.8rem;
       color: var(--text-dimmed);
       font-style: italic;
     }
 
     .entry-sub {
-      font-size: 0.885rem;
+      font-size: 0.835rem;
       font-weight: 600;
       color: var(--primary);
       margin-bottom: 2px;
     }
 
     .entry-location {
-      font-size: 0.845rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     /* ── Bullet lists ── */
@@ -279,11 +279,11 @@
 
     ul.bullets li {
       position: relative;
-      padding-left: 14px;
-      font-size: 0.885rem;
+      padding-left: 13px;
+      font-size: 0.83rem;
       color: var(--text-muted);
       margin-bottom: 2px;
-      line-height: 1.5;
+      line-height: 1.45;
       text-align: justify;
     }
 
@@ -292,19 +292,19 @@
       position: absolute;
       left: 0;
       color: var(--primary);
-      font-size: 0.845rem;
+      font-size: 0.8rem;
     }
 
     /* ── Skills grid ── */
     .skills-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5px 24px;
+      gap: 4px 20px;
     }
 
     .skill-row {
-      font-size: 0.835rem;
-      line-height: 1.45;
+      font-size: 0.8rem;
+      line-height: 1.4;
     }
 
     .skill-label {
@@ -329,8 +329,8 @@
     }
 
     .tag {
-      font-size: 0.785rem;
-      padding: 1px 8px;
+      font-size: 0.74rem;
+      padding: 1px 7px;
       border-radius: 4px;
       background: var(--tag-bg);
       color: var(--primary);
@@ -589,7 +589,7 @@
 
     /* ── Print ── */
     @media print {
-      html { font-size: 10.0pt; }
+      html { font-size: 9.5pt; }
       body { background: #fff; }
       .resume-wrapper { padding: 0; gap: 0; background: none; min-height: auto; }
       .resume-wrapper::before, .resume-wrapper::after { display: none; }
@@ -652,7 +652,7 @@
     <!-- Professional Summary -->
     <section class="section">
       <h2 class="section-title">Professional Summary</h2>
-      <p style="font-size:0.882rem; color:var(--text-muted); line-height:1.55; text-align:justify;">
+      <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.5; text-align:justify;">
         Frontend-focused Associate Software Engineer with 1+ years of professional experience in developing, testing, and deploying production web applications. Proficient in React.js, Next.js, TypeScript, JavaScript (ES6+), and Tailwind CSS with expertise in building responsive single-page applications, implementing server-side rendering (SSR) and static site generation (SSG), and translating business requirements into scalable frontend solutions. Experienced in state management with Redux, REST API integration, reusable component library development, legacy system modernization, and AI-assisted development workflows.
       </p>
     </section>
@@ -661,14 +661,14 @@
     <section class="section">
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
-        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Redux, SSR/SSG</span></div>
-        <div class="skill-row"><span class="skill-label">React Native</span><span class="skill-value">React Native CLI, React Navigation, Redux Toolkit + redux-persist, useSelector/useDispatch, Authentication Screens, Route Guards, HOC, Permission Handling, @notifee, image-picker, toast-message, vector-icons, Form Validation, Utility Services</span></div>
-        <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Web Design, Cross-Browser Compatibility, Mobile First, Material UI, Mantine</span></div>
-        <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Fetch API, Git, GitHub, Bitbucket, VS Code, npm, Figma</span></div>
-        <div class="skill-row"><span class="skill-label">Testing &amp; Quality</span><span class="skill-value">Functional Testing, Debugging, Code Reviews, Clean Code Practices</span></div>
+        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap, Redux</span></div>
+        <div class="skill-row"><span class="skill-label">React Native</span><span class="skill-value">CLI, React Navigation, Redux Toolkit, Auth &amp; Route Guards, HOC, Push Notifications, Form Validation</span></div>
+        <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Design, Cross-Browser Compatibility, Mobile First, Material UI, Mantine</span></div>
+        <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Postman, Swagger, MongoDB, Git, GitHub, Bitbucket, VS Code, npm</span></div>
+        <div class="skill-row"><span class="skill-label">Testing</span><span class="skill-value">Functional Testing, Debugging, Code Reviews, Clean Code Practices</span></div>
         <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile, Scrum, SDLC, Component-Based Architecture, State Management</span></div>
-        <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization, SEO</span></div>
-        <div class="skill-row"><span class="skill-label">AI Tools</span><span class="skill-value">GitHub Copilot, AI-Assisted Debugging, Prompt Engineering</span></div>
+        <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization</span></div>
+        <div class="skill-row"><span class="skill-label">Soft Skills</span><span class="skill-value">Problem Solving, Analytical Thinking, Team Collaboration, Communication, Adaptability</span></div>
       </div>
     </section>
 
@@ -724,43 +724,72 @@
 
       <div class="entry">
         <div class="entry-header">
-          <span class="entry-title">Event Management Platform &amp; Child Activity Monitoring System</span>
+          <span class="entry-title">Project Management Tool</span>
+          <span class="entry-meta">HEPL Pvt Ltd</span>
         </div>
-        <div class="entry-sub">Tender Software India Pvt Ltd</div>
         <div class="tags">
-          <span class="tag">Next.js</span>
-          <span class="tag">React.js</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Tailwind CSS</span>
-          <span class="tag">REST APIs</span>
-          <span class="tag">Git</span>
+          <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Material UI</span><span class="tag">Redux</span><span class="tag">REST APIs</span>
         </div>
         <ul class="bullets" style="margin-top:3px;">
-          <li>Architected migration of legacy iFrame modules to modern Next.js SPA, improving performance and developer experience</li>
-          <li>Developed responsive dashboards with real-time data visualization, event scheduling, and push notifications</li>
-          <li>Implemented SSR/SSG rendering strategies for SEO optimization and faster initial page loads</li>
-          <li>Built reusable component architecture with clean navigation patterns, improving usability and code maintainability</li>
+          <li>Built from scratch — full task hierarchy: Milestone → Task List → Task → Sub Task → Macro Task → Micro Task</li>
+          <li>MUI Table with Accordion; List, Grid, and Kanban views with Drag &amp; Drop functionality</li>
+          <li>Designed overall UI and managed complete task flow with status tracking and dynamic filtering</li>
         </ul>
       </div>
 
       <div class="entry">
         <div class="entry-header">
-          <span class="entry-title">Project Management Tool, LMS &amp; Recruitment Management System</span>
+          <span class="entry-title">Learning Management System</span>
+          <span class="entry-meta">HEPL Pvt Ltd</span>
         </div>
-        <div class="entry-sub">HEPL Pvt Ltd</div>
         <div class="tags">
-          <span class="tag">React.js</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Redux</span>
-          <span class="tag">Material UI</span>
-          <span class="tag">REST APIs</span>
-          <span class="tag">Figma</span>
+          <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Material UI</span><span class="tag">Redux</span><span class="tag">REST APIs</span>
         </div>
         <ul class="bullets" style="margin-top:3px;">
-          <li>Developed responsive layouts and reusable UI components for task tracking, learning, and recruitment workflows</li>
-          <li>Integrated REST APIs for automated task tracking, interactive data tables, and form-driven modules across the platform</li>
-          <li>Optimized frontend performance, responsive design, and cross-browser compatibility for enterprise-grade delivery</li>
-          <li>Collaborated with designers via Figma to deliver pixel-perfect implementation of UI/UX specifications</li>
+          <li>Course and learning content management with learner progress tracking and role-based dashboards</li>
+          <li>Reusable UI components for consistent learner and instructor experience across modules</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Job Recruitment System</span>
+          <span class="entry-meta">HEPL Pvt Ltd</span>
+        </div>
+        <div class="tags">
+          <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Material UI</span><span class="tag">Rich Text Editor</span><span class="tag">REST APIs</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Job Description editor with mail-format rich text and JD template creation &amp; management</li>
+          <li>Candidate form with resume data extraction for auto-filling applicant details</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">DJ Event Management Platform</span>
+          <span class="entry-meta">Tender Software India Pvt Ltd</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">Google Maps API</span><span class="tag">REST APIs</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Event booking and Event Builder with service packages, payment integration, and invoice management</li>
+          <li>Travel cost calculator using Google Distance Matrix API; digital contract generation for clients</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Child Care &amp; Activity Monitoring</span>
+          <span class="entry-meta">Tender Software India Pvt Ltd</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">REST APIs</span><span class="tag">Bitbucket</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Incident reporting with interactive body map; add child/adult with parent linking and center management</li>
+          <li>Advanced list filters; migrated legacy iFrame modules to modern Next.js architecture</li>
         </ul>
       </div>
     </section>
