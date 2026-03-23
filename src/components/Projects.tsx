@@ -16,31 +16,69 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Event Management Platform & Child Activity Monitoring System",
-    organization: "Tender Software India Pvt Ltd",
+    title: "Project Management Tool",
+    organization: "HEPL Pvt Ltd",
     description:
-      "A comprehensive platform for managing events with real-time scheduling, notifications, and child activity monitoring with responsive dashboards (Your Child's Day).",
-    tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "REST APIs", "Git", "Bitbucket", "Trello"],
+      "My first project built from scratch — a full-featured task management system with multi-level task hierarchy and multiple view modes.",
+    tech: ["React.js", "TypeScript", "Material UI", "Redux", "REST APIs", "Git"],
     features: [
-      "Migrated legacy iFrame modules to modern Next.js architecture",
-      "Developed responsive dashboards with real-time data",
-      "Implemented event scheduling and push notifications",
-      "Integrated child activity monitoring features",
-      "Used SSR and SSG for performance improvements",
-      "Improved usability through clean navigation and reusable components",
+      "Designed and built the entire UI from scratch",
+      "Multi-level hierarchy: Milestone → Task List → Task → Sub Task → Macro Task → Micro Task",
+      "MUI Table with Accordion for layered task display",
+      "List, Grid, and Kanban views with Drag & Drop",
+      "Full task flow management with status tracking",
     ],
   },
   {
-    title: "Project Management Tool, LMS & Recruitment Management System",
+    title: "Learning Management System",
     organization: "HEPL Pvt Ltd",
     description:
-      "Enterprise-grade suite of applications for project tracking, learning management, and recruitment workflows with data-driven dashboards.",
-    tech: ["React.js", "TypeScript", "Redux", "Material UI", "REST APIs", "Git", "Figma"],
+      "Enterprise LMS product for managing courses, learners, and assessments with role-based dashboards.",
+    tech: ["React.js", "TypeScript", "Material UI", "Redux", "REST APIs"],
     features: [
-      "Developed responsive layouts and reusable UI components",
-      "Integrated APIs for task tracking and automated workflows",
-      "Built interactive dashboards, data tables, and form modules",
-      "Improved application performance and cross-browser usability",
+      "Course and learning content management",
+      "Learner progress tracking and dashboards",
+      "Role-based access control and permissions",
+      "Reusable UI components for consistent UX",
+    ],
+  },
+  {
+    title: "Job Recruitment System",
+    organization: "HEPL Pvt Ltd",
+    description:
+      "Recruitment platform with rich-text JD creation, template management, and resume-based candidate data extraction.",
+    tech: ["React.js", "TypeScript", "Material UI", "Rich Text Editor", "REST APIs"],
+    features: [
+      "Job Description editor with mail-format rich text",
+      "JD template creation and management",
+      "Candidate form with resume data extraction",
+      "User detail forms with auto-fill from uploaded resume",
+    ],
+  },
+  {
+    title: "DJ Event Management Platform",
+    organization: "Tender Software India Pvt Ltd",
+    description:
+      "Web platform for end-to-end DJ event booking with payment, travel costing, and digital contract generation.",
+    tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Google Maps API", "REST APIs"],
+    features: [
+      "Event booking and Event Builder with service packages",
+      "Payment integration and invoice management",
+      "Travel cost calculator using Google Distance Matrix API",
+      "Digital contract generation for clients",
+    ],
+  },
+  {
+    title: "Child Care & Activity Monitoring",
+    organization: "Tender Software India Pvt Ltd",
+    description:
+      "School child-care platform where teachers log child activities and parents track their child's day in real time.",
+    tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "REST APIs", "Bitbucket"],
+    features: [
+      "Incident reporting with interactive body map",
+      "Add new child and adult with parent linking",
+      "Advanced filters for list views; center and company management",
+      "Migrated legacy iFrame modules to Next.js architecture",
     ],
   },
 ];
@@ -122,7 +160,7 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div className="projects-grid grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="projects-grid grid md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <div
               key={index}

@@ -72,8 +72,9 @@ export default function About() {
         const hero = document.getElementById("hero");
         if (!hero) return;
         const heroRect = hero.getBoundingClientRect();
-        const arrowRect = arrowEl.getBoundingClientRect();
-        if (heroRect.top < -50 && arrowRect.top > 64) {
+        const titleRect = titleEl.getBoundingClientRect();
+        // Show only when hero is fully gone AND about title hasn't reached the top yet
+        if (heroRect.bottom <= 0 && titleRect.top > 64) {
           arrowEl.style.opacity = '1';
           arrowEl.style.visibility = 'visible';
         } else {

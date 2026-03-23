@@ -64,10 +64,8 @@ export default function Hero() {
         delay: 5,
         ease: "power2.out",
         onStart: () => {
-          window.dispatchEvent(new CustomEvent("hero-ready"));
-        },
-        onComplete: () => {
           chevronsVisible = true;
+          window.dispatchEvent(new CustomEvent("hero-ready"));
         },
       });
 
