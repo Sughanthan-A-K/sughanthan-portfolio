@@ -32,6 +32,34 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    title: "React Native",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+      </svg>
+    ),
+    skills: [
+      "React Native CLI",
+      "Functional & Class Components",
+      "React Navigation",
+      "Redux Toolkit + redux-persist",
+      "useSelector / useDispatch",
+      "mapStateToProps / connect()",
+      "Authentication Screens",
+      "Authenticated & Unauthenticated Route Guards",
+      "HOC (Higher Order Component)",
+      "Permission Handling",
+      "@notifee (Push Notifications)",
+      "react-native-image-picker",
+      "react-native-toast-message",
+      "react-native-vector-icons",
+      "Form Elements & Validation",
+      "Utility Services (Toast, Notification)",
+      "Timer (Class & Functional)",
+      "Event Handling",
+    ],
+  },
+  {
     title: "Application Development",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
