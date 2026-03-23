@@ -68,15 +68,36 @@ export default function About() {
       arrowEl.style.opacity = '0';
       arrowEl.style.visibility = 'hidden';
 
+      let showTimer: ReturnType<typeof setTimeout> | null = null;
+      let isVisible = false;
+
+      const showArrow = () => {
+        // Never show if hero chevrons are visible
+        if ((window as any).__heroChevronVisible) {
+          showTimer = null;
+          return;
+        }
+        isVisible = true;
+        arrowEl.style.opacity = '1';
+        arrowEl.style.visibility = 'visible';
+      };
+
+      const hideArrow = () => {
+        if (showTimer) { clearTimeout(showTimer); showTimer = null; }
+        isVisible = false;
+        arrowEl.style.opacity = '0';
+        arrowEl.style.visibility = 'hidden';
+      };
+
       updateArrow = () => {
         const titleRect = titleEl.getBoundingClientRect();
-        // Show when "Get to know me" is visible in the viewport, below the navbar
-        if (titleRect.top > 64 && titleRect.top < window.innerHeight * 0.85) {
-          arrowEl.style.opacity = '1';
-          arrowEl.style.visibility = 'visible';
-        } else {
-          arrowEl.style.opacity = '0';
-          arrowEl.style.visibility = 'hidden';
+        const inView = titleRect.top > 64 && titleRect.top < window.innerHeight * 0.85;
+        // Also hide if hero chevrons are currently showing
+        if ((window as any).__heroChevronVisible) { hideArrow(); return; }
+        if (inView && !isVisible && !showTimer) {
+          showTimer = setTimeout(showArrow, 3000);
+        } else if (!inView) {
+          hideArrow();
         }
       };
 
