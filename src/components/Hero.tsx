@@ -97,11 +97,14 @@ export default function Hero() {
         }, 3000);
       };
 
-      const onScrollInput = () => {
+      const onWheel = (e: WheelEvent) => {
+        if (chevronsVisible && (e.deltaY > 0 || window.scrollY > 0)) hideChevrons();
+      };
+      const onTouchStart = () => {
         if (chevronsVisible) hideChevrons();
       };
-      window.addEventListener("wheel", onScrollInput);
-      window.addEventListener("touchstart", onScrollInput);
+      window.addEventListener("wheel", onWheel);
+      window.addEventListener("touchstart", onTouchStart);
 
       let wasAtTop = true;
       const onScroll = () => {
@@ -115,7 +118,8 @@ export default function Hero() {
       };
       window.addEventListener("scroll", onScroll);
 
-      cleanupRef.wheel = onScrollInput;
+      cleanupRef.wheel = onWheel as EventListener;
+      cleanupRef.touchstart = onTouchStart;
       cleanupRef.scroll = onScroll;
       cleanupRef.chevronTimer = () => { if (chevronTimer) clearTimeout(chevronTimer); };
 
@@ -147,10 +151,8 @@ export default function Hero() {
 
     return () => {
       ctx.revert();
-      if (cleanupRef.wheel) {
-        window.removeEventListener("wheel", cleanupRef.wheel as EventListener);
-        window.removeEventListener("touchstart", cleanupRef.wheel as EventListener);
-      }
+      if (cleanupRef.wheel) window.removeEventListener("wheel", cleanupRef.wheel as EventListener);
+      if (cleanupRef.touchstart) window.removeEventListener("touchstart", cleanupRef.touchstart as EventListener);
       if (cleanupRef.scroll) window.removeEventListener("scroll", cleanupRef.scroll as EventListener);
       if (cleanupRef.chevronTimer) (cleanupRef.chevronTimer as () => void)();
     };
