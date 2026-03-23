@@ -69,12 +69,9 @@ export default function About() {
       arrowEl.style.visibility = 'hidden';
 
       updateArrow = () => {
-        const hero = document.getElementById("hero");
-        if (!hero) return;
-        const heroRect = hero.getBoundingClientRect();
         const titleRect = titleEl.getBoundingClientRect();
-        // Show only when hero is fully gone AND about title hasn't reached the top yet
-        if (heroRect.bottom <= 0 && titleRect.top > 64) {
+        // Show when "Get to know me" is visible in the viewport, below the navbar
+        if (titleRect.top > 64 && titleRect.top < window.innerHeight * 0.85) {
           arrowEl.style.opacity = '1';
           arrowEl.style.visibility = 'visible';
         } else {
