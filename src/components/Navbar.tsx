@@ -218,7 +218,7 @@ function SettingsPanel({
       </div>
 
       {paletteOpen && (
-        <div className="absolute top-full right-0 mt-3 py-2 rounded-xl shadow-2xl shadow-black/30 w-[min(220px,calc(100vw-2rem))] max-h-[60vh] overflow-y-auto z-[999] border" style={{ background: 'rgba(var(--bg-rgb), 0.95)', borderColor: 'var(--border-card)', backdropFilter: 'blur(24px) saturate(180%)', WebkitBackdropFilter: 'blur(24px) saturate(180%)' }}>
+        <div data-scroll-allow className="absolute top-full right-0 mt-3 py-2 rounded-xl shadow-2xl shadow-black/30 w-[min(220px,calc(100vw-2rem))] max-h-[60vh] overflow-y-auto z-[999] border" style={{ background: 'rgba(var(--bg-rgb), 0.95)', borderColor: 'var(--border-card)', backdropFilter: 'blur(24px) saturate(180%)', WebkitBackdropFilter: 'blur(24px) saturate(180%)' }}>
           <div className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-[var(--text-dimmed)] font-medium">
             Color Scheme
           </div>
@@ -313,25 +313,29 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const prevent = (e: Event) => e.preventDefault();
+    const prevent = (e: TouchEvent | WheelEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('[data-scroll-allow]')) return;
+      e.preventDefault();
+    };
     if (mobileOpen || mobileSettingsOpen) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
-      window.addEventListener("touchmove", prevent, { passive: false });
-      window.addEventListener("wheel", prevent, { passive: false });
+      window.addEventListener("touchmove", prevent as EventListener, { passive: false });
+      window.addEventListener("wheel", prevent as EventListener, { passive: false });
       if (mobileOpen) window.dispatchEvent(new CustomEvent("mobile-menu-open"));
     } else {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      window.removeEventListener("touchmove", prevent);
-      window.removeEventListener("wheel", prevent);
+      window.removeEventListener("touchmove", prevent as EventListener);
+      window.removeEventListener("wheel", prevent as EventListener);
       window.dispatchEvent(new CustomEvent("mobile-menu-close"));
     }
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      window.removeEventListener("touchmove", prevent);
-      window.removeEventListener("wheel", prevent);
+      window.removeEventListener("touchmove", prevent as EventListener);
+      window.removeEventListener("wheel", prevent as EventListener);
       window.dispatchEvent(new CustomEvent("mobile-menu-close"));
     };
   }, [mobileOpen, mobileSettingsOpen]);
