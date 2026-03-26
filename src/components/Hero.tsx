@@ -57,23 +57,14 @@ export default function Hero() {
         );
 
       
-      gsap.to(scrollIndicatorRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        delay: 5,
-        ease: "power2.out",
-        onStart: () => {
-          // Don't show if user has already scrolled away from the top
-          if (window.scrollY > 0) return;
-          chevronsVisible = true;
-          (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = true;
-          window.dispatchEvent(new CustomEvent("hero-ready"));
-        },
-      });
-
       let chevronsVisible = false;
-      let chevronTimer: ReturnType<typeof setTimeout> | null = null;
+      let chevronTimer: ReturnType<typeof setTimeout> | null = setTimeout(() => {
+        if (window.scrollY > 0) { chevronTimer = null; return; }
+        chevronsVisible = true;
+        (window as Window & { __heroChevronVisible?: boolean }).__heroChevronVisible = true;
+        window.dispatchEvent(new CustomEvent("hero-ready"));
+        gsap.to(scrollIndicatorRef.current, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+      }, 5000);
 
       const hideChevrons = () => {
         if (chevronTimer) { clearTimeout(chevronTimer); chevronTimer = null; }

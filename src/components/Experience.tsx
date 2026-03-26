@@ -26,8 +26,8 @@ const experiences: ExperienceItem[] = [
       "Implemented SSR and SSG to improve performance and SEO",
       "Created reusable and configurable UI components for consistent design systems",
       "Integrated REST APIs for dynamic data fetching and real-time updates",
-      "Conducted functional testing and module configuration",
-      "Delivered code within timelines and participated in peer code reviews",
+      "Applied accessibility best practices (semantic HTML, ARIA attributes, colour-contrast) to critical user flows in line with WCAG guidelines",
+      "Wrote unit tests using Jest and React Testing Library; participated in code reviews to ensure reliable, production-ready releases",
     ],
   },
   {
@@ -40,7 +40,8 @@ const experiences: ExperienceItem[] = [
       "Built reusable UI components and shared design patterns across teams",
       "Integrated REST APIs for real-time data processing and workflow automation",
       "Worked on enterprise platforms including LMS, Project Management System, and Recruitment Management System",
-      "Ensured performance optimization and cross-browser compatibility",
+      "Ensured frontend performance optimization, cross-browser compatibility, and WCAG-aligned accessibility across all delivered enterprise modules",
+      "Collaborated in functional testing and code reviews to validate component behaviour and maintain production quality standards",
     ],
   },
 ];
