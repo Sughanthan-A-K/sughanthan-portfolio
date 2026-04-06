@@ -653,7 +653,7 @@
     <section class="section">
       <h2 class="section-title">Professional Summary</h2>
       <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.5; text-align:justify;">
-        Frontend-focused Associate Software Engineer with 1+ years of professional experience in developing, testing, and deploying production web applications. Proficient in React.js, Next.js, TypeScript, JavaScript (ES6+), and Tailwind CSS with expertise in building responsive single-page applications, implementing server-side rendering (SSR) and static site generation (SSG), and translating business requirements into scalable frontend solutions. Experienced in state management with Redux, REST API integration, reusable component library development, legacy system modernization, and AI-assisted development workflows.
+        Frontend-focused Associate Software Engineer with 1+ years of professional experience developing, testing, and deploying production web applications. Proficient in React.js, Next.js, TypeScript, JavaScript (ES6+), and Tailwind CSS with expertise in building responsive single-page applications, SSR/SSG, and translating business requirements into scalable frontend solutions. Experienced in Redux state management, REST API integration, reusable component library development, legacy system modernization, accessibility (WCAG) implementation, unit/integration testing, and AI-assisted development workflows. Seeking a Frontend Developer role to build scalable, high-performance React/Next.js applications for enterprise-scale products.
       </p>
     </section>
 
@@ -665,7 +665,7 @@
         <div class="skill-row"><span class="skill-label">React Native</span><span class="skill-value">CLI, React Navigation, Redux Toolkit, Auth &amp; Route Guards, HOC, Push Notifications, Form Validation</span></div>
         <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Design, Cross-Browser Compatibility, Mobile First, Material UI, Mantine</span></div>
         <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Postman, Swagger, MongoDB, Git, GitHub, Bitbucket, VS Code, npm</span></div>
-        <div class="skill-row"><span class="skill-label">Testing</span><span class="skill-value">Functional Testing, Debugging, Code Reviews, Clean Code Practices</span></div>
+        <div class="skill-row"><span class="skill-label">Testing</span><span class="skill-value">Jest, React Testing Library, Unit Testing, Integration Testing, Functional Testing, WCAG Accessibility, Debugging, Code Reviews</span></div>
         <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile, Scrum, SDLC, Component-Based Architecture, State Management</span></div>
         <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization</span></div>
         <div class="skill-row"><span class="skill-label">Soft Skills</span><span class="skill-value">Problem Solving, Analytical Thinking, Team Collaboration, Communication, Adaptability</span></div>
@@ -689,8 +689,8 @@
           <li>Implemented SSR and SSG strategies to boost application performance, SEO scores, and initial page load speed</li>
           <li>Designed and developed a reusable, configurable UI component library ensuring consistent design systems across modules</li>
           <li>Integrated and consumed REST APIs for dynamic data fetching, real-time updates, and frontend-backend communication</li>
-          <li>Conducted functional testing and module configuration to ensure quality deliverables before production release</li>
-          <li>Delivered code within Agile sprint timelines; participated in code reviews, stand-ups, and best-practice discussions</li>
+          <li>Applied accessibility best practices (semantic HTML, ARIA attributes, colour-contrast ratios) to critical user flows in line with WCAG guidelines</li>
+          <li>Wrote unit tests using Jest and React Testing Library; participated in code reviews and Agile ceremonies to ensure reliable, on-time production deliverables</li>
           <li>Leveraged GitHub Copilot and AI-assisted tools to accelerate development velocity while maintaining code quality</li>
         </ul>
       </div>
@@ -707,7 +707,8 @@
           <li>Built reusable UI components and established shared design patterns adopted across multiple cross-functional teams</li>
           <li>Integrated REST APIs for real-time data processing, workflow automation, and cross-module communication</li>
           <li>Contributed to 3 enterprise platforms: LMS, Project Management System, and Recruitment Management System</li>
-          <li>Ensured frontend performance optimization, responsive layouts, and cross-browser compatibility across all major browsers</li>
+          <li>Ensured frontend performance optimization, responsive layouts, cross-browser compatibility, and WCAG-aligned accessibility in all delivered modules</li>
+          <li>Collaborated in functional testing and code reviews to validate UI behaviour and maintain consistent production quality</li>
         </ul>
       </div>
     </section>
@@ -829,9 +830,9 @@
         <li>Scalable component-based architecture design</li>
         <li>Frontend performance optimization (SSR, SSG, code splitting)</li>
         <li>AI-assisted development with GitHub Copilot</li>
-        <li>Strong debugging, analytical, and problem-solving skills</li>
+        <li>Accessibility-first UI development (WCAG, semantic HTML, ARIA)</li>
         <li>Agile/Scrum collaboration with consistent sprint delivery</li>
-        <li>Quick adoption of modern frontend technologies and tools</li>
+        <li>Unit &amp; integration testing for reliable, production-ready code</li>
         <li>Clear technical communication in cross-functional teams</li>
       </ul>
     </section>
@@ -1686,42 +1687,91 @@
     }
   }
 
+  function getA4CanvasOptions(pageId, linkTargets) {
+    return {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      windowWidth: 1200,
+      windowHeight: 1700,
+      onclone: function(cloneDoc) {
+        var exportStyle = cloneDoc.createElement('style');
+        exportStyle.textContent = [
+          '#nightsky-canvas, .download-btn, .back-link { display: none !important; }',
+          '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
+          '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
+          '.page { width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
+          '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 4px 20px !important; }',
+          '.entry-header, .edu-row { flex-direction: row !important; align-items: baseline !important; }',
+          'ul.bullets { columns: auto !important; }',
+          '.header h1 { font-size: 2.06rem !important; }',
+          '.header .role { font-size: 1.03rem !important; }',
+          '.header .contact-row { font-size: 0.855rem !important; gap: 4px 16px !important; }'
+        ].join('\n');
+        cloneDoc.head.appendChild(exportStyle);
+
+        var clonePage = cloneDoc.getElementById(pageId);
+        if (!clonePage) return;
+
+        var pageRect = clonePage.getBoundingClientRect();
+        var links = clonePage.querySelectorAll('a[href]');
+
+        links.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (!href || href === '#') return;
+
+          var rect = link.getBoundingClientRect();
+          linkTargets.push({
+            href: href,
+            x: rect.left - pageRect.left,
+            y: rect.top - pageRect.top,
+            w: rect.width,
+            h: rect.height
+          });
+        });
+      }
+    };
+  }
+
+  function captureA4Page(pageId) {
+    var page = document.getElementById(pageId);
+    if (!page) {
+      return Promise.reject(new Error('Missing resume page: ' + pageId));
+    }
+
+    var links = [];
+    return html2canvas(page, getA4CanvasOptions(pageId, links)).then(function(canvas) {
+      return { canvas: canvas, links: links };
+    });
+  }
+
   function downloadPDF() {
     var btn = document.querySelector('.download-btn');
     btn.style.pointerEvents = 'none';
     btn.style.opacity = '0.7';
 
-    var page1 = document.getElementById('page1');
-    var page2 = document.getElementById('page2');
-    var canvasOpts = { scale: 3, useCORS: true, backgroundColor: '#ffffff' };
-
     Promise.all([
-      html2canvas(page1, canvasOpts),
-      html2canvas(page2, canvasOpts)
-    ]).then(function(canvases) {
+      captureA4Page('page1'),
+      captureA4Page('page2')
+    ]).then(function(results) {
       var pdf = new window.jspdf.jsPDF({ unit: 'px', format: [794, 1123], orientation: 'portrait' });
 
-      var pages = [page1, page2];
-
-      canvases.forEach(function(canvas, i) {
+      results.forEach(function(result, i) {
         if (i > 0) pdf.addPage([794, 1123]);
+        var canvas = result.canvas;
         var imgData = canvas.toDataURL('image/jpeg', 0.92);
         pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
 
-        var links = pages[i].querySelectorAll('a[href]');
-        var pageRect = pages[i].getBoundingClientRect();
+        var scaleX = 794 / canvas.width;
+        var scaleY = 1123 / canvas.height;
 
-        links.forEach(function(link) {
-          var href = link.getAttribute('href');
-          if (!href || href === '#') return;
-          var rect = link.getBoundingClientRect();
-          var scaleX = 794 / pageRect.width;
-          var scaleY = 1123 / pageRect.height;
-          var x = (rect.left - pageRect.left) * scaleX;
-          var y = (rect.top - pageRect.top) * scaleY;
-          var w = rect.width * scaleX;
-          var h = rect.height * scaleY;
-          pdf.link(x, y, w, h, { url: href });
+        result.links.forEach(function(link) {
+          var x = link.x * scaleX;
+          var y = link.y * scaleY;
+          var w = link.w * scaleX;
+          var h = link.h * scaleY;
+          if (w <= 0 || h <= 0) return;
+          pdf.link(x, y, w, h, { url: link.href });
         });
       });
 

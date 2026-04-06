@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync:resume": "node scripts/sync-resume.mjs",
+    "prebuild": "npm run sync:resume",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

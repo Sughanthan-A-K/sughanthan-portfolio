@@ -1687,42 +1687,91 @@
     }
   }
 
+  function getA4CanvasOptions(pageId, linkTargets) {
+    return {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      windowWidth: 1200,
+      windowHeight: 1700,
+      onclone: function(cloneDoc) {
+        var exportStyle = cloneDoc.createElement('style');
+        exportStyle.textContent = [
+          '#nightsky-canvas, .download-btn, .back-link { display: none !important; }',
+          '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
+          '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
+          '.page { width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
+          '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 4px 20px !important; }',
+          '.entry-header, .edu-row { flex-direction: row !important; align-items: baseline !important; }',
+          'ul.bullets { columns: auto !important; }',
+          '.header h1 { font-size: 2.06rem !important; }',
+          '.header .role { font-size: 1.03rem !important; }',
+          '.header .contact-row { font-size: 0.855rem !important; gap: 4px 16px !important; }'
+        ].join('\n');
+        cloneDoc.head.appendChild(exportStyle);
+
+        var clonePage = cloneDoc.getElementById(pageId);
+        if (!clonePage) return;
+
+        var pageRect = clonePage.getBoundingClientRect();
+        var links = clonePage.querySelectorAll('a[href]');
+
+        links.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (!href || href === '#') return;
+
+          var rect = link.getBoundingClientRect();
+          linkTargets.push({
+            href: href,
+            x: rect.left - pageRect.left,
+            y: rect.top - pageRect.top,
+            w: rect.width,
+            h: rect.height
+          });
+        });
+      }
+    };
+  }
+
+  function captureA4Page(pageId) {
+    var page = document.getElementById(pageId);
+    if (!page) {
+      return Promise.reject(new Error('Missing resume page: ' + pageId));
+    }
+
+    var links = [];
+    return html2canvas(page, getA4CanvasOptions(pageId, links)).then(function(canvas) {
+      return { canvas: canvas, links: links };
+    });
+  }
+
   function downloadPDF() {
     var btn = document.querySelector('.download-btn');
     btn.style.pointerEvents = 'none';
     btn.style.opacity = '0.7';
 
-    var page1 = document.getElementById('page1');
-    var page2 = document.getElementById('page2');
-    var canvasOpts = { scale: 3.5, useCORS: true, backgroundColor: '#ffffff' };
-
     Promise.all([
-      html2canvas(page1, canvasOpts),
-      html2canvas(page2, canvasOpts)
-    ]).then(function(canvases) {
+      captureA4Page('page1'),
+      captureA4Page('page2')
+    ]).then(function(results) {
       var pdf = new window.jspdf.jsPDF({ unit: 'px', format: [794, 1123], orientation: 'portrait' });
 
-      var pages = [page1, page2];
-
-      canvases.forEach(function(canvas, i) {
+      results.forEach(function(result, i) {
         if (i > 0) pdf.addPage([794, 1123]);
-        var imgData = canvas.toDataURL('image/jpeg', 0.80);
-        pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123);
+        var canvas = result.canvas;
+        var imgData = canvas.toDataURL('image/jpeg', 0.92);
+        pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
 
-        var links = pages[i].querySelectorAll('a[href]');
-        var pageRect = pages[i].getBoundingClientRect();
+        var scaleX = 794 / canvas.width;
+        var scaleY = 1123 / canvas.height;
 
-        links.forEach(function(link) {
-          var href = link.getAttribute('href');
-          if (!href || href === '#') return;
-          var rect = link.getBoundingClientRect();
-          var scaleX = 794 / pageRect.width;
-          var scaleY = 1123 / pageRect.height;
-          var x = (rect.left - pageRect.left) * scaleX;
-          var y = (rect.top - pageRect.top) * scaleY;
-          var w = rect.width * scaleX;
-          var h = rect.height * scaleY;
-          pdf.link(x, y, w, h, { url: href });
+        result.links.forEach(function(link) {
+          var x = link.x * scaleX;
+          var y = link.y * scaleY;
+          var w = link.w * scaleX;
+          var h = link.h * scaleY;
+          if (w <= 0 || h <= 0) return;
+          pdf.link(x, y, w, h, { url: link.href });
         });
       });
 
