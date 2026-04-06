@@ -1698,9 +1698,12 @@
         var exportStyle = cloneDoc.createElement('style');
         exportStyle.textContent = [
           '#nightsky-canvas, .download-btn, .back-link { display: none !important; }',
+          'html { font-size: 10.7pt !important; }',
+          'body { line-height: 1.56 !important; }',
           '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
           '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
-          '.page { width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
+          '.page { width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px 74px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
+          '.page-num { position: absolute !important; left: 44px !important; right: 44px !important; bottom: 24px !important; margin: 0 !important; text-align: left !important; }',
           '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 4px 20px !important; }',
           '.entry-header, .edu-row { flex-direction: row !important; align-items: baseline !important; }',
           'ul.bullets { columns: auto !important; }',
