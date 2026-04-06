@@ -101,7 +101,7 @@
     html { scrollbar-color: var(--scroll-thumb) var(--scroll-track); scrollbar-width: thin; }
 
     html {
-      font-size: 9.5pt;
+      font-size: 10.8pt;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       overflow-x: hidden;
@@ -113,7 +113,7 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: var(--text-dark);
       background: var(--bg-body);
-      line-height: 1.5;
+      line-height: 1.56;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -153,27 +153,60 @@
       z-index: 0;
     }
 
-    /* ── A4 page card ── */
+    /* ── A4 page shell + scaled page ── */
+    .page-shell {
+      width: min(var(--a4-w), calc(100vw - 32px));
+      aspect-ratio: 794 / 1123;
+      position: relative;
+      z-index: 1;
+      container-type: inline-size;
+    }
+
     .page {
-      width: clamp(280px, var(--a4-w), calc(100vw - 32px));
-      max-width: 100%;
-      min-height: auto;
-      padding: 36px 44px;
+      width: var(--a4-w);
+      height: var(--a4-h);
+      padding: 36px 44px 74px;
       background: var(--page-bg);
       border-radius: 8px;
       box-shadow: var(--page-shadow);
-      position: relative;
-      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
       overflow: hidden;
+      transform-origin: top left;
+      transform: scale(calc(100cqw / 794px));
     }
 
     /* ── Page number ── */
     .page-num {
-      position: relative;
-      text-align: right;
-      margin-top: 12px;
+      position: absolute;
+      left: 44px;
+      right: 44px;
+      bottom: 24px;
+      margin: 0;
+      text-align: left;
       font-size: 0.8rem;
       color: var(--text-dimmed);
+    }
+
+    @supports not (width: 1cqw) {
+      .page-shell {
+        aspect-ratio: auto;
+      }
+
+      .page {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 28px 24px 64px;
+      }
+
+      .page-num {
+        left: 24px;
+        right: 24px;
+        bottom: 18px;
+      }
     }
 
     /* ── Header ── */
@@ -206,6 +239,10 @@
     .header .contact-row a {
       color: var(--primary);
       text-decoration: none;
+    }
+
+    .header .contact-row .contact-highlight {
+      color: var(--primary);
     }
 
     .header .contact-row .sep {
@@ -424,25 +461,15 @@
     .back-link svg { width: 14px; height: 14px; stroke: currentColor; }
     .back-link .back-text { display: inline; }
 
-    /* ── Responsive: scale page to fit viewport ── */
-
-    /* Tablet landscape / small laptop (601–834px) */
+    /* ── Responsive controls ── */
     @media (max-width: 834px) {
-      .page {
-        width: calc(100vw - 32px);
-        height: auto;
-        padding: 28px 24px;
-        border-radius: 12px;
-      }
       .resume-wrapper {
         padding: 20px 16px 100px;
         gap: 24px;
       }
-      .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 4px;
+      .page-shell {
+        width: calc(100vw - 32px);
       }
-      ul.bullets { columns: 1 !important; }
       .back-link {
         top: 36px;
         left: 36px;
@@ -474,31 +501,13 @@
       }
     }
 
-    /* Mobile (401–600px) */
     @media (max-width: 600px) {
-      html { font-size: 9.5pt; }
-      .page {
-        width: calc(100vw - 24px);
-        padding: 20px 16px;
-        border-radius: 10px;
-      }
       .resume-wrapper {
         padding: 16px 12px 90px;
         gap: 20px;
       }
-      .header h1 { font-size: 1.6rem; }
-      .header .role { font-size: 0.92rem; }
-      .header .contact-row {
-        font-size: 0.78rem;
-        gap: 3px 10px;
-      }
-      .entry-header {
-        flex-direction: column;
-        gap: 1px;
-      }
-      .edu-row {
-        flex-direction: column;
-        gap: 1px;
+      .page-shell {
+        width: calc(100vw - 24px);
       }
       .back-link {
         top: 32px;
@@ -527,14 +536,10 @@
       .download-btn svg { width: 16px; height: 16px; }
     }
 
-    /* Small mobile (≤400px) */
     @media (max-width: 400px) {
-      html { font-size: 9pt; }
-      .page { padding: 16px 12px; }
-      .header h1 { font-size: 1.4rem; }
-      .header .contact-row { font-size: 0.72rem; gap: 2px 8px; }
-      .section-title { font-size: 0.85rem; letter-spacing: 1px; }
-      .tag { font-size: 0.72rem; padding: 1px 6px; }
+      .page-shell {
+        width: calc(100vw - 20px);
+      }
       .back-link {
         top: 28px;
         left: 28px;
@@ -558,33 +563,15 @@
       }
     }
 
-    /* Large desktop / ultra-wide (≥1400px) */
     @media (min-width: 1400px) {
       .resume-wrapper { padding: 60px 20px 100px; gap: 50px; }
     }
 
-    /* Ultra-wide (≥1800px) */
     @media (min-width: 1800px) {
-      html { font-size: 11.5pt; }
       .resume-wrapper { padding: 80px 40px 120px; gap: 60px; }
-      .page { padding: 44px 56px; border-radius: 12px; }
       .download-btn { padding: 16px 36px; font-size: 1rem; }
       .back-link { padding: 12px 24px; font-size: 0.9rem; }
       .back-link svg { width: 16px; height: 16px; stroke: currentColor; }
-    }
-
-    /* ── Zoom-proof: clamp page width so ctrl+/- doesn't break layout ── */
-    @media (max-width: 850px) and (min-resolution: 1.25dppx) {
-      .page {
-        width: calc(100vw - 32px);
-        padding: 24px 20px;
-      }
-    }
-    @media (max-width: 850px) and (min-resolution: 1.5dppx) {
-      .page {
-        width: calc(100vw - 24px);
-        padding: 20px 16px;
-      }
     }
 
     /* ── Print ── */
@@ -593,20 +580,24 @@
       body { background: #fff; }
       .resume-wrapper { padding: 0; gap: 0; background: none; min-height: auto; }
       .resume-wrapper::before, .resume-wrapper::after { display: none; }
-      .page {
-        width: 100%; height: auto;
-        padding: 10mm 12mm;
-        border-radius: 0; box-shadow: none;
+      .page-shell {
+        width: 100%;
+        aspect-ratio: auto;
         page-break-after: always;
+        container-type: normal;
       }
-      .page:last-child { page-break-after: auto; }
+      .page-shell:last-child { page-break-after: auto; }
+      .page {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transform: none !important;
+        padding: 10mm 12mm;
+        border-radius: 0;
+        box-shadow: none;
+      }
       .page-num { display: none; }
-      .download-btn, .back-link { display: none; }
-    }
-
-    @media print {
-      .download-btn, .back-link { display: none; }
-    #nightsky-canvas { display: none; }
+      .download-btn, .back-link, #nightsky-canvas { display: none; }
     }
   </style>
 </head>
@@ -627,19 +618,20 @@
 <div class="resume-wrapper">
 
   <!-- ══════════════ PAGE 1 ══════════════ -->
-  <div class="page" id="page1">
+  <div class="page-shell">
+    <div class="page" id="page1">
 
     <header class="header">
       <h1>Sughanthan A K</h1>
       <p class="role">Associate Software Engineer</p>
       <div class="contact-row">
-        <span>Cuddalore, India</span>
+        <span class="contact-highlight">Cuddalore, India</span>
         <span class="sep">|</span>
-        <span>+91 8825784607</span>
+        <a href="tel:+918825784607">+91 8825784607</a>
         <span class="sep">|</span>
         <a href="mailto:a.k.sughanthan@gmail.com">a.k.sughanthan@gmail.com</a>
         <span class="sep">|</span>
-        <a href="https://linkedin.com/in/sughanthan-a-k">linkedin.com/in/sughanthan-a-k</a>
+        <a href="https://www.linkedin.com/in/sughanthan-a-k/">linkedin.com/in/sughanthan-a-k</a>
         <span class="sep">|</span>
         <a href="https://github.com/sughanthan-a-k">github.com/sughanthan-a-k</a>
         <span class="sep">|</span>
@@ -653,7 +645,7 @@
     <section class="section">
       <h2 class="section-title">Professional Summary</h2>
       <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.5; text-align:justify;">
-        Frontend-focused Associate Software Engineer with 1+ years of professional experience developing, testing, and deploying production web applications. Proficient in React.js, Next.js, TypeScript, JavaScript (ES6+), and Tailwind CSS with expertise in building responsive single-page applications, SSR/SSG, and translating business requirements into scalable frontend solutions. Experienced in Redux state management, REST API integration, reusable component library development, legacy system modernization, accessibility (WCAG) implementation, unit/integration testing, and AI-assisted development workflows. Seeking a Frontend Developer role to build scalable, high-performance React/Next.js applications for enterprise-scale products.
+        Frontend-focused Associate Software Engineer with 1 year 9+ months of professional experience in frontend development, web application testing, and production support. Proficient in React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, and Tailwind CSS with expertise in building responsive single-page applications, implementing SSR/SSG, and translating business requirements into scalable frontend solutions. Experienced in Redux state management, REST API integration, reusable component development, legacy system modernization, accessibility (WCAG), unit and integration testing, and AI-assisted development workflows. Seeking a Frontend Developer role to build scalable, high-performance React and Next.js applications for enterprise products.
       </p>
     </section>
 
@@ -679,12 +671,12 @@
       <div class="entry">
         <div class="entry-header">
           <span class="entry-title">Associate Software Engineer</span>
-          <span class="entry-meta">July 2025 – Present</span>
+          <span class="entry-meta">09 Jul 2025 – Present</span>
         </div>
         <div class="entry-sub">Tender Software India Pvt Ltd</div>
         <div class="entry-location">Pondicherry, India</div>
         <ul class="bullets">
-          <li>Built and deployed 5+ production web modules using React.js, Next.js, TypeScript, and Tailwind CSS across multiple platforms</li>
+          <li>Contributed to 5+ production web modules using React.js, Next.js, TypeScript, and Tailwind CSS across multiple platforms; supported production releases with the team</li>
           <li>Migrated legacy iFrame-based modules into modern Next.js architecture, reducing page load times and improving maintainability</li>
           <li>Implemented SSR and SSG strategies to boost application performance, SEO scores, and initial page load speed</li>
           <li>Designed and developed a reusable, configurable UI component library ensuring consistent design systems across modules</li>
@@ -697,8 +689,8 @@
 
       <div class="entry">
         <div class="entry-header">
-          <span class="entry-title">Trainee Developer</span>
-          <span class="entry-meta">Feb 2024 – Mar 2025</span>
+          <span class="entry-title">Frontend Trainee</span>
+          <span class="entry-meta">05 Feb 2024 – 04 Mar 2025</span>
         </div>
         <div class="entry-sub">HEPL Pvt Ltd</div>
         <div class="entry-location">Cuddalore, India</div>
@@ -713,11 +705,13 @@
       </div>
     </section>
 
-    <span class="page-num">Page 1 of 2</span>
+      <span class="page-num">Page 1 of 2</span>
+    </div>
   </div>
 
   <!-- ══════════════ PAGE 2 ══════════════ -->
-  <div class="page" id="page2">
+  <div class="page-shell">
+    <div class="page" id="page2">
 
     <!-- Projects -->
     <section class="section">
@@ -837,7 +831,8 @@
       </ul>
     </section>
 
-    <span class="page-num">Page 2 of 2</span>
+      <span class="page-num">Page 2 of 2</span>
+    </div>
   </div>
 
 </div>
@@ -1698,11 +1693,12 @@
         var exportStyle = cloneDoc.createElement('style');
         exportStyle.textContent = [
           '#nightsky-canvas, .download-btn, .back-link { display: none !important; }',
-          'html { font-size: 10.7pt !important; }',
+          'html { font-size: 10.8pt !important; }',
           'body { line-height: 1.56 !important; }',
           '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
           '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
-          '.page { width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px 74px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
+          '.page-shell { width: 794px !important; height: 1123px !important; aspect-ratio: auto !important; container-type: normal !important; overflow: visible !important; }',
+          '.page { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px 74px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
           '.page-num { position: absolute !important; left: 44px !important; right: 44px !important; bottom: 24px !important; margin: 0 !important; text-align: left !important; }',
           '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 4px 20px !important; }',
           '.entry-header, .edu-row { flex-direction: row !important; align-items: baseline !important; }',
@@ -1721,11 +1717,12 @@
 
         links.forEach(function(link) {
           var href = link.getAttribute('href');
-          if (!href || href === '#') return;
+          if (!href || href === '#' || href.indexOf('javascript:') === 0) return;
+          var resolvedHref = link.href || href;
 
           var rect = link.getBoundingClientRect();
           linkTargets.push({
-            href: href,
+            href: resolvedHref,
             x: rect.left - pageRect.left,
             y: rect.top - pageRect.top,
             w: rect.width,
@@ -1769,10 +1766,14 @@
         var scaleY = 1123 / canvas.height;
 
         result.links.forEach(function(link) {
-          var x = link.x * scaleX;
-          var y = link.y * scaleY;
-          var w = link.w * scaleX;
-          var h = link.h * scaleY;
+          var tapPadX = 3;
+          var tapPadY = 2;
+          var x = Math.max(0, (link.x * scaleX) - tapPadX);
+          var y = Math.max(0, (link.y * scaleY) - tapPadY);
+          var w = (link.w * scaleX) + (tapPadX * 2);
+          var h = (link.h * scaleY) + (tapPadY * 2);
+          if (x + w > 794) w = 794 - x;
+          if (y + h > 1123) h = 1123 - y;
           if (w <= 0 || h <= 0) return;
           pdf.link(x, y, w, h, { url: link.href });
         });
