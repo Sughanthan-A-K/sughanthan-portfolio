@@ -101,7 +101,7 @@
     html { scrollbar-color: var(--scroll-thumb) var(--scroll-track); scrollbar-width: thin; }
 
     html {
-      font-size: 10.8pt;
+      font-size: 10.4pt;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       overflow-x: hidden;
@@ -113,7 +113,7 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: var(--text-dark);
       background: var(--bg-body);
-      line-height: 1.56;
+      line-height: 1.54;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -259,7 +259,7 @@
     }
 
     /* ── Section ── */
-    .section { margin-bottom: 9px; }
+    .section { margin-bottom: 11px; }
 
     .section-title {
       font-size: 0.88rem;
@@ -268,12 +268,12 @@
       letter-spacing: 1.4px;
       color: var(--primary);
       border-bottom: 1.5px solid var(--border-color);
-      padding-bottom: 3px;
-      margin-bottom: 7px;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     /* ── Entry blocks ── */
-    .entry { margin-bottom: 7px; }
+    .entry { margin-bottom: 8px; }
 
     .entry-header {
       display: flex;
@@ -299,13 +299,13 @@
       font-size: 0.835rem;
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .entry-location {
       font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     /* ── Bullet lists ── */
@@ -319,8 +319,8 @@
       padding-left: 13px;
       font-size: 0.83rem;
       color: var(--text-muted);
-      margin-bottom: 2px;
-      line-height: 1.45;
+      margin-bottom: 3px;
+      line-height: 1.5;
       text-align: justify;
     }
 
@@ -336,7 +336,7 @@
     .skills-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4px 20px;
+      gap: 5px 20px;
     }
 
     .skill-row {
@@ -361,8 +361,8 @@
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 3px;
+      gap: 5px;
+      margin-top: 4px;
     }
 
     .tag {
@@ -462,6 +462,44 @@
     .back-link .back-text { display: inline; }
 
     /* ── Responsive controls ── */
+    @media (max-width: 1024px) {
+      .resume-wrapper {
+        padding: 24px 16px 100px;
+        gap: 24px;
+      }
+      .page-shell {
+        width: calc(100vw - 40px);
+        aspect-ratio: auto;
+        container-type: normal;
+      }
+      .page {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 30px 24px 72px;
+      }
+      .page-num {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: 12px;
+        text-align: right;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .entry-header,
+      .edu-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      ul.bullets { columns: 1 !important; }
+    }
+
     @media (max-width: 834px) {
       .resume-wrapper {
         padding: 20px 16px 100px;
@@ -469,6 +507,9 @@
       }
       .page-shell {
         width: calc(100vw - 32px);
+      }
+      .page {
+        padding: 26px 20px 68px;
       }
       .back-link {
         top: 36px;
@@ -502,6 +543,7 @@
     }
 
     @media (max-width: 600px) {
+      html { font-size: 10pt; }
       .resume-wrapper {
         padding: 16px 12px 90px;
         gap: 20px;
@@ -509,6 +551,12 @@
       .page-shell {
         width: calc(100vw - 24px);
       }
+      .page {
+        padding: 22px 16px 62px;
+      }
+      .header h1 { font-size: 1.56rem; }
+      .header .role { font-size: 0.94rem; }
+      .header .contact-row { font-size: 0.79rem; gap: 3px 10px; }
       .back-link {
         top: 32px;
         left: 32px;
@@ -537,9 +585,17 @@
     }
 
     @media (max-width: 400px) {
+      html { font-size: 9.7pt; }
       .page-shell {
         width: calc(100vw - 20px);
       }
+      .page {
+        padding: 18px 12px 56px;
+      }
+      .header h1 { font-size: 1.38rem; }
+      .header .contact-row { font-size: 0.74rem; gap: 2px 8px; }
+      .section-title { font-size: 0.85rem; letter-spacing: 1px; }
+      .tag { font-size: 0.72rem; padding: 1px 6px; }
       .back-link {
         top: 28px;
         left: 28px;
@@ -635,7 +691,7 @@
         <span class="sep">|</span>
         <a href="https://github.com/sughanthan-a-k">github.com/sughanthan-a-k</a>
         <span class="sep">|</span>
-        <a href="https://sughanthan-a-k.github.io/sughanthan-portfolio/">Portfolio</a>
+        <a href="https://sughanthan-a-k.github.io/sughanthan-portfolio/">Sughanthan-Portfolio</a>
       </div>
     </header>
 
@@ -1693,14 +1749,19 @@
         var exportStyle = cloneDoc.createElement('style');
         exportStyle.textContent = [
           '#nightsky-canvas, .download-btn, .back-link { display: none !important; }',
-          'html { font-size: 10.8pt !important; }',
-          'body { line-height: 1.56 !important; }',
+          'html { font-size: 10.4pt !important; }',
+          'body { line-height: 1.54 !important; }',
           '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
           '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
           '.page-shell { width: 794px !important; height: 1123px !important; aspect-ratio: auto !important; container-type: normal !important; overflow: visible !important; }',
           '.page { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px 74px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
+          '.section { margin-bottom: 11px !important; }',
+          '.section-title { margin-bottom: 8px !important; padding-bottom: 4px !important; }',
+          '.entry { margin-bottom: 8px !important; }',
+          '.entry-sub, .entry-location { margin-bottom: 3px !important; }',
+          'ul.bullets li { margin-bottom: 3px !important; line-height: 1.5 !important; }',
           '.page-num { position: absolute !important; left: 44px !important; right: 44px !important; bottom: 24px !important; margin: 0 !important; text-align: left !important; }',
-          '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 4px 20px !important; }',
+          '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 5px 20px !important; }',
           '.entry-header, .edu-row { flex-direction: row !important; align-items: baseline !important; }',
           'ul.bullets { columns: auto !important; }',
           '.header h1 { font-size: 2.06rem !important; }',
@@ -1710,25 +1771,31 @@
         cloneDoc.head.appendChild(exportStyle);
 
         var clonePage = cloneDoc.getElementById(pageId);
-        if (!clonePage) return;
+        if (!clonePage || !linkTargets) return;
 
         var pageRect = clonePage.getBoundingClientRect();
+        if (!pageRect.width || !pageRect.height) return;
+
+        var ratioX = 794 / pageRect.width;
+        var ratioY = 1123 / pageRect.height;
         var links = clonePage.querySelectorAll('a[href]');
 
         links.forEach(function(link) {
           var href = link.getAttribute('href');
           if (!href || href === '#' || href.indexOf('javascript:') === 0) return;
-          var resolvedHref = link.href || href;
 
+          var resolvedHref = link.href || href;
           var rect = link.getBoundingClientRect();
+
           linkTargets.push({
             href: resolvedHref,
-            x: rect.left - pageRect.left,
-            y: rect.top - pageRect.top,
-            w: rect.width,
-            h: rect.height
+            x: (rect.left - pageRect.left) * ratioX,
+            y: (rect.top - pageRect.top) * ratioY,
+            w: rect.width * ratioX,
+            h: rect.height * ratioY
           });
         });
+
       }
     };
   }
@@ -1762,16 +1829,13 @@
         var imgData = canvas.toDataURL('image/jpeg', 0.92);
         pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
 
-        var scaleX = 794 / canvas.width;
-        var scaleY = 1123 / canvas.height;
-
         result.links.forEach(function(link) {
-          var tapPadX = 3;
-          var tapPadY = 2;
-          var x = Math.max(0, (link.x * scaleX) - tapPadX);
-          var y = Math.max(0, (link.y * scaleY) - tapPadY);
-          var w = (link.w * scaleX) + (tapPadX * 2);
-          var h = (link.h * scaleY) + (tapPadY * 2);
+          var tapPadX = 4;
+          var tapPadY = 3;
+          var x = Math.max(0, link.x - tapPadX);
+          var y = Math.max(0, link.y - tapPadY);
+          var w = link.w + (tapPadX * 2);
+          var h = link.h + (tapPadY * 2);
           if (x + w > 794) w = 794 - x;
           if (y + h > 1123) h = 1123 - y;
           if (w <= 0 || h <= 0) return;
