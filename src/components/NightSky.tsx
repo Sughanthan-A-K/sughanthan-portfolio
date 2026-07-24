@@ -228,6 +228,31 @@ function isMobileDevice(): boolean {
   return window.innerWidth < 768 || ("ontouchstart" in window && window.innerWidth < 1024);
 }
 
+function getColorScheme(): string {
+  if (typeof window === "undefined") return "default";
+  const match = Array.from(document.documentElement.classList).find(c => c.startsWith("scheme-"));
+  return match ? match.replace("scheme-", "") : "default";
+}
+
+type MWTint = { r: number; g: number; b: number; strength: number };
+const MW_THEME_TINTS: Record<string, MWTint> = {
+  default:  { r: 0,   g: 0,   b: 0,   strength: 0    }, // Purple Haze — keep original MW colours
+  red:      { r: 220, g: 55,  b: 55,  strength: 0.42 },
+  golden:   { r: 215, g: 175, b: 50,  strength: 0.40 },
+  emerald:  { r: 40,  g: 190, b: 90,  strength: 0.40 },
+  ocean:    { r: 30,  g: 90,  b: 210, strength: 0.42 },
+  rose:     { r: 220, g: 50,  b: 140, strength: 0.40 },
+  cyber:    { r: 20,  g: 210, b: 180, strength: 0.40 },
+  sunset:   { r: 235, g: 110, b: 50,  strength: 0.42 },
+  arctic:   { r: 80,  g: 190, b: 235, strength: 0.38 },
+  lavender: { r: 150, g: 90,  b: 215, strength: 0.38 },
+  copper:   { r: 195, g: 125, b: 60,  strength: 0.40 },
+  lime:     { r: 145, g: 215, b: 30,  strength: 0.40 },
+  blood:    { r: 175, g: 25,  b: 25,  strength: 0.45 },
+  sapphire: { r: 30,  g: 70,  b: 195, strength: 0.42 },
+  peach:    { r: 235, g: 150, b: 110, strength: 0.38 },
+};
+
 function initStars(): Star[] {
   const mobile = isMobileDevice();
   const catalog = CATALOG.map(([ra, dec, mag, bv]) => createCatalogStar(ra, dec, mag, bv))
@@ -424,6 +449,7 @@ export default function NightSky() {
   const prevScrollFracRef = useRef(0);
   const cinematicOffsetRef = useRef(0);
   const cinematicStartRef = useRef(0);
+  const mwTintRef = useRef<MWTint>({ r: 0, g: 0, b: 0, strength: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -432,7 +458,7 @@ export default function NightSky() {
     if (!ctx) return;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
@@ -458,6 +484,7 @@ export default function NightSky() {
 
       baseLSTRef.current = GC_RA;
       moonRef.current = getMoonPosition();
+      mwTintRef.current = MW_THEME_TINTS[getColorScheme()] ?? MW_THEME_TINTS.default;
 
       /* Cinematic sky sweep: start with virtual scroll offset that decays to 0 */
       cinematicOffsetRef.current = 0.35;
@@ -495,7 +522,11 @@ export default function NightSky() {
     };
 
     const obs = new MutationObserver(() => {
-      setTimeout(() => { isDarkRef.current = getIsDark(); }, 100);
+      isDarkRef.current = getIsDark();
+      // Use setTimeout(0) so all batched class mutations settle before reading the scheme
+      setTimeout(() => {
+        mwTintRef.current = MW_THEME_TINTS[getColorScheme()] ?? MW_THEME_TINTS.default;
+      }, 0);
     });
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
@@ -1092,11 +1123,23 @@ export default function NightSky() {
 
     const mobileThrottle = isMobileDevice();
     let lastFrameTime = 0;
-    const MOBILE_FRAME_INTERVAL = 33.33; // ~30fps on mobile
+    const MOBILE_FRAME_INTERVAL = 33.33;  // ~30fps on mobile
+    const SCROLL_FRAME_INTERVAL = 41.67;  // ~24fps on desktop during active scroll
+
+    // Scroll-aware throttle: track active scroll to throttle canvas on desktop
+    let isScrollingCanvas = false;
+    let scrollCanvasTimer: ReturnType<typeof setTimeout>;
+    const onScrollCanvas = () => {
+      isScrollingCanvas = true;
+      clearTimeout(scrollCanvasTimer);
+      scrollCanvasTimer = setTimeout(() => { isScrollingCanvas = false; }, 200);
+    };
+    window.addEventListener('scroll', onScrollCanvas, { passive: true });
 
     const animate = (now: number) => {
-      // Throttle to 30fps on mobile
-      if (mobileThrottle && now - lastFrameTime < MOBILE_FRAME_INTERVAL) {
+      // Throttle: 30fps on mobile always; 24fps on desktop during active scroll (60fps when idle)
+      const fInterval = mobileThrottle ? MOBILE_FRAME_INTERVAL : (isScrollingCanvas ? SCROLL_FRAME_INTERVAL : 0);
+      if (fInterval > 0 && now - lastFrameTime < fInterval) {
         animRef.current = requestAnimationFrame(animate);
         return;
       }
@@ -1169,7 +1212,13 @@ export default function NightSky() {
         const p2 = projectToScreen(aa2.alt, aa2.az, cx, cy, scale);
         const tilt = p2.visible ? Math.atan2(p2.sy - p.sy, p2.sx - p.sx) : 0;
         const r = (bl.angSize / 90) * scale;
-        const [cr, cg, cb] = bl.color;
+        let cr = bl.color[0], cg = bl.color[1], cb = bl.color[2];
+        const tnt = mwTintRef.current;
+        if (tnt.strength > 0) {
+          cr = Math.round(cr * (1 - tnt.strength) + tnt.r * tnt.strength);
+          cg = Math.round(cg * (1 - tnt.strength) + tnt.g * tnt.strength);
+          cb = Math.round(cb * (1 - tnt.strength) + tnt.b * tnt.strength);
+        }
         const a = bl.alpha * (aa.alt > 0 ? Math.min(1, aa.alt / (8 * DEG)) : 0.3);
         if (a < 0.001) continue;
         const gr = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r);
@@ -1274,10 +1323,12 @@ export default function NightSky() {
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener('scroll', onScrollCanvas);
       document.removeEventListener('visibilitychange', onVisChange);
       window.removeEventListener('beforeunload', onBeforeUnload);
       obs.disconnect();
       clearTimeout(resizeTimer);
+      clearTimeout(scrollCanvasTimer);
     };
   }, []);
 
@@ -1285,6 +1336,7 @@ export default function NightSky() {
     <canvas
       ref={canvasRef}
       className="pointer-events-none fixed inset-0 z-0"
+      style={{ willChange: 'transform', transform: 'translateZ(0)' }}
       aria-hidden="true"
     />
   );

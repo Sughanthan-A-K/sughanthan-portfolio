@@ -198,8 +198,8 @@ export default function Hero() {
           className="opacity-0 text-sm sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed dark:drop-shadow-[0_0_12px_rgba(0,0,0,0.8)]"
           style={{ color: 'var(--text-muted)' }}
         >
-          I build scalable, high-performance web applications and modernize
-          legacy systems using modern frontend technologies.
+          I craft scalable, high-performance React.js and Next.js applications,
+          modernize legacy systems, and deliver production-ready frontend solutions.
         </p>
 
         <p

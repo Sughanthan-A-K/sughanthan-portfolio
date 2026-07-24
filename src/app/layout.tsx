@@ -20,7 +20,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Sughanthan A K | Associate Software Engineer",
   description:
-    "Portfolio of Sughanthan A K — Associate Software Engineer specializing in React.js, Next.js, TypeScript.",
+    "Portfolio of Sughanthan A K — Associate Software Engineer with 2 years of experience specialising in React.js, Next.js, TypeScript, and scalable web applications.",
   icons: {
     icon: "/sughanthan-portfolio/icon.svg",
   },

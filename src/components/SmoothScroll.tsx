@@ -66,13 +66,13 @@ export default function SmoothScroll({
     }
 
     const lenis = new Lenis({
-      duration: 2.4,
+      duration: 1.8,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.45,
-      touchMultiplier: 1.2,
+      wheelMultiplier: 0.65,
+      touchMultiplier: 1.35,
     });
 
     lenisRef.current = lenis;
@@ -111,13 +111,13 @@ export default function SmoothScroll({
       const el = document.querySelector(href);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -120, duration: 4, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      lenis.scrollTo(el as HTMLElement, { offset: -120, duration: 3, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
 
     document.addEventListener('click', handleAnchorClick);
 
     const handleRopeClick = () => {
-      lenis.scrollTo(0, { duration: 4, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      lenis.scrollTo(0, { duration: 3, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
     window.addEventListener('rope-click', handleRopeClick);
 

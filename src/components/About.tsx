@@ -109,9 +109,9 @@ export default function About() {
   }, []);
 
   const stats = [
-    { value: "1+", label: "Years Experience" },
-    { value: "5+", label: "Production Modules" },
-    { value: "8+", label: "Technologies" },
+    { value: "2+", label: "Years Experience" },
+    { value: "10+", label: "Production Modules" },
+    { value: "10+", label: "Technologies" },
     { value: "100%", label: "Commitment" },
   ];
 
@@ -153,9 +153,9 @@ export default function About() {
         <div className="grid lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10 items-start">
           <div className="about-card lg:col-span-3 glass hover-glow rounded-2xl p-5 sm:p-6 md:p-8 lg:p-10">
             <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Associate Software Engineer with hands-on experience in planning,
-              developing, testing, configuring, and maintaining web applications
-              in dynamic client-driven environments. Strong proficiency in{" "}
+              Frontend Developer with 2 years of hands-on experience building and
+              delivering production-grade web applications in fast-paced,
+              client-driven environments. Strong proficiency in{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>React.js</span>,{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Next.js</span>,{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>TypeScript</span>, and{" "}
