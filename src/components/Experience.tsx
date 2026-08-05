@@ -26,9 +26,8 @@ const experiences: ExperienceItem[] = [
       "Implemented SSR and SSG rendering strategies to optimize initial page loads",
       "Developed reusable UI components to ensure design consistency across multiple product modules",
       "Integrated REST APIs for dynamic data fetching and real-time UI updates",
-      "Ensured WCAG 2.1 accessibility compliance using semantic HTML, ARIA attributes, and proper color contrast",
       "Wrote unit and integration tests using Jest and React Testing Library in an Agile/Scrum environment",
-      "Utilized GitHub Copilot and AI-assisted development workflows to improve development efficiency and code quality",
+      "Integrated modern AI coding assistants (GitHub Copilot, ChatGPT, Claude, Gemini, Codex) into daily workflows for rapid prototyping, debugging, code refactoring, and documentation generation, significantly enhancing development productivity",
     ],
   },
   {

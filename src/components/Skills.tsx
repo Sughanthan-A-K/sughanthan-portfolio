@@ -82,8 +82,6 @@ const skillCategories: SkillCategory[] = [
       "React Testing Library",
       "Unit Testing",
       "Integration Testing",
-      "Functional Testing",
-      "WCAG Accessibility",
       "Debugging",
       "Code Reviews",
     ],

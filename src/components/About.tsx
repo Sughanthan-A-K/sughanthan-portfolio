@@ -160,8 +160,8 @@ export default function About() {
               Experienced in migrating legacy systems, optimizing performance via SSR/SSG, and developing reusable UI components.
             </p>
             <p className="text-base sm:text-lg leading-relaxed mt-4" style={{ color: 'var(--text-muted)' }}>
-              Skilled in integrating REST APIs, enforcing WCAG accessibility standards, and 
-              utilizing AI-assisted workflows to accelerate development.
+              Skilled in integrating REST APIs and utilizing modern AI coding assistants 
+              to enhance development productivity and code quality.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-8">
