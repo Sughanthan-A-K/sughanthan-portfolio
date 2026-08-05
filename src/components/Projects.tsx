@@ -19,14 +19,12 @@ const projects: Project[] = [
     title: "Project Management Tool",
     organization: "HEPL Pvt Ltd",
     description:
-      "My first project built from scratch — a full-featured task management system with multi-level task hierarchy and multiple view modes.",
-    tech: ["React.js", "TypeScript", "Material UI", "Redux", "REST APIs", "Git"],
+      "A full-featured task management system with multi-level task hierarchy and multiple view modes.",
+    tech: ["React.js", "TypeScript", "Material UI", "Redux", "REST APIs"],
     features: [
-      "Designed and built the entire UI from scratch",
-      "Multi-level hierarchy: Milestone → Task List → Task → Sub Task → Macro Task → Micro Task",
-      "MUI Table with Accordion for layered task display",
-      "List, Grid, and Kanban views with Drag & Drop",
-      "Full task flow management with status tracking",
+      "Developed a B2B Project Management System in React.js and TypeScript featuring a 6-level task hierarchy",
+      "Built Material UI data tables with Accordion expansion and multi-view task boards (List, Grid, Kanban)",
+      "Integrated REST APIs to support real-time status tracking and task filtering",
     ],
   },
   {
@@ -36,10 +34,9 @@ const projects: Project[] = [
       "Enterprise LMS product for managing courses, learners, and assessments with role-based dashboards.",
     tech: ["React.js", "TypeScript", "Material UI", "Redux", "REST APIs"],
     features: [
-      "Course and learning content management",
-      "Learner progress tracking and dashboards",
-      "Role-based access control and permissions",
-      "Reusable UI components for consistent UX",
+      "Developed frontend interfaces for a corporate Learning Management System using React.js and Redux",
+      "Built role-based dashboards for administrators to manage course content and track learner progress",
+      "Created reusable UI components for a consistent experience across instructor and learner views",
     ],
   },
   {
@@ -49,10 +46,8 @@ const projects: Project[] = [
       "Recruitment platform with rich-text JD creation, template management, and resume-based candidate data extraction.",
     tech: ["React.js", "TypeScript", "Material UI", "Rich Text Editor", "REST APIs"],
     features: [
-      "Job Description editor with mail-format rich text",
-      "JD template creation and management",
-      "Candidate form with resume data extraction",
-      "User detail forms with auto-fill from uploaded resume",
+      "Built a React.js Recruitment Management System featuring a rich-text Job Description editor and template management",
+      "Integrated candidate application forms with a REST API to extract and auto-fill data from uploaded resumes",
     ],
   },
   {
@@ -62,10 +57,9 @@ const projects: Project[] = [
       "Web platform for end-to-end DJ event booking with payment, travel costing, and digital contract generation.",
     tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Google Maps API", "REST APIs"],
     features: [
-      "Event booking and Event Builder with service packages",
-      "Payment integration and invoice management",
-      "Travel cost calculator using Google Distance Matrix API",
-      "Digital contract generation for clients",
+      "Developed a Next.js Event Management Platform for DJ bookings with service packages and payment integration",
+      "Integrated the Google Distance Matrix API for an automated travel cost calculator",
+      "Implemented automated digital contract generation and invoice management for clients",
     ],
   },
   {
@@ -75,10 +69,9 @@ const projects: Project[] = [
       "School child-care platform where teachers log child activities and parents track their child's day in real time.",
     tech: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "REST APIs", "Bitbucket"],
     features: [
-      "Incident reporting with interactive body map",
-      "Add new child and adult with parent linking",
-      "Advanced filters for list views; center and company management",
-      "Migrated legacy iFrame modules to Next.js architecture",
+      "Developed a Next.js Child Care Monitoring platform for real-time activity tracking by centers and parents",
+      "Migrated legacy iFrame modules to Next.js to modernize the frontend architecture",
+      "Built an incident reporting UI with an interactive body map and list filters for center management",
     ],
   },
 ];

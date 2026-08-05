@@ -110,7 +110,7 @@ export default function About() {
 
   const stats = [
     { value: "2+", label: "Years Experience" },
-    { value: "10+", label: "Production Modules" },
+    { value: "5+", label: "Production Modules" },
     { value: "10+", label: "Technologies" },
     { value: "100%", label: "Commitment" },
   ];
@@ -153,22 +153,15 @@ export default function About() {
         <div className="grid lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10 items-start">
           <div className="about-card lg:col-span-3 glass hover-glow rounded-2xl p-5 sm:p-6 md:p-8 lg:p-10">
             <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Frontend Developer with 2 years of hands-on experience building and
-              delivering production-grade web applications in fast-paced,
-              client-driven environments. Strong proficiency in{" "}
+              Frontend Developer with 2+ years of experience building enterprise web applications using{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>React.js</span>,{" "}
-              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Next.js</span>,{" "}
-              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>TypeScript</span>, and{" "}
-              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>JavaScript</span>{" "}
-              with the ability to translate business requirements into scalable
-              technical solutions.
+              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Next.js</span>, and{" "}
+              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>TypeScript</span>.{" "}
+              Experienced in migrating legacy systems, optimizing performance via SSR/SSG, and developing reusable UI components.
             </p>
             <p className="text-base sm:text-lg leading-relaxed mt-4" style={{ color: 'var(--text-muted)' }}>
-              Experienced in building modern web applications, migrating legacy
-              systems, developing reusable components, integrating REST APIs, and
-              delivering production-ready applications. Strong analytical thinking,
-              communication skills, and ability to quickly adopt new technologies
-              including AI-assisted development tools.
+              Skilled in integrating REST APIs, enforcing WCAG accessibility standards, and 
+              utilizing AI-assisted workflows to accelerate development.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-8">

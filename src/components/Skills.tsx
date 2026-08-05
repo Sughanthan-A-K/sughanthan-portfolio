@@ -29,7 +29,6 @@ const skillCategories: SkillCategory[] = [
       "CSS3",
       "Tailwind CSS",
       "Redux",
-      "Bootstrap",
     ],
   },
   {
@@ -79,11 +78,14 @@ const skillCategories: SkillCategory[] = [
       </svg>
     ),
     skills: [
+      "Jest",
+      "React Testing Library",
+      "Unit Testing",
+      "Integration Testing",
       "Functional Testing",
+      "WCAG Accessibility",
       "Debugging",
       "Code Reviews",
-      "Clean Code Practices",
-      "SDLC",
     ],
   },
   {
@@ -93,39 +95,7 @@ const skillCategories: SkillCategory[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
       </svg>
     ),
-    skills: ["Git", "GitHub", "Bitbucket", "VS Code", "Material UI", "Mantine", "Postman", "Swagger", "MongoDB", "npm"],
-  },
-  {
-    title: "React Native",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13zM12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-      </svg>
-    ),
-    skills: [
-      "React Native CLI",
-      "React Navigation",
-      "Redux Toolkit",
-      "Authentication Guards",
-      "Push Notifications",
-      "HOC & Component Patterns",
-      "Form Validation",
-    ],
-  },
-  {
-    title: "Soft Skills",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    skills: [
-      "Problem Solving",
-      "Analytical Thinking",
-      "Team Collaboration",
-      "Communication",
-      "Adaptability",
-    ],
+    skills: ["Git", "GitHub", "Bitbucket", "VS Code", "Material UI", "Postman", "Swagger", "npm"],
   },
   {
     title: "Methodologies",
@@ -134,7 +104,7 @@ const skillCategories: SkillCategory[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
       </svg>
     ),
-    skills: ["Agile", "Scrum", "SDLC"],
+    skills: ["Agile", "Scrum", "SDLC", "Component-Based Architecture"],
   },
   {
     title: "Programming Fundamentals",
@@ -147,6 +117,7 @@ const skillCategories: SkillCategory[] = [
       "Object Oriented Programming",
       "Data Structures",
       "Basic Algorithms",
+      "Performance Optimization",
     ],
   },
 ];
