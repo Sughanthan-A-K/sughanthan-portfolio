@@ -25,10 +25,29 @@ const skillCategories: SkillCategory[] = [
       "Next.js",
       "TypeScript",
       "JavaScript (ES6+)",
+      "Angular (v16/v19)",
+      "Vue.js 3",
       "HTML5",
       "CSS3",
       "Tailwind CSS",
-      "Redux",
+      "Redux & Redux-Saga",
+    ],
+  },
+  {
+    title: "State, 3D & UI Libraries",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+      </svg>
+    ),
+    skills: [
+      "Three.js (WebGL/USDZ)",
+      "RxJS & Angular Signals",
+      "Material UI",
+      "Mantine Core",
+      "Bootstrap 5",
+      "SCSS/SASS",
+      "Framer Motion",
     ],
   },
   {
@@ -62,13 +81,36 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "API Integration",
+    title: "Backend & Database",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zM9 12h6m-6 4h4" />
       </svg>
     ),
-    skills: ["REST APIs", "Fetch API", "AJAX"],
+    skills: [
+      "Python & FastAPI",
+      "PostgreSQL",
+      "SQLAlchemy ORM",
+      "RESTful APIs",
+      "Node.js",
+      "Supabase",
+    ],
+  },
+  {
+    title: "Automation, AI & Workflow",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    skills: [
+      "Playwright (Browser Automation)",
+      "OpenAI API Integration",
+      "Google Gemini SDK",
+      "n8n Workflow Automation",
+      "Chrome Extension Manifest V3",
+      "AI Code Refactoring & Prototyping",
+    ],
   },
   {
     title: "Testing & Quality",

@@ -101,7 +101,7 @@
     html { scrollbar-color: var(--scroll-thumb) var(--scroll-track); scrollbar-width: thin; }
 
     html {
-      font-size: 11.8pt;
+      font-size: 11.0pt;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       overflow-x: hidden;
@@ -153,19 +153,73 @@
       z-index: 0;
     }
 
-    /* ── A4 page shell + scaled page ── */
+    /* Dynamic Page Font Scaling Variables */
+    #page1 {
+      --p-scale: 1;
+    }
+    #page2 {
+      --p-scale: 1;
+    }
+    #page1 .header h1, #page2 .header h1 {
+      font-size: calc(2.02rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .header .role, #page2 .header .role {
+      font-size: calc(1.01rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .header .contact-row, #page2 .header .contact-row {
+      font-size: calc(0.85rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .section-title, #page2 .section-title {
+      font-size: calc(0.88rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .entry-title, #page2 .entry-title {
+      font-size: calc(0.9rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .entry-sub, #page2 .entry-sub {
+      font-size: calc(0.835rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .entry-meta, #page2 .entry-meta, #page1 .entry-location, #page2 .entry-location {
+      font-size: calc(0.8rem * var(--p-scale, 1)) !important;
+    }
+    #page1 ul.bullets li, #page2 ul.bullets li {
+      font-size: calc(0.82rem * var(--p-scale, 1)) !important;
+      line-height: calc(1.46 * var(--p-scale, 1)) !important;
+      margin-bottom: calc(2.2px * var(--p-scale, 1)) !important;
+    }
+    #page1 .skill-row, #page2 .skill-row {
+      font-size: calc(0.8rem * var(--p-scale, 1)) !important;
+    }
+    #page1 .tag, #page2 .tag {
+      font-size: calc(0.74rem * var(--p-scale, 1)) !important;
+    }
+    #page1 p, #page2 p {
+      font-size: calc(0.84rem * var(--p-scale, 1)) !important;
+      line-height: calc(1.48 * var(--p-scale, 1)) !important;
+    }
+    #page2 .edu-degree {
+      font-size: calc(0.935rem * var(--p-scale, 1)) !important;
+    }
+    #page2 .edu-date, #page2 .edu-cgpa {
+      font-size: calc(0.845rem * var(--p-scale, 1)) !important;
+    }
+    #page2 .edu-inst {
+      font-size: calc(0.865rem * var(--p-scale, 1)) !important;
+    }
     .page-shell {
-      width: min(var(--a4-w), calc(100vw - 32px));
+      width: 794px;
+      max-width: calc(100vw - 32px);
       aspect-ratio: 794 / 1123;
       position: relative;
       z-index: 1;
-      container-type: inline-size;
+      margin: 0 auto;
     }
 
     .page {
-      width: var(--a4-w);
-      height: var(--a4-h);
-      padding: 36px 44px 74px;
+      width: 794px;
+      height: 1123px;
+      min-height: 1123px;
+      max-height: 1123px;
+      padding: 32px 42px 46px;
       background: var(--page-bg);
       border-radius: 8px;
       box-shadow: var(--page-shadow);
@@ -174,39 +228,19 @@
       left: 0;
       overflow: hidden;
       transform-origin: top left;
-      transform: scale(calc(100cqw / 794px));
+      transform: scale(var(--page-view-scale, 1));
     }
 
     /* ── Page number ── */
     .page-num {
       position: absolute;
-      left: 44px;
-      right: 44px;
-      bottom: 24px;
+      left: 42px;
+      right: 42px;
+      bottom: 16px;
       margin: 0;
       text-align: left;
       font-size: 0.8rem;
       color: var(--text-dimmed);
-    }
-
-    @supports not (width: 1cqw) {
-      .page-shell {
-        aspect-ratio: auto;
-      }
-
-      .page {
-        position: relative;
-        width: 100%;
-        height: auto;
-        transform: none;
-        padding: 28px 24px 64px;
-      }
-
-      .page-num {
-        left: 24px;
-        right: 24px;
-        bottom: 18px;
-      }
     }
 
     /* ── Header ── */
@@ -259,7 +293,7 @@
     }
 
     /* ── Section ── */
-    .section { margin-bottom: 11px; }
+    .section { margin-bottom: 8px; }
 
     .section-title {
       font-size: 0.88rem;
@@ -268,12 +302,12 @@
       letter-spacing: 1.4px;
       color: var(--primary);
       border-bottom: 1.5px solid var(--border-color);
-      padding-bottom: 4px;
-      margin-bottom: 8px;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
     }
 
     /* ── Entry blocks ── */
-    .entry { margin-bottom: 8px; }
+    .entry { margin-bottom: 5px; }
 
     .entry-header {
       display: flex;
@@ -299,13 +333,13 @@
       font-size: 0.835rem;
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .entry-location {
       font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     /* ── Bullet lists ── */
@@ -317,10 +351,10 @@
     ul.bullets li {
       position: relative;
       padding-left: 13px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      margin-bottom: 3px;
-      line-height: 1.5;
+      margin-bottom: 2.2px;
+      line-height: 1.46;
       text-align: justify;
     }
 
@@ -461,70 +495,328 @@
     .back-link svg { width: 14px; height: 14px; stroke: currentColor; }
     .back-link .back-text { display: inline; }
 
-    /* ── Responsive controls ── */
-    @media (max-width: 1024px) {
-      .resume-wrapper {
-        padding: 24px 16px 100px;
-        gap: 24px;
-      }
-      .page-shell {
-        width: calc(100vw - 40px);
-        aspect-ratio: auto;
-        container-type: normal;
-      }
-      .page {
-        position: relative;
-        width: 100%;
-        height: auto;
-        transform: none;
-        padding: 30px 24px 72px;
-      }
-      .page-num {
-        position: relative;
-        left: auto;
-        right: auto;
-        bottom: auto;
-        margin-top: 12px;
-        text-align: right;
-      }
-      .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-      .entry-header,
-      .edu-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-      }
-      ul.bullets { columns: 1 !important; }
+    /* ── Floating Tuning Tool (Alt+F or 3-Sec Long Press) ── */
+    #resume-tuning-panel {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 99999;
+      background: rgba(18, 18, 28, 0.94);
+      border: 1px solid var(--primary);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(var(--primary-rgb), 0.35);
+      border-radius: 16px;
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #fff;
+      font-family: inherit;
+      user-select: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    @media (max-width: 834px) {
+    #resume-tuning-panel.active {
+      display: flex;
+    }
+
+    .tuning-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      gap: 12px;
+    }
+
+    .tuning-close {
+      cursor: pointer;
+      opacity: 0.7;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0 4px;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .tuning-close:hover { opacity: 1; color: var(--primary); }
+
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slider-group label {
+      font-size: 0.72rem;
+      color: #aaa;
+      font-weight: 500;
+    }
+
+    .vertical-slider-container {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0;
+    }
+
+    .vertical-slider {
+      writing-mode: vertical-lr;
+      direction: rtl;
+      width: 6px;
+      height: 120px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .slider-val-badge {
+      font-size: 0.78rem;
+      font-family: monospace;
+      color: #00D4FF;
+      background: rgba(0, 212, 255, 0.12);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      padding: 3px 6px;
+      border-radius: 6px;
+      width: 58px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .slider-val-badge:focus {
+      border-color: #00D4FF;
+      box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+      background: rgba(0, 212, 255, 0.2);
+    }
+
+    .tuning-actions-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .tuning-save-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tuning-save-btn:hover {
+      box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+      transform: translateY(-1px);
+    }
+    .tuning-save-btn:active {
+      transform: scale(0.97);
+    }
+    .tuning-save-btn svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+    }
+
+    .tuning-reset-btn {
+      flex: 1;
+      font-size: 0.72rem;
+      color: #ddd;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-align: center;
+    }
+    .tuning-reset-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+    .tuning-reset-btn:active {
+      transform: scale(0.97);
+    }
+
+    .tuning-match-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(var(--primary-rgb), 0.18);
+      border: 1px solid var(--primary);
+      color: #00D4FF;
+      cursor: pointer;
+      align-self: center;
+      flex-shrink: 0;
+      transition: background 0.25s, color 0.25s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s, border-color 0.25s;
+      outline: none;
+      padding: 0;
+    }
+    .tuning-match-icon-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.6);
+      transform: scale(1.12);
+    }
+    .tuning-match-icon-btn:active {
+      transform: scale(0.9);
+    }
+    .tuning-match-icon-btn.pulse {
+      transform: scale(1.25) rotate(180deg);
+      border-color: #00D4FF;
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.7);
+    }
+    .tuning-match-icon-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    .tuning-content-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
       .resume-wrapper {
         padding: 20px 16px 100px;
         gap: 24px;
       }
       .page-shell {
-        width: calc(100vw - 32px);
+        width: calc(100vw - 32px) !important;
+        aspect-ratio: auto !important;
+        container-type: normal !important;
       }
       .page {
-        padding: 26px 20px 68px;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        transform: none !important;
+        padding: 26px 20px 68px !important;
+        border-radius: 12px !important;
+      }
+      .page-num {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin-top: 14px !important;
+        text-align: right !important;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+      }
+      .entry-header,
+      .edu-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 2px !important;
+      }
+      ul.bullets { columns: 1 !important; }
+      #resume-tuning-panel {
+        top: auto !important;
+        bottom: 80px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        width: min(400px, calc(100vw - 28px)) !important;
+        padding: 12px 16px !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
+        gap: 10px !important;
+      }
+      .tuning-header {
+        font-size: 0.72rem !important;
+        margin-bottom: 2px !important;
+      }
+      .tuning-content-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
+      .slider-group {
+        flex-direction: row !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 10px !important;
+      }
+      .slider-group label {
+        font-size: 0.74rem !important;
+        min-width: 48px !important;
+        color: var(--primary) !important;
+        font-weight: 600 !important;
+      }
+      .vertical-slider-container {
+        height: auto !important;
+        padding: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .vertical-slider {
+        writing-mode: horizontal-tb !important;
+        direction: ltr !important;
+        width: 100% !important;
+        height: 6px !important;
+      }
+      .slider-val-badge {
+        width: 56px !important;
+        font-size: 0.74rem !important;
+        padding: 3px 6px !important;
+        flex-shrink: 0 !important;
+      }
+      .tuning-match-icon-btn {
+        width: 30px !important;
+        height: 30px !important;
+        margin: -2px 0 !important;
+        align-self: center !important;
+      }
+      .tuning-match-icon-btn svg {
+        width: 15px !important;
+        height: 15px !important;
+      }
+      .tuning-actions-row {
+        width: 100% !important;
+        gap: 8px !important;
       }
       .back-link {
-        top: 36px;
-        left: 36px;
+        top: 24px;
+        left: 20px;
+        width: 38px;
+        height: 38px;
         padding: 0;
         gap: 0;
-        width: 40px;
-        height: 40px;
         border-radius: 50%;
         justify-content: center;
         background: linear-gradient(135deg, var(--primary), var(--accent));
         border: none;
         color: #fff;
         font-size: 0;
-        box-shadow: 0 3px 12px rgba(var(--primary-rgb),0.4);
+        box-shadow: 0 3px 10px rgba(var(--primary-rgb),0.4);
       }
       .back-link:hover {
         background: linear-gradient(135deg, var(--accent), var(--primary));
@@ -537,86 +829,11 @@
       .download-btn {
         bottom: 16px;
         right: 16px;
-        padding: 12px 22px;
-        font-size: 0.88rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      html { font-size: 10pt; }
-      .resume-wrapper {
-        padding: 16px 12px 90px;
-        gap: 20px;
-      }
-      .page-shell {
-        width: calc(100vw - 24px);
-      }
-      .page {
-        padding: 22px 16px 62px;
-      }
-      .header h1 { font-size: 1.56rem; }
-      .header .role { font-size: 0.94rem; }
-      .header .contact-row { font-size: 0.79rem; gap: 3px 10px; }
-      .back-link {
-        top: 32px;
-        left: 32px;
-        padding: 0;
-        gap: 0;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        justify-content: center;
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        border: none;
-        color: #fff;
-        font-size: 0;
-        box-shadow: 0 3px 10px rgba(var(--primary-rgb),0.4);
-      }
-      .back-link svg { width: 18px; height: 18px; stroke: #fff; }
-      .back-link .back-text { display: none; }
-      .download-btn {
-        bottom: 12px;
-        right: 12px;
-        padding: 10px 18px;
-        font-size: 0.82rem;
+        padding: 11px 20px;
+        font-size: 0.85rem;
         gap: 6px;
       }
       .download-btn svg { width: 16px; height: 16px; }
-    }
-
-    @media (max-width: 400px) {
-      html { font-size: 9.7pt; }
-      .page-shell {
-        width: calc(100vw - 20px);
-      }
-      .page {
-        padding: 18px 12px 56px;
-      }
-      .header h1 { font-size: 1.38rem; }
-      .header .contact-row { font-size: 0.74rem; gap: 2px 8px; }
-      .section-title { font-size: 0.85rem; letter-spacing: 1px; }
-      .tag { font-size: 0.72rem; padding: 1px 6px; }
-      .back-link {
-        top: 28px;
-        left: 28px;
-        width: 34px;
-        height: 34px;
-        padding: 0;
-        gap: 0;
-        border-radius: 50%;
-        justify-content: center;
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        border: none;
-        color: #fff;
-        font-size: 0;
-        box-shadow: 0 2px 8px rgba(var(--primary-rgb),0.4);
-      }
-      .back-link svg { width: 16px; height: 16px; stroke: #fff; }
-      .back-link .back-text { display: none; }
-      .download-btn {
-        padding: 8px 14px;
-        font-size: 0.78rem;
-      }
     }
 
     @media (min-width: 1400px) {
@@ -671,6 +888,53 @@
   Download PDF
 </button>
 
+<!-- ── Resume Tuning Panel (Alt+F or 3s Hold) ── -->
+<div id="resume-tuning-panel">
+  <div class="tuning-header">
+    <span>Font Tuning (Alt+F)</span>
+    <button class="tuning-close" onclick="toggleTuningPanel(false)" title="Close">&times;</button>
+  </div>
+
+  <div class="tuning-content-row">
+    <!-- Page 1 Slider -->
+    <div class="slider-group">
+      <label>Page 1</label>
+      <div class="vertical-slider-container">
+        <input type="range" id="p1-slider" class="vertical-slider" min="8" max="14" step="0.1" value="11.0" oninput="updatePageScale(1, this.value, true)">
+      </div>
+      <input type="text" id="p1-val" class="slider-val-badge" value="11.0pt" title="Edit or use Up/Down arrows" onchange="handleDirectInput(1, this.value)" onkeydown="handleInputKey(event, 1)">
+    </div>
+
+    <!-- Match Icon Button -->
+    <button type="button" id="match-scale-btn" class="tuning-match-icon-btn" onclick="matchPageScales()" title="Match pages (syncs other page to last edited)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+      </svg>
+    </button>
+
+    <!-- Page 2 Slider -->
+    <div class="slider-group">
+      <label>Page 2</label>
+      <div class="vertical-slider-container">
+        <input type="range" id="p2-slider" class="vertical-slider" min="8" max="14" step="0.1" value="11.0" oninput="updatePageScale(2, this.value, true)">
+      </div>
+      <input type="text" id="p2-val" class="slider-val-badge" value="11.0pt" title="Edit or use Up/Down arrows" onchange="handleDirectInput(2, this.value)" onkeydown="handleInputKey(event, 2)">
+    </div>
+  </div>
+
+  <div class="tuning-actions-row">
+    <button type="button" id="tuning-save-btn" class="tuning-save-btn" onclick="savePageScales()" title="Save font scales">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/>
+        <polyline points="7 3 7 8 15 8"/>
+      </svg>
+      <span id="save-btn-label">Save</span>
+    </button>
+    <button type="button" class="tuning-reset-btn" onclick="resetPageScales()" title="Reset to 11.0pt">Reset</button>
+  </div>
+</div>
+
 <div class="resume-wrapper">
 
   <!-- ══════════════ PAGE 1 ══════════════ -->
@@ -701,7 +965,7 @@
     <section class="section">
       <h2 class="section-title">Professional Summary</h2>
       <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.5; text-align:justify;">
-        Frontend Developer with 2+ years of experience building enterprise web applications using React.js, Next.js, and TypeScript. Experienced in migrating legacy systems, optimizing performance via SSR/SSG, and developing reusable UI components. Skilled in integrating REST APIs and utilizing modern AI coding assistants to enhance development productivity and code quality.
+        Frontend &amp; Aspiring Full-Stack Developer with 2+ years of experience building enterprise web applications using React.js, Next.js, and TypeScript. Experienced in migrating legacy systems, optimizing performance via SSR/SSG, and engineering reusable UI systems. Actively builds AI-powered web applications and published developer tools, integrating modern AI copilot workflows to achieve 90%+ on-time task velocity. Passionate about technical leadership and currently available as an Immediate Joiner.
       </p>
     </section>
 
@@ -709,12 +973,12 @@
     <section class="section">
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
-        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Redux</span></div>
-        <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-value">Responsive Design, Material UI</span></div>
-        <div class="skill-row"><span class="skill-label">API &amp; Tools</span><span class="skill-value">REST APIs, Postman, Swagger, Git, GitHub, Bitbucket, npm</span></div>
-        <div class="skill-row"><span class="skill-label">Testing</span><span class="skill-value">Jest, React Testing Library, Unit Testing, Integration Testing, Debugging, Code Reviews</span></div>
-        <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile, Scrum, SDLC, Component-Based Architecture</span></div>
-        <div class="skill-row"><span class="skill-label">Fundamentals</span><span class="skill-value">OOP, Data Structures, Algorithms, Performance Optimization</span></div>
+        <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-value">React.js, Next.js, TypeScript, JavaScript (ES6+), Angular (v16/v19), Vue.js 3, HTML5, CSS3, Tailwind CSS</span></div>
+        <div class="skill-row"><span class="skill-label">Backend &amp; DB</span><span class="skill-value">Python, FastAPI, SQLAlchemy, PostgreSQL, RESTful APIs, Node.js (Full-Stack Foundations)</span></div>
+        <div class="skill-row"><span class="skill-label">Automation &amp; AI</span><span class="skill-value">Playwright, OpenAI API, Google Gemini SDK, n8n Workflows, GitHub Copilot, Chrome MV3</span></div>
+        <div class="skill-row"><span class="skill-label">State, 3D &amp; UI</span><span class="skill-value">Three.js (WebGL/USDZ), Redux Toolkit, Redux-Saga, RxJS, Material UI, Mantine, Bootstrap 5</span></div>
+        <div class="skill-row"><span class="skill-label">Testing &amp; Tools</span><span class="skill-value">Jest, React Testing Library, Pytest, Git, GitHub, Bitbucket, Postman, Sentry, npm</span></div>
+        <div class="skill-row"><span class="skill-label">Methodologies</span><span class="skill-value">Agile/Scrum, SDLC, Micro-frontend, Component Architecture, Technical Ownership</span></div>
       </div>
     </section>
 
@@ -725,18 +989,18 @@
       <div class="entry">
         <div class="entry-header">
           <span class="entry-title">Associate Software Engineer</span>
-          <span class="entry-meta">Jul 2025 – Present</span>
+          <span class="entry-meta">Jul 2025 – Nov 2026</span>
         </div>
         <div class="entry-sub">Tender Software India Pvt Ltd</div>
         <div class="entry-location">Pondicherry, India</div>
         <ul class="bullets">
-          <li>Developed frontend modules using React.js, Next.js, TypeScript, and Tailwind CSS for Event Management and Child Care Monitoring platforms</li>
-          <li>Migrated legacy iFrame-based architecture to Next.js to improve application performance and SEO</li>
-          <li>Implemented SSR and SSG rendering strategies to optimize initial page loads</li>
-          <li>Developed reusable UI components to ensure design consistency across multiple product modules</li>
-          <li>Integrated REST APIs for dynamic data fetching and real-time UI updates</li>
-          <li>Wrote unit and integration tests using Jest and React Testing Library in an Agile/Scrum environment</li>
-          <li>Integrated modern AI coding assistants (GitHub Copilot, ChatGPT, Claude, Gemini, Codex) into daily workflows for rapid prototyping, debugging, code refactoring, and documentation generation, significantly enhancing development productivity</li>
+          <li>Delivered 6+ production modules across Next.js, React, Angular 19, and Python/FastAPI for enterprise lead-gen &amp; healthcare clients</li>
+          <li>Engineered automated social referral collection pipeline via Playwright and OpenAI API, slashing manual lead discovery by 60%</li>
+          <li>Modernized legacy iFrame architecture into Next.js App Router, cutting page load times by 35% and elevating Core Web Vitals</li>
+          <li>Constructed referral and clinical dashboards with PostgreSQL/SQLAlchemy and n8n workflows, coordinating 20+ secure REST endpoints</li>
+          <li>Built 30+ reusable UI components across Tailwind and Mantine, accelerating cross-functional sprint velocity by 40%</li>
+          <li>Authored comprehensive automated test suites (Jest, RTL, Pytest), maintaining 85%+ branch coverage across core components</li>
+          <li>Embedded AI coding assistants (Copilot, ChatGPT, Claude) into daily CI/sprint workflows, boosting on-time delivery to 92%+</li>
         </ul>
       </div>
 
@@ -748,11 +1012,11 @@
         <div class="entry-sub">HEPL Pvt Ltd</div>
         <div class="entry-location">Cuddalore, India</div>
         <ul class="bullets">
-          <li>Developed React.js and TypeScript frontend features using Redux and Material UI for B2B platforms, including a Learning Management System and a Recruitment System</li>
-          <li>Built reusable UI components for cross-functional teams to reduce code duplication and maintain visual consistency</li>
-          <li>Integrated REST APIs for data processing, cross-module communication, and business workflows</li>
-          <li>Implemented responsive mobile-first layouts and ensured cross-browser compatibility across all delivered modules</li>
-          <li>Participated in debugging and peer code reviews to validate UI component behavior and maintain code quality</li>
+          <li>Constructed interactive React.js/TypeScript frontend features with Redux and Material UI for B2B LMS and Recruitment systems serving 500+ users</li>
+          <li>Engineered shared component libraries and modular form systems, decreasing UI inconsistencies and recurring bugs by 40%</li>
+          <li>Connected RESTful endpoints for real-time task pipelines, reducing manual candidate profile data entry effort by 50%</li>
+          <li>Structured mobile-first responsive layouts, verifying 100% cross-browser compatibility across desktop and mobile devices</li>
+          <li>Spearheaded debugging sessions and peer code reviews across 15+ sprints to enforce clean code and strict typing standards</li>
         </ul>
       </div>
     </section>
@@ -771,75 +1035,85 @@
 
       <div class="entry">
         <div class="entry-header">
-          <span class="entry-title">Project Management Tool</span>
+          <span class="entry-title"><a href="https://paygenie-ai.vercel.app/" target="_blank" style="color:inherit; text-decoration:none;">PayGenie AI — Billing Copilot &amp; PayPal Settlement</a></span>
+          <span class="entry-meta">PayPal AI Hackathon 2026</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">Google Gemini SDK</span><span class="tag">PayPal Orders v2</span><span class="tag">TypeScript</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Engineered multi-language conversational billing assistant in English, Tanglish, and Tamil using Google Gemini 3.5 Flash</li>
+          <li>Integrated native PayPal Sandbox checkout and Orders v2 REST API with automated jsPDF invoice generation</li>
+          <li>Synchronized real-time settlement states across browser tabs with zero reload via BroadcastChannel API</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title"><a href="https://chromewebstore.google.com/detail/phbgicliphimpfehblfpklokoibnkhoh?utm_source=item-share-cb" target="_blank" style="color:inherit; text-decoration:none;">HTML CSS Copier — AI Developer Extension</a></span>
+          <span class="entry-meta">Published Chrome Extension</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Chrome Extension MV3</span><span class="tag">JavaScript</span><span class="tag">DOM Parser</span><span class="tag">Shadow DOM</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Built high-performance Manifest V3 browser extension to extract semantic HTML and computed CSS directly from DOM elements</li>
+          <li>Architected dual extraction modes: formatted human-readable code vs. raw AI prompt-optimized context with keyboard triggers</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Nextdoor AI &amp; BNI Referral Automation Platform</span>
+          <span class="entry-meta">Tender Software India Pvt Ltd</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Playwright</span><span class="tag">OpenAI API</span><span class="tag">PostgreSQL</span><span class="tag">n8n</span><span class="tag">React</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Engineered automated social lead discovery and OpenAI post classification pipeline across Nextdoor feeds and Facebook groups</li>
+          <li>Constructed FastAPI backend with PostgreSQL/SQLAlchemy, BNI vendor matching, automated posting queues, and n8n workflows</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">BlueDop EHR &amp; Juzo 3D Scanner (Healthcare)</span>
+          <span class="entry-meta">Tender Software India Pvt Ltd</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Angular 19</span><span class="tag">Three.js</span><span class="tag">USDZ WebGL</span><span class="tag">RxJS</span><span class="tag">Stripe SDK</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Architected Angular 19 clinical documentation portals with standalone components and multi-language support (ngx-translate)</li>
+          <li>Integrated Three.js WebGL canvas rendering 3D USDZ limb scans for medical garment measurement calculation</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Child Care (YCD) &amp; PlanningBeats Event Platform</span>
+          <span class="entry-meta">Tender Software India Pvt Ltd</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">React.js</span><span class="tag">SignalR</span><span class="tag">Tailwind CSS</span><span class="tag">Google Maps API</span>
+        </div>
+        <ul class="bullets" style="margin-top:3px;">
+          <li>Migrated legacy iFrame architecture to Next.js App Router and integrated SignalR WebSockets for instant parent notifications</li>
+          <li>Engineered event booking builder with Google Distance Matrix API for dynamic travel costing and digital contract exports</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">B2B Project Management &amp; LMS Systems</span>
           <span class="entry-meta">HEPL Pvt Ltd</span>
         </div>
         <div class="tags">
           <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Material UI</span><span class="tag">Redux</span><span class="tag">REST APIs</span>
         </div>
         <ul class="bullets" style="margin-top:3px;">
-          <li>Developed a B2B Project Management System in React.js and TypeScript featuring a 6-level task hierarchy</li>
-          <li>Built Material UI data tables with Accordion expansion and multi-view task boards (List, Grid, Kanban)</li>
-          <li>Integrated REST APIs to support real-time status tracking and task filtering</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">Learning Management System</span>
-          <span class="entry-meta">HEPL Pvt Ltd</span>
-        </div>
-        <div class="tags">
-          <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Material UI</span><span class="tag">Redux</span><span class="tag">REST APIs</span>
-        </div>
-        <ul class="bullets" style="margin-top:3px;">
-          <li>Developed frontend interfaces for a corporate Learning Management System using React.js and Redux</li>
-          <li>Built role-based dashboards for administrators to manage course content and track learner progress</li>
-          <li>Created reusable UI components for a consistent experience across instructor and learner views</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">Job Recruitment System</span>
-          <span class="entry-meta">HEPL Pvt Ltd</span>
-        </div>
-        <div class="tags">
-          <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Material UI</span><span class="tag">Rich Text Editor</span><span class="tag">REST APIs</span>
-        </div>
-        <ul class="bullets" style="margin-top:3px;">
-          <li>Built a React.js Recruitment Management System featuring a rich-text Job Description editor and template management</li>
-          <li>Integrated candidate application forms with a REST API to extract and auto-fill data from uploaded resumes</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">DJ Event Management Platform</span>
-          <span class="entry-meta">Tender Software India Pvt Ltd</span>
-        </div>
-        <div class="tags">
-          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">Google Maps API</span><span class="tag">REST APIs</span>
-        </div>
-        <ul class="bullets" style="margin-top:3px;">
-          <li>Developed a Next.js Event Management Platform for DJ bookings with service packages and payment integration</li>
-          <li>Integrated the Google Distance Matrix API for an automated travel cost calculator</li>
-          <li>Implemented automated digital contract generation and invoice management for clients</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">Child Care &amp; Activity Monitoring</span>
-          <span class="entry-meta">Tender Software India Pvt Ltd</span>
-        </div>
-        <div class="tags">
-          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">REST APIs</span><span class="tag">Bitbucket</span>
-        </div>
-        <ul class="bullets" style="margin-top:3px;">
-          <li>Developed a Next.js Child Care Monitoring platform for real-time activity tracking by centers and parents</li>
-          <li>Migrated legacy iFrame modules to Next.js to modernize the frontend architecture</li>
-          <li>Built an incident reporting UI with an interactive body map and list filters for center management</li>
+          <li>Built a 6-level hierarchical task tracking system and Material UI data tables with accordion expansion and Kanban boards</li>
         </ul>
       </div>
     </section>
@@ -875,14 +1149,12 @@
     <section class="section">
       <h2 class="section-title">Key Strengths</h2>
       <ul class="bullets" style="columns:2; column-gap:24px;">
-        <li>Clean, maintainable, and well-documented code</li>
-        <li>Scalable component-based architecture design</li>
-        <li>Frontend performance optimization (SSR, SSG, code splitting)</li>
-        <li>Performance optimization (Lighthouse, Core Web Vitals)</li>
-        <li>Testing (Jest, React Testing Library, Integration)</li>
-        <li>AI-assisted development (Copilot, ChatGPT, Claude)</li>
-        <li>Agile/Scrum collaboration with consistent sprint delivery</li>
-        <li>Clear technical communication in cross-functional teams</li>
+        <li>Clean, scalable, and maintainable architecture</li>
+        <li>Full-stack and AI-first engineering mindset</li>
+        <li>Rapid prototyping with modern AI copilot tools</li>
+        <li>Frontend performance optimization (SSR, SSG, Web Vitals)</li>
+        <li>Testing &amp; QA (Jest, React Testing Library, Code Reviews)</li>
+        <li>Immediate Joiner with active project delivery ownership</li>
       </ul>
     </section>
 
@@ -1783,25 +2055,11 @@
       onclone: function(cloneDoc) {
         var exportStyle = cloneDoc.createElement('style');
         exportStyle.textContent = [
-          '#nightsky-canvas, .download-btn, .back-link { display: none !important; }',
-          'html { font-size: 11.8pt !important; }',
-          'body { line-height: 1.54 !important; }',
+          '#nightsky-canvas, .download-btn, .back-link, #resume-tuning-panel { display: none !important; }',
           '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
           '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
-          '.page-shell { width: 794px !important; height: 1123px !important; aspect-ratio: auto !important; container-type: normal !important; overflow: visible !important; }',
-          '.page { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 36px 44px 74px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }',
-          '.section { margin-bottom: 11px !important; }',
-          '.section-title { margin-bottom: 8px !important; padding-bottom: 4px !important; }',
-          '.entry { margin-bottom: 8px !important; }',
-          '.entry-sub, .entry-location { margin-bottom: 3px !important; }',
-          'ul.bullets li { margin-bottom: 3px !important; line-height: 1.5 !important; }',
-          '.page-num { position: absolute !important; left: 44px !important; right: 44px !important; bottom: 24px !important; margin: 0 !important; text-align: left !important; }',
-          '.skills-grid { grid-template-columns: 1fr 1fr !important; gap: 5px 20px !important; }',
-          '.entry-header, .edu-row { flex-direction: row !important; align-items: baseline !important; }',
-          'ul.bullets { columns: auto !important; }',
-          '.header h1 { font-size: 2.06rem !important; }',
-          '.header .role { font-size: 1.03rem !important; }',
-          '.header .contact-row { font-size: 0.855rem !important; gap: 4px 16px !important; }'
+          '.page-shell { width: 794px !important; height: 1123px !important; aspect-ratio: auto !important; overflow: visible !important; margin: 0 !important; }',
+          '.page { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 32px 42px 46px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }'
         ].join('\n');
         cloneDoc.head.appendChild(exportStyle);
 
@@ -1887,6 +2145,212 @@
       btn.style.opacity = '1';
     });
   }
+  /* ── Interactive Tuning Tool Logic ── */
+  window.__p1Scale = localStorage.getItem('resume-p1-scale') || '11.0pt';
+  window.__p2Scale = localStorage.getItem('resume-p2-scale') || '11.0pt';
+  window.__lastEditedPage = 1;
+
+  function setLastEditedPage(pageNum) {
+    window.__lastEditedPage = pageNum;
+    var btn = document.getElementById('match-scale-btn');
+    if (!btn) return;
+    var otherPage = pageNum === 1 ? 2 : 1;
+    var curVal = pageNum === 1 ? window.__p1Scale : window.__p2Scale;
+    btn.title = 'Match Page ' + otherPage + ' to Page ' + pageNum + ' (' + curVal + ')';
+  }
+
+  function matchPageScales() {
+    var sourcePage = window.__lastEditedPage || 1;
+    var targetPage = sourcePage === 1 ? 2 : 1;
+    var sourceScale = sourcePage === 1 ? window.__p1Scale : window.__p2Scale;
+
+    var btn = document.getElementById('match-scale-btn');
+    if (btn) {
+      btn.classList.add('pulse');
+      setTimeout(function() {
+        btn.classList.remove('pulse');
+      }, 400);
+    }
+
+    updatePageScale(targetPage, parseFloat(sourceScale), true);
+    setLastEditedPage(sourcePage);
+  }
+
+  function applyPageScales(forceBadgeUpdate) {
+    var p1 = document.getElementById('page1');
+    var p2 = document.getElementById('page2');
+    var s1 = parseFloat(window.__p1Scale) || 11.0;
+    var s2 = parseFloat(window.__p2Scale) || 11.0;
+
+    var ratio1 = s1 / 11.0;
+    var ratio2 = s2 / 11.0;
+
+    if (p1) p1.style.setProperty('--p-scale', ratio1);
+    if (p2) p2.style.setProperty('--p-scale', ratio2);
+
+    var slider1 = document.getElementById('p1-slider');
+    var slider2 = document.getElementById('p2-slider');
+    var badge1 = document.getElementById('p1-val');
+    var badge2 = document.getElementById('p2-val');
+
+    if (slider1) slider1.value = s1;
+    if (slider2) slider2.value = s2;
+    if (badge1 && (forceBadgeUpdate || document.activeElement !== badge1)) {
+      badge1.value = s1.toFixed(1) + 'pt';
+    }
+    if (badge2 && (forceBadgeUpdate || document.activeElement !== badge2)) {
+      badge2.value = s2.toFixed(1) + 'pt';
+    }
+  }
+
+  function handleDirectInput(pageNum, val) {
+    var num = parseFloat(val);
+    if (!isNaN(num) && num >= 7 && num <= 16) {
+      updatePageScale(pageNum, num, true);
+    } else {
+      applyPageScales(true);
+    }
+  }
+
+  function handleInputKey(e, pageNum) {
+    var cur = parseFloat(pageNum === 1 ? window.__p1Scale : window.__p2Scale) || 11.0;
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var nextVal = +(cur + 0.1).toFixed(1);
+      e.target.value = nextVal.toFixed(1) + 'pt';
+      updatePageScale(pageNum, nextVal, true);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var nextVal = +(cur - 0.1).toFixed(1);
+      e.target.value = nextVal.toFixed(1) + 'pt';
+      updatePageScale(pageNum, nextVal, true);
+    } else if (e.key === 'Enter') {
+      e.target.blur();
+    }
+  }
+
+  function updatePageScale(pageNum, val, forceBadgeUpdate) {
+    var num = parseFloat(val);
+    if (isNaN(num)) return;
+    var strVal = num.toFixed(1) + 'pt';
+    if (pageNum === 1) {
+      window.__p1Scale = strVal;
+    } else {
+      window.__p2Scale = strVal;
+    }
+    setLastEditedPage(pageNum);
+    applyPageScales(forceBadgeUpdate);
+
+    var saveBtn = document.getElementById('tuning-save-btn');
+    var saveLabel = document.getElementById('save-btn-label');
+    if (saveBtn && saveLabel) {
+      saveLabel.textContent = 'Save';
+      saveBtn.style.boxShadow = '0 0 10px rgba(0, 212, 255, 0.6)';
+    }
+  }
+
+  function savePageScales() {
+    window.__savedP1Scale = window.__p1Scale;
+    window.__savedP2Scale = window.__p2Scale;
+    localStorage.setItem('resume-p1-scale', window.__p1Scale);
+    localStorage.setItem('resume-p2-scale', window.__p2Scale);
+
+    var saveBtn = document.getElementById('tuning-save-btn');
+    var saveLabel = document.getElementById('save-btn-label');
+    if (saveBtn && saveLabel) {
+      saveLabel.textContent = 'Saved ✓';
+      saveBtn.style.background = '#00C853';
+      saveBtn.style.boxShadow = '0 0 12px rgba(0, 200, 83, 0.6)';
+      setTimeout(function() {
+        saveLabel.textContent = 'Save';
+        saveBtn.style.background = '';
+        saveBtn.style.boxShadow = '';
+      }, 1500);
+    }
+  }
+
+  function resetPageScales() {
+    window.__p1Scale = '11.0pt';
+    window.__p2Scale = '11.0pt';
+    window.__savedP1Scale = '11.0pt';
+    window.__savedP2Scale = '11.0pt';
+    window.__lastEditedPage = 1;
+    localStorage.removeItem('resume-p1-scale');
+    localStorage.removeItem('resume-p2-scale');
+    setLastEditedPage(1);
+    applyPageScales(true);
+
+    var saveBtn = document.getElementById('tuning-save-btn');
+    var saveLabel = document.getElementById('save-btn-label');
+    if (saveBtn && saveLabel) {
+      saveLabel.textContent = 'Reset ✓';
+      setTimeout(function() {
+        saveLabel.textContent = 'Save';
+      }, 1200);
+    }
+  }
+
+  function toggleTuningPanel(forceState) {
+    var panel = document.getElementById('resume-tuning-panel');
+    if (!panel) return;
+    if (typeof forceState === 'boolean') {
+      if (forceState) panel.classList.add('active');
+      else panel.classList.remove('active');
+    } else {
+      panel.classList.toggle('active');
+    }
+  }
+
+  // Keyboard shortcut: Alt + F (Font Tuning) - only ONE shortcut as requested
+  window.addEventListener('keydown', function(e) {
+    if (e.altKey && (e.key === 'f' || e.key === 'F')) {
+      e.preventDefault();
+      toggleTuningPanel();
+    }
+  });
+
+  // Long-press detection (3 seconds hold anywhere on mobile or desktop)
+  var pressTimer = null;
+  function startHold(e) {
+    if (e.target.closest('#resume-tuning-panel, .download-btn, .back-link, a, input, button')) return;
+    pressTimer = setTimeout(function() {
+      toggleTuningPanel(true);
+      if (navigator.vibrate) navigator.vibrate(50);
+    }, 3000);
+  }
+
+  function cancelHold() {
+    if (pressTimer) {
+      clearTimeout(pressTimer);
+      pressTimer = null;
+    }
+  }
+
+  window.addEventListener('mousedown', startHold);
+  window.addEventListener('mouseup', cancelHold);
+  window.addEventListener('mouseleave', cancelHold);
+  window.addEventListener('touchstart', startHold, { passive: true });
+  window.addEventListener('touchend', cancelHold, { passive: true });
+  window.addEventListener('touchcancel', cancelHold, { passive: true });
+
+  // Viewport A4 proportional scaling
+  function updateViewportScale() {
+    var available = Math.min(794, window.innerWidth - 32);
+    var scale = Math.max(0.2, Math.min(1, available / 794));
+    document.documentElement.style.setProperty('--page-view-scale', scale);
+  }
+  window.addEventListener('resize', updateViewportScale);
+  window.addEventListener('orientationchange', updateViewportScale);
+
+  // Initialize scales on load
+  document.addEventListener('DOMContentLoaded', function() {
+    applyPageScales(true);
+    setLastEditedPage(1);
+    updateViewportScale();
+  });
+  applyPageScales(true);
+  setLastEditedPage(1);
+  updateViewportScale();
 </script>
 </body>
 </html>

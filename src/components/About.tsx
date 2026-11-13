@@ -153,19 +153,20 @@ export default function About() {
         <div className="grid lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10 items-start">
           <div className="about-card lg:col-span-3 glass hover-glow rounded-2xl p-5 sm:p-6 md:p-8 lg:p-10">
             <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Frontend Developer with 2+ years of experience building enterprise web applications using{" "}
+              Frontend &amp; Aspiring Full-Stack Developer with 2+ years of experience building enterprise web applications using{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>React.js</span>,{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Next.js</span>, and{" "}
               <span className="font-medium" style={{ color: 'var(--text-primary)' }}>TypeScript</span>.{" "}
-              Experienced in migrating legacy systems, optimizing performance via SSR/SSG, and developing reusable UI components.
+              Experienced in migrating legacy systems, architecting reusable UI systems, and integrating modern AI copilot workflows to complete engineering tasks with 90%+ on-time velocity.
             </p>
             <p className="text-base sm:text-lg leading-relaxed mt-4" style={{ color: 'var(--text-muted)' }}>
-              Skilled in integrating REST APIs and utilizing modern AI coding assistants 
-              to enhance development productivity and code quality.
+              A passionate builder who actively creates open-source developer tools, published Chrome Extensions, and AI-powered billing platforms. 
+              Aiming to take technical ownership, lead development initiatives, and expand into Full-Stack engineering (.NET, Node.js, and Generative AI integrations). 
+              Currently available as an <span className="font-semibold text-emerald-400">Immediate Joiner</span>.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-8">
-              {["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Redux"].map(
+              {["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Redux", "AI Workflows", "REST APIs"].map(
                 (tech) => (
                   <span
                     key={tech}

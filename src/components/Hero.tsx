@@ -173,8 +173,8 @@ export default function Hero() {
 
       <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-20 sm:pb-24 py-8 sky-text" style={{ perspective: "1200px" }}>
         <div className="hero-badge opacity-0 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-5 sm:mb-8 text-xs sm:text-sm" style={{ color: 'var(--text-muted)' }}>
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          Available for opportunities
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          Immediate Joiner &bull; Open to Full-Stack &amp; Frontend Roles
         </div>
 
         <h1
@@ -198,8 +198,8 @@ export default function Hero() {
           className="opacity-0 text-sm sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed dark:drop-shadow-[0_0_12px_rgba(0,0,0,0.8)]"
           style={{ color: 'var(--text-muted)' }}
         >
-          I craft scalable, high-performance React.js and Next.js applications,
-          modernize legacy systems, and deliver production-ready frontend solutions.
+          Specialized in high-performance React.js &amp; Next.js enterprise applications,
+          AI copilot integration, and full-stack scalability. Driven to take technical ownership and lead impactful products.
         </p>
 
         <p
@@ -207,7 +207,7 @@ export default function Hero() {
           className="opacity-0 text-xs sm:text-sm font-mono mb-6 sm:mb-10 dark:drop-shadow-[0_0_12px_rgba(0,0,0,0.8)]"
           style={{ color: 'var(--text-muted)' }}
         >
-          React.js &nbsp;|&nbsp; Next.js &nbsp;|&nbsp; TypeScript
+          React.js &nbsp;|&nbsp; Next.js &nbsp;|&nbsp; TypeScript &nbsp;|&nbsp; AI-Assisted Workflows
         </p>
 
         <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4 sm:gap-6">
