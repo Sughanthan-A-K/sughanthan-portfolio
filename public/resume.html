@@ -581,9 +581,9 @@
     .slider-val-badge {
       font-size: 0.78rem;
       font-family: monospace;
-      color: #00D4FF;
-      background: rgba(0, 212, 255, 0.12);
-      border: 1px solid rgba(0, 212, 255, 0.3);
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.12);
+      border: 1px solid rgba(var(--accent-rgb), 0.35);
       padding: 3px 6px;
       border-radius: 6px;
       width: 58px;
@@ -592,9 +592,9 @@
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .slider-val-badge:focus {
-      border-color: #00D4FF;
-      box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
-      background: rgba(0, 212, 255, 0.2);
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.5);
+      background: rgba(var(--accent-rgb), 0.2);
     }
 
     .tuning-actions-row {
@@ -662,7 +662,7 @@
       border-radius: 50%;
       background: rgba(var(--primary-rgb), 0.18);
       border: 1px solid var(--primary);
-      color: #00D4FF;
+      color: var(--accent);
       cursor: pointer;
       align-self: center;
       flex-shrink: 0;
@@ -681,8 +681,8 @@
     }
     .tuning-match-icon-btn.pulse {
       transform: scale(1.25) rotate(180deg);
-      border-color: #00D4FF;
-      box-shadow: 0 0 16px rgba(0, 212, 255, 0.7);
+      border-color: var(--accent);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.7);
     }
     .tuning-match-icon-btn svg {
       width: 16px;
@@ -2250,7 +2250,7 @@
     var saveLabel = document.getElementById('save-btn-label');
     if (saveBtn && saveLabel) {
       saveLabel.textContent = 'Save';
-      saveBtn.style.boxShadow = '0 0 10px rgba(0, 212, 255, 0.6)';
+      saveBtn.style.boxShadow = '0 0 10px rgba(var(--primary-rgb), 0.6)';
     }
   }
 
