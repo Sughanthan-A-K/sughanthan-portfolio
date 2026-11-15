@@ -39,7 +39,7 @@
       pointer-events: none;
     }
 
-    /* ── Dark Theme ── */
+    /* ── Dark Theme (Crisp High-Contrast Text for Web & Print) ── */
     html.dark {
       --bg-body: #0a0a0f;
       --bg-grid-color: rgba(var(--primary-rgb),0.04);
@@ -47,17 +47,17 @@
       --orb2: rgba(var(--accent-rgb),0.05);
       --page-bg: #ffffff;
       --page-shadow: 0 4px 6px rgba(0,0,0,0.25), 0 20px 60px rgba(var(--primary-rgb),0.2), 0 0 0 1px rgba(var(--primary-rgb),0.12);
-      --text-dark: #1a1a2e;
-      --text-muted: #555570;
-      --text-dimmed: #8888a0;
-      --border-color: #e0e0ec;
+      --text-dark: #0f172a;       /* Deep high-contrast slate-900 */
+      --text-muted: #1e293b;      /* Crisp legible slate-800 for body & bullets */
+      --text-dimmed: #475569;     /* Clear secondary slate-600 */
+      --border-color: #cbd5e1;    /* Refined slate-300 */
       --back-bg: rgba(10,10,20,0.35);
       --back-border: rgba(var(--primary-rgb),0.3);
       --back-color: rgba(255,255,255,0.85);
       --back-hover-bg: rgba(var(--primary-rgb),0.20);
       --back-hover-color: #ffffff;
       --tag-bg: rgba(var(--primary-rgb),0.08);
-      --tag-border: rgba(var(--primary-rgb),0.15);
+      --tag-border: rgba(var(--primary-rgb),0.18);
       --scroll-track: #0a0a0f;
       --scroll-thumb: rgba(var(--primary-rgb),0.35);
       --scroll-thumb-hover: rgba(var(--primary-rgb),0.55);
@@ -71,17 +71,17 @@
       --orb2: rgba(var(--accent-rgb),0.04);
       --page-bg: #ffffff;
       --page-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(var(--primary-rgb),0.1), 0 0 0 1px rgba(var(--primary-rgb),0.08);
-      --text-dark: #1a1a2e;
-      --text-muted: #555570;
-      --text-dimmed: #8888a0;
-      --border-color: #e0e0ec;
+      --text-dark: #0f172a;
+      --text-muted: #1e293b;
+      --text-dimmed: #475569;
+      --border-color: #cbd5e1;
       --back-bg: rgba(0,0,0,0.04);
       --back-border: rgba(var(--primary-rgb),0.15);
-      --back-color: #555570;
+      --back-color: #334155;
       --back-hover-bg: rgba(var(--primary-rgb),0.08);
-      --back-hover-color: #1a1a2e;
+      --back-hover-color: #0f172a;
       --tag-bg: rgba(var(--primary-rgb),0.06);
-      --tag-border: rgba(var(--primary-rgb),0.12);
+      --tag-border: rgba(var(--primary-rgb),0.15);
       --scroll-track: #e4e6ee;
       --scroll-thumb: rgba(var(--primary-rgb),0.3);
       --scroll-thumb-hover: rgba(var(--primary-rgb),0.5);
@@ -847,30 +847,134 @@
       .back-link svg { width: 16px; height: 16px; stroke: currentColor; }
     }
 
-    /* ── Print ── */
+    /* ── Print (Native Vector PDF with selectable text & exact A4 pagination) ── */
     @media print {
-      html { font-size: 9.5pt; }
-      body { background: #fff; }
-      .resume-wrapper { padding: 0; gap: 0; background: none; min-height: auto; }
-      .resume-wrapper::before, .resume-wrapper::after { display: none; }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box !important;
+      }
+      html {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 11.0pt !important;
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        width: 100% !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      #nightsky-canvas, .download-btn, .back-link, #resume-tuning-panel {
+        display: none !important;
+      }
+      .resume-wrapper {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        background: none !important;
+        min-height: auto !important;
+      }
+      .resume-wrapper::before, .resume-wrapper::after {
+        display: none !important;
+      }
       .page-shell {
-        width: 100%;
-        aspect-ratio: auto;
-        page-break-after: always;
-        container-type: normal;
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        aspect-ratio: auto !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        position: relative !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
       }
-      .page-shell:last-child { page-break-after: auto; }
+      .page-shell:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
       .page {
-        position: relative;
-        width: 100%;
-        height: auto;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        max-height: 100% !important;
         transform: none !important;
-        padding: 10mm 12mm;
-        border-radius: 0;
-        box-shadow: none;
+        padding: 32px 42px 46px !important;
+        background: #ffffff !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
       }
-      .page-num { display: none; }
-      .download-btn, .back-link, #nightsky-canvas { display: none; }
+      .page-num {
+        position: absolute !important;
+        left: 42px !important;
+        right: 42px !important;
+        bottom: 16px !important;
+        display: block !important;
+        text-align: left !important;
+        font-size: 0.8rem !important;
+        color: #8888a0 !important;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 5px 20px !important;
+      }
+      .entry-header, .edu-row {
+        flex-direction: row !important;
+        align-items: baseline !important;
+      }
+      ul.bullets {
+        columns: auto !important;
+      }
+      /* Ensure tags maintain crisp high-contrast background, border & primary text in PDF dynamic to theme */
+      .tag {
+        background-color: color-mix(in srgb, var(--primary) 14%, #ffffff) !important;
+        color: var(--primary) !important;
+        border: 1px solid var(--primary) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .section-title {
+        color: var(--primary) !important;
+        border-bottom-color: var(--border-color) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      ul.bullets li::before {
+        color: var(--primary) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .divider {
+        background: linear-gradient(90deg, var(--primary), var(--accent)) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
     }
   </style>
 </head>
@@ -955,7 +1059,7 @@
         <span class="sep">|</span>
         <a href="https://github.com/sughanthan-a-k">github.com/sughanthan-a-k</a>
         <span class="sep">|</span>
-        <a href="https://sughanthan-a-k.github.io/sughanthan-portfolio/">Sughanthan-Portfolio</a>
+        <a href="https://sughanthan-a-k.github.io/sughanthan-portfolio/">sughanthan-a-k.github.io/sughanthan-portfolio</a>
       </div>
     </header>
 
@@ -1164,8 +1268,6 @@
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
   (function() {
     var theme = localStorage.getItem('portfolio-theme') || 'dark';
@@ -2045,105 +2147,8 @@
     }
   }
 
-  function getA4CanvasOptions(pageId, linkTargets) {
-    return {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-      windowWidth: 1200,
-      windowHeight: 1700,
-      onclone: function(cloneDoc) {
-        var exportStyle = cloneDoc.createElement('style');
-        exportStyle.textContent = [
-          '#nightsky-canvas, .download-btn, .back-link, #resume-tuning-panel { display: none !important; }',
-          '.resume-wrapper { padding: 0 !important; gap: 0 !important; min-height: auto !important; background: none !important; }',
-          '.resume-wrapper::before, .resume-wrapper::after { display: none !important; }',
-          '.page-shell { width: 794px !important; height: 1123px !important; aspect-ratio: auto !important; overflow: visible !important; margin: 0 !important; }',
-          '.page { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 794px !important; min-width: 794px !important; max-width: 794px !important; min-height: 1123px !important; height: 1123px !important; padding: 32px 42px 46px !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden !important; }'
-        ].join('\n');
-        cloneDoc.head.appendChild(exportStyle);
-
-        var clonePage = cloneDoc.getElementById(pageId);
-        if (!clonePage || !linkTargets) return;
-
-        var pageRect = clonePage.getBoundingClientRect();
-        if (!pageRect.width || !pageRect.height) return;
-
-        var ratioX = 794 / pageRect.width;
-        var ratioY = 1123 / pageRect.height;
-        var links = clonePage.querySelectorAll('a[href]');
-
-        links.forEach(function(link) {
-          var href = link.getAttribute('href');
-          if (!href || href === '#' || href.indexOf('javascript:') === 0) return;
-
-          var resolvedHref = link.href || href;
-          var rect = link.getBoundingClientRect();
-
-          linkTargets.push({
-            href: resolvedHref,
-            x: (rect.left - pageRect.left) * ratioX,
-            y: (rect.top - pageRect.top) * ratioY,
-            w: rect.width * ratioX,
-            h: rect.height * ratioY
-          });
-        });
-
-      }
-    };
-  }
-
-  function captureA4Page(pageId) {
-    var page = document.getElementById(pageId);
-    if (!page) {
-      return Promise.reject(new Error('Missing resume page: ' + pageId));
-    }
-
-    var links = [];
-    return html2canvas(page, getA4CanvasOptions(pageId, links)).then(function(canvas) {
-      return { canvas: canvas, links: links };
-    });
-  }
-
   function downloadPDF() {
-    var btn = document.querySelector('.download-btn');
-    btn.style.pointerEvents = 'none';
-    btn.style.opacity = '0.7';
-
-    Promise.all([
-      captureA4Page('page1'),
-      captureA4Page('page2')
-    ]).then(function(results) {
-      var pdf = new window.jspdf.jsPDF({ unit: 'px', format: [794, 1123], orientation: 'portrait' });
-
-      results.forEach(function(result, i) {
-        if (i > 0) pdf.addPage([794, 1123]);
-        var canvas = result.canvas;
-        var imgData = canvas.toDataURL('image/jpeg', 0.92);
-        pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
-
-        result.links.forEach(function(link) {
-          var tapPadX = 4;
-          var tapPadY = 3;
-          var x = Math.max(0, link.x - tapPadX);
-          var y = Math.max(0, link.y - tapPadY);
-          var w = link.w + (tapPadX * 2);
-          var h = link.h + (tapPadY * 2);
-          if (x + w > 794) w = 794 - x;
-          if (y + h > 1123) h = 1123 - y;
-          if (w <= 0 || h <= 0) return;
-          pdf.link(x, y, w, h, { url: link.href });
-        });
-      });
-
-      pdf.save('Sughanthan_AK_Resume.pdf');
-      btn.style.pointerEvents = 'auto';
-      btn.style.opacity = '1';
-    }).catch(function(err) {
-      console.error('PDF generation failed:', err);
-      btn.style.pointerEvents = 'auto';
-      btn.style.opacity = '1';
-    });
+    window.print();
   }
   /* ── Interactive Tuning Tool Logic ── */
   window.__p1Scale = localStorage.getItem('resume-p1-scale') || '11.0pt';
@@ -2301,11 +2306,17 @@
     }
   }
 
-  // Keyboard shortcut: Alt + F (Font Tuning) - only ONE shortcut as requested
+  // Keyboard shortcut: Alt + F (Font Tuning) & Escape to close
   window.addEventListener('keydown', function(e) {
     if (e.altKey && (e.key === 'f' || e.key === 'F')) {
       e.preventDefault();
       toggleTuningPanel();
+    } else if (e.key === 'Escape' || e.key === 'Esc') {
+      var panel = document.getElementById('resume-tuning-panel');
+      if (panel && panel.classList.contains('active')) {
+        e.preventDefault();
+        toggleTuningPanel(false);
+      }
     }
   });
 
